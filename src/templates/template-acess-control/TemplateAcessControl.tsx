@@ -1,12 +1,11 @@
 import { Card } from "react-bootstrap"
 import Container from "react-bootstrap/esm/Container"
 import { Outlet } from "react-router-dom"
-import './TemplateAcessControl.css'
 
 export default function TemplateAcessControl() {
   return (
     <>
-      <Container className="template-container">
+      <Container className="template-container" style={{ minHeight: '100vh' }}>
         <Card
           bg={'dark'.toLowerCase()}
           key={'dark'}
@@ -19,6 +18,6 @@ export default function TemplateAcessControl() {
           </Card.Body>
         </Card>
       </Container>
-      </>
+    </>
   )
 }

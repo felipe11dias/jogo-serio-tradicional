@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Form } from "react-bootstrap";
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import { z } from "zod";
 
 interface IFormInputs {
@@ -13,6 +14,11 @@ const schemaLogin = z.object({
   password: z.string().max(16, { message: 'Max caracters is 16.' }),
 });
 
+export async function loader() {
+  const user = 'teste'
+  return { user };
+}
+
 export default function FormLogin() {
   const {
     register,
@@ -21,14 +27,14 @@ export default function FormLogin() {
   } = useForm<IFormInputs>({
     resolver: zodResolver(schemaLogin),
   });
-
+  
   const onSubmit = (data: any) => console.log(data);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <h2 className="text-center">LOGIN</h2>
 
-      <Form.Group className="mb-3" controlId="formBasicEmail">
+      <Form.Group className="mb-3" controlId="formBasicUsername">
         <Form.Label>Username:</Form.Label>
         <Form.Control type="username" placeholder="Enter username" {...register("username")} />
         <p className='text-danger'>{errors.username?.message}</p>
@@ -44,8 +50,10 @@ export default function FormLogin() {
         <Form.Check type="checkbox" label="Check me out" />
       </Form.Group>
 
-      {/* Componente link para esqueceu senha */}
-      {/* Componente link para cadastrar usuario */}
+      <div className='d-flex justify-content-between mb-4'>
+        <Link to={`/access-control/forget-password`}>Forget Password</Link>
+        <Link to={`/access-control/sign-up`}>Sing up</Link>
+      </div>
 
       <div className="d-flex justify-content-center">
         <Button variant="primary" type="submit">
