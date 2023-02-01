@@ -1,10 +1,11 @@
 import { Button, Card } from "react-bootstrap";
 
 export default function GameSelect() {
+
   return (
     <div>
       <h2 className="mb-5 w-100 text-center"> GAME SELECT </h2>
-
+      
       <div className="d-flex justify-content-around">
         <Card className="m-2" style={{ width: '18rem' }}>
           <Card.Body>

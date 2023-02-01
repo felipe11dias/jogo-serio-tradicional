@@ -1,8 +1,13 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 
-export default function Header() {
+interface HeaderProps {
+  bg: string
+  variant: string
+}
+
+export default function Header(props: HeaderProps) {
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar bg={props.bg} variant={props.variant}>
       <Container>
         <Navbar.Brand href="#home">Navbar</Navbar.Brand>
         <Nav className="me-auto">
