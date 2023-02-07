@@ -12,20 +12,19 @@ export const gameSeriusDefault: GameSerius = {
 }
 
 export default function GameContextProvider(props: any) {
+  const [gameSerius, setGameSerius] = useState<GameSerius>(gameSeriusDefault);
 
-    const [gameSerius, setGameSerius] = useState<GameSerius>(gameSeriusDefault);
-
-    const saveGameSerius = (gameSerius: GameSerius) => {
-      const newGameSerius: GameSerius = {
-        gameSelected: gameSerius.gameSelected,
-        disciplineSelected: gameSerius.disciplineSelected,
-      };
-      setGameSerius(newGameSerius);
+  const saveGameSerius = (gameSerius: GameSerius) => {
+    const newGameSerius: GameSerius = {
+      gameSelected: gameSerius.gameSelected,
+      disciplineSelected: gameSerius.disciplineSelected,
     };
+    setGameSerius(newGameSerius);
+  };
 
-    return (
-      <GameContext.Provider value={{ gameSerius, saveGameSerius }}>
-        {props.children}
-      </GameContext.Provider>
-    );
+  return (
+    <GameContext.Provider value={{ gameSerius, saveGameSerius }}>
+      {props.children}
+    </GameContext.Provider>
+  );
 }
