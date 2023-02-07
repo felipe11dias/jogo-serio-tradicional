@@ -1,6 +1,17 @@
+import { useContext } from "react";
 import { Button, Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import GameSeriusContext, { GameSeriusType } from "../../context/GameContext/GameContext";
+
 
 export default function GameSelect() {
+  const navigate = useNavigate();
+  const { gameSerius, saveGameSerius } = useContext(GameSeriusContext) as GameSeriusType;
+
+  const selectGame = (gameSelected: string) => {
+    saveGameSerius({gameSelected, disciplineSelected: gameSerius.disciplineSelected})
+    navigate("/environment/student/discipline-select", { replace: true });
+  }
 
   return (
     <div>
@@ -14,7 +25,7 @@ export default function GameSelect() {
               Some quick example text to build on the card title and make up the
               bulk of the card's content.
             </Card.Text>
-            <Button variant="primary">SELECIONAR</Button>
+            <Button variant="primary" onClick={() => selectGame('jogo_da_velha')}> SELECT </Button>
           </Card.Body>
         </Card>
 
@@ -25,7 +36,7 @@ export default function GameSelect() {
               Some quick example text to build on the card title and make up the
               bulk of the card's content.
             </Card.Text>
-            <Button variant="primary">SELECIONAR</Button>
+            <Button variant="primary" onClick={() => selectGame('dama')}> SELECT </Button>
           </Card.Body>
         </Card>
       </div>
