@@ -3,12 +3,12 @@ import GameSeriusContext, { GameSeriusType } from "../../../context/GameContext/
 import TicTacToe from "../games/tic-tac-toe/TicTacToe";
 
 export default function Game() {
-  const { gameSerius, saveGameSerius } = useContext(GameSeriusContext) as GameSeriusType;
+  const { gameSerius } = useContext(GameSeriusContext) as GameSeriusType;
 
   return (
     <>
       { 
-        gameSerius.gameSelected == 'jogo_da_velha' ?
+        gameSerius.gameSelected === 'jogo_da_velha' ?
          <TicTacToe />
          :
         <></>  

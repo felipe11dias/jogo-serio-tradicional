@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom";
-import GameContextProvider from "../../context/GameContext/GameContextProvider";
+import UserContextProvider from "../../context/UserContext/UserContextProvider";
 
 export default function TemplateEnvironment() {
   return (
     <>
-      <GameContextProvider>
+      <UserContextProvider>
         <Outlet />
-      </GameContextProvider>
+      </UserContextProvider>
     </>
   )
 }

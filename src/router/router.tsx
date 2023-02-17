@@ -5,11 +5,13 @@ import FormForgetPassword from "../pages/access-control/components/forms/form-fo
 import FormLogin, { loader as loaderLogin } from "../pages/access-control/components/forms/form-login/FormLogin";
 import FormSignUp from "../pages/access-control/components/forms/form-sign-up/FormSignUp";
 import CollaborationDisciplines from "../pages/collaboration-disciplines/CollaborationDisciplines";
+import CreateDiscipline from "../pages/collaboration-disciplines/create-discipline/CreateDiscipline";
+import ListDisciplines from "../pages/collaboration-disciplines/list-disciplines/ListDisciplines";
 import DisciplineSelect from "../pages/discipline-select/DisciplineSelect";
 import ErrorPage from "../pages/error/error-page/ErrorPage";
 import GameSelect from "../pages/game-select/GameSelect";
 import Gameplay from "../pages/gameplay/Gameplay";
-import TemplateAcessControl from "../templates/template-acess-control/TemplateAcessControl";
+import TemplateAccessControl from "../templates/template-access-control/TemplateAccessControl";
 import TemplateEnvironment from "../templates/template-environment/TemplateEnvironment";
 import TemplateStudent from "../templates/template-student/TemplateStudent";
 import TemplateTeacher from "../templates/template-teacher/TemplateTeacher";
@@ -18,7 +20,7 @@ import TemplateTeacher from "../templates/template-teacher/TemplateTeacher";
 const Router = createBrowserRouter([
   {
     path: "access-control",
-    element: <TemplateAcessControl />,
+    element: <TemplateAccessControl />,
     children: [
       {
         path: "login",
@@ -50,6 +52,10 @@ const Router = createBrowserRouter([
           {
             path: "discipline-select",
             element: <DisciplineSelect />
+          },
+          {
+            path: "gameplay",
+            element: <Gameplay />
           }
         ]
       },
@@ -59,14 +65,20 @@ const Router = createBrowserRouter([
         children: [
           {
             path: "collaboration-disciplines",
-            element: <CollaborationDisciplines />
+            element: <CollaborationDisciplines />,
+            children: [
+              {
+                path: "list",
+                element: <ListDisciplines />,
+              },
+              {
+                path: "create",
+                element: <CreateDiscipline />,
+              }
+            ]
           }
         ]
       },
-      {
-        path: "gameplay",
-        element: <Gameplay />
-      }
     ]
   },
   {
