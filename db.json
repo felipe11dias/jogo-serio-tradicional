@@ -1,0 +1,51 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "username": "John",
+      "password": "12345678",
+      "email": "johndoe@abc.com"
+    },
+    {
+      "id": 2,
+      "username": "Felipe",
+      "password": "12345678",
+      "email": "felipedias@abc.com"
+    },
+    {
+      "id": 3,
+      "username": "Melissa",
+      "password": "12345678",
+      "email": "melissa@abc.com"
+    },
+    {
+      "id": 4,
+      "username": "Mauricio",
+      "password": "12345678",
+      "email": "mauricio@abc.com"
+    }
+  ],
+  
+  "disciplines": [
+    {
+      "name": "Programming Logic",
+      "theme": "Information Technology",
+      "userId": 1
+    },
+    {
+      "name": "Programming Logic",
+      "theme": "Information Technology",
+      "userId": 2
+    }
+  ],
+
+  "ranking": [
+    {
+      "points": 1000,
+      "gameSelected": "tic-tac-toy",
+      "userId": 1
+    }
+  ],
+
+  "run": "json-server --watch src/db.json"
+}
