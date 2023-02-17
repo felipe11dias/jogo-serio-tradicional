@@ -36,7 +36,7 @@ export default function FormLogin() {
 
       <Form.Group className="mb-3" controlId="formBasicUsername">
         <Form.Label>Username:</Form.Label>
-        <Form.Control type="username" placeholder="Enter username" {...register("username")} />
+        <Form.Control type="text" placeholder="Enter username" {...register("username")} />
         <p className='text-danger'>{errors.username?.message}</p>
       </Form.Group>
 

@@ -10,7 +10,7 @@ export default function DisciplineSelect() {
 
   const selectDiscipline = (disciplineSelected: string) => {
     saveGameSerius({gameSelected: gameSerius.gameSelected, disciplineSelected})
-    navigate("/environment/gameplay", { replace: true });
+    navigate("/environment/student/gameplay", { replace: true });
   }
 
   return (

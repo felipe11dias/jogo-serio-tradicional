@@ -2,7 +2,7 @@ import { Card } from "react-bootstrap"
 import Container from "react-bootstrap/esm/Container"
 import { Outlet } from "react-router-dom"
 
-export default function TemplateAcessControl() {
+export default function TemplateAccessControl() {
   return (
     <>
       <Container className="template-container" style={{ minHeight: '100vh' }}>

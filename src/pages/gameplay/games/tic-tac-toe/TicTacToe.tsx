@@ -27,7 +27,6 @@ function TicTacToe() {
 
   useEffect(() => {
     resetarBotoes();
-    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -63,10 +62,10 @@ function TicTacToe() {
         } else if (bts[possibilidades[i][0]].texto === 'O' && bts[possibilidades[i][1]].texto === "O" && bts[possibilidades[i][2]].texto === 'O') {
           setVez('--');
           setResultadoO(r => r + 1);
-          destacarVencedor(i, 'red');
+          destacarVencedor(i, 'blue');
           setVencedor({
             texto: 'Resultado: Jogador "O" venceu!',
-            cor: 'red'
+            cor: 'blue'
           });
           setIniciado(false);
           return;
@@ -88,7 +87,6 @@ function TicTacToe() {
       });
       setIniciado(false);
     }
-    // eslint-disable-next-line
   }, [jogadas]);
 
   function iniciar() {
@@ -195,7 +193,7 @@ function TicTacToe() {
             <span className="separar"></span>
             <span className="identificador" style={{ color: 'black' }}>V: {resultadoV}</span>
             <span className="separar"></span>
-            <span className="identificador" style={{ color: 'red' }}>O: {resultadoO}</span>
+            <span className="identificador" style={{ color: 'blue' }}>O: {resultadoO}</span>
           </div>
         </div>
       </div>

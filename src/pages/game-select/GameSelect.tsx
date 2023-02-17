@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import GameSeriusContext, { GameSeriusType } from "../../context/GameContext/GameContext";
@@ -7,6 +7,12 @@ import GameSeriusContext, { GameSeriusType } from "../../context/GameContext/Gam
 export default function GameSelect() {
   const navigate = useNavigate();
   const { gameSerius, saveGameSerius } = useContext(GameSeriusContext) as GameSeriusType;
+
+
+  useEffect(() => {
+    saveGameSerius({gameSelected: '', disciplineSelected: ''})
+  }, [])
+  
 
   const selectGame = (gameSelected: string) => {
     saveGameSerius({gameSelected, disciplineSelected: gameSerius.disciplineSelected})
