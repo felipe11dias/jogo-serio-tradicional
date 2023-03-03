@@ -1,4 +1,5 @@
 import {
+  Navigate,
   Outlet,
   Route,
   createBrowserRouter,
@@ -18,12 +19,21 @@ import TemplateEnvironment from "../templates/template-environment/TemplateEnvir
 import TemplateStudent from "../templates/template-student/TemplateStudent";
 import TemplateTeacher from "../templates/template-teacher/TemplateTeacher";
 
+/*
+const PrivateWrapper = ({ auth: any = { isAuthenticated: boolean } }) => {
+  return isAuthenticated ? <Outlet /> : <Navigate to="/access-control/login" />;
+};
+*/
 
 const Router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Outlet />}>
+      <Route index element={<Navigate to="/access-control/login" />} />
       <Route path="access-control" element={<TemplateAccessControl />}>
-        <Route index path="/login" element={<FormLogin />} />
+        <Route
+          path="login" 
+          element={<FormLogin />}
+        />
         <Route
           path="forget-password"
           element={<FormForgetPassword />}
@@ -32,7 +42,7 @@ const Router = createBrowserRouter(
           path="sign-up"
           element={<FormSignUp />}
         />
-      </Route>,
+      </Route>
 
       <Route path="environment" element={<TemplateEnvironment />}>
         <Route
@@ -50,7 +60,7 @@ const Router = createBrowserRouter(
           <Route
             path="gameplay"
             element={<Gameplay />}
-          />,
+          />
         </Route>
 
         <Route
@@ -64,11 +74,11 @@ const Router = createBrowserRouter(
             <Route
               path="list"
               element={<ListDisciplines />}
-            />,
+            />
             <Route
               path="create"
               element={<CreateDiscipline />}
-            />,
+            />
           </Route>
         </Route>
       </Route>
