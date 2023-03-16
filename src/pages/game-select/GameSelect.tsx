@@ -1,5 +1,4 @@
-import { useContext, useEffect } from "react";
-import { Button, Card } from "react-bootstrap";
+import { useContext, useEffect } from "react"; 
 import { useNavigate } from "react-router-dom";
 import GameSeriusContext, { GameSeriusType } from "../../context/GameContext/GameContext";
 

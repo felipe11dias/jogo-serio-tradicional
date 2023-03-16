@@ -1,6 +1,4 @@
-
-
-import { Button, Form, InputGroup, Pagination, Stack, Tab, Table, Tabs } from "react-bootstrap";
+ 
 import { Link } from "react-router-dom";
 import './style.css';
 

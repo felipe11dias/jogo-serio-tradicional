@@ -1,5 +1,4 @@
-import { Container, Nav, Navbar } from "react-bootstrap";
-
+ 
 interface HeaderProps {
   bg: string
   variant: string

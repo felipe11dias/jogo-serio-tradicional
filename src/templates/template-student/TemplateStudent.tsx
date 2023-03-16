@@ -1,4 +1,4 @@
-import { Container } from "react-bootstrap";
+ 
 import { Outlet } from "react-router-dom";
 import GameContextProvider from "../../context/GameContext/GameContextProvider";
 import Footer from "./components/footer/Footer";
