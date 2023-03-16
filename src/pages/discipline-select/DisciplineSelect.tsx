@@ -16,7 +16,7 @@ export default function DisciplineSelect() {
     <div>
       <h2 className="mb-5 w-100 text-center"> DISCIPLINE SELECT </h2>
       
-      <Table striped bordered hover variant="dark">
+      <div  >
         <thead>
           <tr>
             <th>Discipline Name</th>
@@ -30,16 +30,16 @@ export default function DisciplineSelect() {
             <td>Programming Logic</td>
             <td>Information Technology</td>
             <td>Felipe Dias</td>
-            <td><Button variant="primary" onClick={() => selectDiscipline('logica_programacao')}> SELECT </Button></td>
+            <td><button  onClick={() => selectDiscipline('logica_programacao')}> SELECT </button></td>
           </tr>
           <tr>
             <td>Computational Introduction</td>
             <td>Information Technology</td>
             <td>Felipe Dias</td>
-            <td><Button variant="primary" onClick={() => selectDiscipline('introducao_computacional')}> SELECT </Button></td>
+            <td><button  onClick={() => selectDiscipline('introducao_computacional')}> SELECT </button></td>
           </tr>
         </tbody>
-      </Table>
+      </div>
     </div>
   )
 }

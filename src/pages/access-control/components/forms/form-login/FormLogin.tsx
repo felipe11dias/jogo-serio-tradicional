@@ -30,35 +30,36 @@ export default function FormLogin() {
   const onSubmit = (data: any) => console.log(data);
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="text-center">LOGIN</h2>
+    <form className='flex flex-col gap-y-4' onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="text-center m-1">LOGIN</h2>
 
-      <Form.Group className="mb-3" controlId="formBasicUsername">
-        <Form.Label>Username:</Form.Label>
-        <Form.Control type="text" placeholder="Enter username" {...register("username")} />
-        <p className='text-danger'>{errors.username?.message}</p>
-      </Form.Group>
+      <div className="mx-3" > 
+        <h3>username:</h3>
+        <input className='border border-gray-300 focus:border-violet-700 outline-none rounded w-full px-4 h-14 text-sm' type="text" placeholder='Username*' />
+        <div  placeholder="Enter username" {...register("username")} />
+        <p className='text-red-500'>{errors.username?.message}</p>
+      </div>
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password:</Form.Label>
-        <Form.Control type="password" placeholder="Password" {...register("password")} />
-        <p className='text-danger'>{errors.password?.message}</p>
-      </Form.Group>
+      <div className="mx-3" > 
+      <h3>password:</h3>
+        <input className='border border-gray-300 focus:border-violet-700 outline-none rounded w-full px-4 h-14 text-sm' type="text" placeholder='password*' />
+        <div placeholder="Password" {...register("password")} />
+        <p className='text-red-500'>{errors.password?.message}</p>
+      </div>
+ 
 
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
-      </Form.Group>
-
-      <div className='d-flex justify-content-between mb-4'>
-        <Link to={`/access-control/forget-password`}>Forget Password</Link>
+      <div className='flex justify-between mx-5 mb-2'>
+        <Link to={`/access-control/forget-password`}>
+         <div className='bg-blue-800 text-white px-4 py-3 rounded-lg transition'> Forget Password</div>
+          </Link>
         <Link to={`/access-control/sign-up`}>Sing up</Link>
       </div>
 
-      <div className="d-flex justify-content-center">
-        <Button variant="primary" type="submit">
+      <div className="flex justify-center">
+        <button className='bg-blue-800 text-white px-4 py-3 rounded-lg transition m-2' type="submit">
           Send
-        </Button>
+        </button>
       </div>
-    </Form>
+    </form>
   )
 }

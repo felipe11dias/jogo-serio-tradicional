@@ -28,36 +28,36 @@ export default function FormSignUp() {
   const onSubmit = (data: any) => console.log(data);
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <h2 className="text-center">SIGN UP</h2>
 
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email:</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" {...register("email")} />
+      <div className="mb-3" >
+        <div>Email:</div>
+        <div  placeholder="Enter email" {...register("email")} />
         <p className='text-danger'>{errors.email?.message}</p>
-      </Form.Group>
+      </div>
 
-      <Form.Group className="mb-3" controlId="formBasicUsername">
-        <Form.Label>Username:</Form.Label>
-        <Form.Control type="username" placeholder="Enter username" {...register("username")} />
+      <div className="mb-3"  >
+        <div>Username:</div>
+        <div   placeholder="Enter username" {...register("username")} />
         <p className='text-danger'>{errors.username?.message}</p>
-      </Form.Group>
+      </div>
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password:</Form.Label>
-        <Form.Control type="password" placeholder="Password" {...register("password")} />
+      <div className="mb-3"  >
+        <div>Password:</div>
+        <div   placeholder="Password" {...register("password")} />
         <p className='text-danger'>{errors.password?.message}</p>
-      </Form.Group>
+      </div>
 
       <div className='mb-4'>
         <Link to={`/access-control/login`}>Login</Link>
       </div>
 
       <div className="d-flex justify-content-center">
-        <Button variant="primary" type="submit">
+        <button type="submit">
           Send
-        </Button>
+        </button>
       </div>
-    </Form>
+    </form>
   )
 }

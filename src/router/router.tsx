@@ -71,10 +71,13 @@ const Router = createBrowserRouter(
             path="collaboration-disciplines"
             element={<CollaborationDisciplines />}
           >
+      {/*
             <Route
               path="list"
               element={<ListDisciplines />}
-            />
+              />
+      */}
+            
             <Route
               path="create"
               element={<CreateDiscipline />}

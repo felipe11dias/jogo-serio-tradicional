@@ -23,14 +23,14 @@ export default function FormForgetPassword() {
   const onSubmit = (data: any) => console.log(data);
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <h2 className="text-center">FORGET PASSWORD</h2>
 
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email:</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" {...register("email")} />
+      <div className="mb-3" >
+        <div>Email:</div>
+        
         <p className='text-danger'>{errors.email?.message}</p>
-      </Form.Group>
+      </div>
 
       <div className='d-flex justify-content-between mb-4'>
         <Link to={`/access-control/login`}>Login</Link>
@@ -38,10 +38,10 @@ export default function FormForgetPassword() {
       </div>
 
       <div className="d-flex justify-content-center">
-        <Button variant="primary" type="submit">
+        <button type="submit">
           Send
-        </Button>
+        </button>
       </div>
-    </Form>
+    </form>
   )
 }

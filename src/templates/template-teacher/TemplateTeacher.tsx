@@ -10,9 +10,9 @@ export default function TemplateTeacher() {
     <>
       <Header bg="dark" variant="dark" />
       
-      <Container className="template-container" style={{ minHeight: 'calc(100vh - 96px)' }}>
+      <div>
         <Outlet />
-      </Container>
+      </div>
 
       <Footer />
     </>
