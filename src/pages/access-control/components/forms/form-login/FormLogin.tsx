@@ -35,14 +35,14 @@ export default function FormLogin() {
 
       <div className="mx-3" > 
         <h3>username:</h3>
-        <input className='border border-gray-300 focus:border-violet-700 outline-none rounded w-full px-4 h-14 text-sm' type="text" placeholder='Username*' />
+        <input className='border border-gray-300 focus:border-blue-700 outline-none rounded w-full px-4 h-14 text-sm' type="text" placeholder='Username*' />
         <div  placeholder="Enter username" {...register("username")} />
         <p className='text-red-500'>{errors.username?.message}</p>
       </div>
 
       <div className="mx-3" > 
       <h3>password:</h3>
-        <input className='border border-gray-300 focus:border-violet-700 outline-none rounded w-full px-4 h-14 text-sm' type="text" placeholder='password*' />
+        <input className='border border-gray-300 focus:border-blue-700 outline-none rounded w-full px-4 h-14 text-sm' type="text" placeholder='password*' />
         <div placeholder="Password" {...register("password")} />
         <p className='text-red-500'>{errors.password?.message}</p>
       </div>
@@ -50,13 +50,15 @@ export default function FormLogin() {
 
       <div className='flex justify-between mx-5 mb-2'>
         <Link to={`/access-control/forget-password`}>
-         <div className='bg-blue-800 text-white px-4 py-3 rounded-lg transition'> Forget Password</div>
+         <div className='bg-blue-800 text-white px-3 py-3 rounded-lg transition'> Forget Password</div>
           </Link>
-        <Link to={`/access-control/sign-up`}>Sing up</Link>
+        <Link to={`/access-control/sign-up`}>
+        <div className='bg-blue-800 text-white px-3 py-3 rounded-lg transition'>Sing up</div>  
+          </Link>
       </div>
 
       <div className="flex justify-center">
-        <button className='bg-blue-800 text-white px-4 py-3 rounded-lg transition m-2' type="submit">
+        <button className='bg-blue-800 text-white px-3 py-3 rounded-lg transition m-2' type="submit">
           Send
         </button>
       </div>
