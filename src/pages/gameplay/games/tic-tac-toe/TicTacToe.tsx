@@ -174,8 +174,8 @@ function TicTacToe() {
 
   return (
     <>
-      <div className='w-full h-24 bg-black'>
-      <div className=" ">
+      <div className='w-full h-24 '>
+     
         <div className="form-group">
           <h3>Jogo da Velha</h3>
         </div>
@@ -195,8 +195,7 @@ function TicTacToe() {
             <span className="identificador" style={{ color: 'black' }}>V: {resultadoV}</span>
             <span className="separar"></span>
             <span className="identificador" style={{ color: 'blue' }}>O: {resultadoO}</span>
-          </div>
-        </div>
+          </div> 
       </div>
       <DivVencedor />
       </div>
