@@ -174,7 +174,8 @@ function TicTacToe() {
 
   return (
     <>
-      <div className="row justify-content-center text-center">
+      <div className='w-full h-24 bg-black'>
+      <div className=" ">
         <div className="form-group">
           <h3>Jogo da Velha</h3>
         </div>
@@ -198,6 +199,7 @@ function TicTacToe() {
         </div>
       </div>
       <DivVencedor />
+      </div>
     </>
   );
 }

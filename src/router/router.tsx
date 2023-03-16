@@ -28,6 +28,7 @@ const PrivateWrapper = ({ auth: any = { isAuthenticated: boolean } }) => {
 const Router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Outlet />}>
+      
       <Route index element={<Navigate to="/access-control/login" />} />
       <Route path="access-control" element={<TemplateAccessControl />}>
         <Route
