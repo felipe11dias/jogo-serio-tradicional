@@ -3,7 +3,7 @@ import GameArea from "./components/GameArea";
 
 export default function Gameplay() {
   return (
-    <div>
+    <div className="w-full flex flex-col items-center justify-center">
       <h2 className="my-3 w-100 text-center"> GAMEPLAY </h2>
       
       <div className="d-flex justify-content-center">
