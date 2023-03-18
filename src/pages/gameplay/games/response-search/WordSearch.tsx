@@ -1,11 +1,13 @@
 import { useMemo } from 'react'
+import { rgbToHexString } from '../../../../util/Util'
+import { Answer } from '../../../collaboration-disciplines/create-discipline/CreateDiscipline'
+import { AnswersViewrs, StateProps } from './ResponseSearch'
 import {
   DOWN,
   Direction,
   LEFT,
   LEFT_DOWN,
   LEFT_UP,
-  Mode,
   Point,
   RIGHT,
   RIGHT_DOWN,
@@ -14,7 +16,7 @@ import {
 } from './types'
 import { randomChar, range, shuffleArray } from './utils'
 
-function WordSearch ({ words, size, modes, debug, highlightWords }: WordSearchProps) {
+function WordSearch ({ state, setState }: WordSearchProps) {
   const table: Table = useMemo(() => {
     const points: Point[] = []
 
@@ -27,10 +29,10 @@ function WordSearch ({ words, size, modes, debug, highlightWords }: WordSearchPr
       RIGHT,
       RIGHT_UP,
       RIGHT_DOWN
-    ].filter(direction => direction.modes.every(mode => modes.includes(mode)))
+    ].filter(direction => direction.modes.every(mode => state.modes.includes(mode)))
 
-    const table: Table = range(0, size - 1).map(y => (
-      range(0, size - 1).map(x => {
+    const table: Table = range(0, state.size - 1).map(y => (
+      range(0, state.size - 1).map(x => {
         points.push([ x, y ])
 
         return {
@@ -42,12 +44,12 @@ function WordSearch ({ words, size, modes, debug, highlightWords }: WordSearchPr
 
     shuffleArray(points)
 
-    words.forEach(word => {
-      if (/^[A-Za-z]+$/.test(word)) {
+    state.answers.forEach((answer: Answer) => {
+      if (answer.description.length > 0) {
         createWord(
-          word.toUpperCase(),
+          answer.description.toUpperCase(),
           table,
-          size,
+          state.size,
           shuffleArray(points),
           availableDirections
         )
@@ -55,28 +57,95 @@ function WordSearch ({ words, size, modes, debug, highlightWords }: WordSearchPr
     })
 
     return table
-  }, [words, size, modes])
+  }, [state.answers, state.size, state.modes])
+
+  const selectLetterAnswer = (event: any, point: Point) => {
+    if(state.questionSelect != null) {
+      const colorHex = state.questionColors[state.questionSelect]
+
+      const buttonBg = rgbToHexString(event.target.style.backgroundColor)
+
+      if(buttonBg === colorHex) {
+        console.log("if(buttonBg === colorHex)")
+        event.target.style.backgroundColor = 'buttonface'
+        
+        let answersViewerAux: AnswersViewrs = {
+          answers: state.answersViewrs.answers,
+          pointsAnswers: state.answersViewrs.pointsAnswers
+        }
+        
+        let pointsAnswer: Point[] = []
+        pointsAnswer.push(...answersViewerAux.pointsAnswers[state.questionSelect])
+        pointsAnswer.forEach((pointAnswer: Point, index: number) => {   
+          const [row, col] = point;
+          const [r, c] = pointAnswer;
+          
+          
+
+          if(r === row && c === col && state.questionSelect !== null) {
+            answersViewerAux.answers[state.questionSelect] = answersViewerAux.answers[state.questionSelect].slice(0,index) + answersViewerAux.answers[state.questionSelect].slice(index+1, answersViewerAux.answers[state.questionSelect].length)
+
+            console.log(answersViewerAux)
+            console.log(index)
+            if (index > -1) {
+              pointsAnswer.splice(index, 1);
+            }
+            return pointsAnswer
+          } 
+        });
+
+        answersViewerAux.pointsAnswers[state.questionSelect] = pointsAnswer
+        
+        console.log(answersViewerAux)
+        setState({
+          ...state,
+          answersViews: answersViewerAux
+        })
+      }else {
+        event.target.style.backgroundColor = colorHex
+        
+        let answersViewerAux: AnswersViewrs = {
+          answers: state.answersViewrs.answers,
+          pointsAnswers: state.answersViewrs.pointsAnswers
+        }
+        
+        answersViewerAux.answers[state.questionSelect] = state.answersViewrs.answers[state.questionSelect] + event.target.innerText;
+
+        let pointsAnswer: Point[] = []
+        pointsAnswer.push(...answersViewerAux.pointsAnswers[state.questionSelect])
+        pointsAnswer.push(point)
+
+        answersViewerAux.pointsAnswers[state.questionSelect] = pointsAnswer
+        
+        console.log(answersViewerAux)
+        setState({
+          ...state,
+          answersViews: answersViewerAux
+        })
+      }
+    }
+  }
 
   return (
     <div className='word-search'>
       <table>
         <tbody>
-          {table.map((row, index) => (
-            <tr key={index}>
+          {table.map((row, rowIndex) => (
+            <tr key={rowIndex}>
               {row.map((letter, col) => (
                 <td key={col} style={styles.td}>
                   <div
                     style={{
                       textAlign: 'center',
                       textTransform: 'uppercase',
-                      color: (letter.isWord && highlightWords) ? 'red' : 'black',
-                      padding: debug ? 15 : 5
+                      border: (letter.isWord && state.highlightAnswers) ? '1px solid red' : '0',
+                      padding: state.debug ? 15 : 5
                     }}
                   >
-                    {letter.char}
-                    {debug && (
+                    <button type="button" onClick={ e => selectLetterAnswer(e, [rowIndex, col])} style={{height: 26, width: 26}}>{letter.char}</button>
+                    {state.debug && (
                       <div style={{ fontSize: 8 }}>
-                        {index},{col}
+                        {rowIndex},{col}
                       </div>
                     )}
                   </div>
@@ -91,11 +160,8 @@ function WordSearch ({ words, size, modes, debug, highlightWords }: WordSearchPr
 }
 
 interface WordSearchProps {
-  words: string[]
-  size: number
-  modes: Mode[]
-  debug?: boolean
-  highlightWords: boolean
+  state: StateProps
+  setState: Function
 }
 
 interface Letter {
@@ -107,7 +173,6 @@ type Table = Letter[][]
 
 const styles = {
   td: {
-    fontSize: 18,
     fontFamily: 'sans-serif'
   }
 }

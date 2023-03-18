@@ -102,6 +102,7 @@ function TicTacToe() {
   }
 
   function jogar(bt: any) {
+    
     if (iniciado) {
       if (marcarSelecionado(bt)) {
         setJogadas(jogadas + 1);
