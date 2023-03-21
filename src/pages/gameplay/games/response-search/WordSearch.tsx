@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { rgbToHexString } from '../../../../util/Util'
 import { Answer } from '../../../collaboration-disciplines/create-discipline/CreateDiscipline'
-import { AnswersViewrs, StateProps } from './ResponseSearch'
+import { AnswersViews, StateProps } from './ResponseSearch'
 import {
   DOWN,
   Direction,
@@ -46,7 +46,9 @@ function WordSearch ({ state, setState }: WordSearchProps) {
 
     state.answers.forEach((answer: Answer) => {
       if (answer.description.length > 0) {
-        createWord(
+        createAnswer(
+          state,
+          setState,
           answer.description.toUpperCase(),
           table,
           state.size,
@@ -62,31 +64,25 @@ function WordSearch ({ state, setState }: WordSearchProps) {
   const selectLetterAnswer = (event: any, point: Point) => {
     if(state.questionSelect != null) {
       const colorHex = state.questionColors[state.questionSelect]
-
       const buttonBg = rgbToHexString(event.target.style.backgroundColor)
 
+
+      // VERIFICA SE AS CORES DOS BOTÕES IGUAIS
       if(buttonBg === colorHex) {
-        console.log("if(buttonBg === colorHex)")
-        event.target.style.backgroundColor = 'buttonface'
+        // REMOVE UM A LETRA DE UMA RESPOSTA 
         
-        let answersViewerAux: AnswersViewrs = {
-          answers: state.answersViewrs.answers,
-          pointsAnswers: state.answersViewrs.pointsAnswers
-        }
+        event.target.style.backgroundColor = 'transparent'
+        
+        let answersViewAux: AnswersViews = state.answersViews
         
         let pointsAnswer: Point[] = []
-        pointsAnswer.push(...answersViewerAux.pointsAnswers[state.questionSelect])
-        pointsAnswer.forEach((pointAnswer: Point, index: number) => {   
+        pointsAnswer.push(...answersViewAux.pointsAnswers[state.questionSelect])
+        pointsAnswer.forEach((pointAnswer: Point, index: number) => {
           const [row, col] = point;
           const [r, c] = pointAnswer;
           
-          
-
           if(r === row && c === col && state.questionSelect !== null) {
-            answersViewerAux.answers[state.questionSelect] = answersViewerAux.answers[state.questionSelect].slice(0,index) + answersViewerAux.answers[state.questionSelect].slice(index+1, answersViewerAux.answers[state.questionSelect].length)
-
-            console.log(answersViewerAux)
-            console.log(index)
+            answersViewAux.answers[state.questionSelect] = answersViewAux.answers[state.questionSelect].slice(0,index) + answersViewAux.answers[state.questionSelect].slice(index+1, answersViewAux.answers[state.questionSelect].length)
             if (index > -1) {
               pointsAnswer.splice(index, 1);
             }
@@ -94,33 +90,60 @@ function WordSearch ({ state, setState }: WordSearchProps) {
           } 
         });
 
-        answersViewerAux.pointsAnswers[state.questionSelect] = pointsAnswer
-        
-        console.log(answersViewerAux)
+        answersViewAux.pointsAnswers[state.questionSelect] = pointsAnswer
         setState({
           ...state,
-          answersViews: answersViewerAux
+          answersViews: answersViewAux
         })
       }else {
+        // ADICIONA UMA LETRA NO INPUT DE RESPOSTA DE ACORDO COM A QUESTÃO SELECIONADA
+
+        let answersViewAux: AnswersViews = {
+          answers: state.answersViews.answers,
+          pointsAnswers: state.answersViews.pointsAnswers,
+          pointsAnswersTable: state.answersViews.pointsAnswersTable
+        }
         event.target.style.backgroundColor = colorHex
-        
-        let answersViewerAux: AnswersViewrs = {
-          answers: state.answersViewrs.answers,
-          pointsAnswers: state.answersViewrs.pointsAnswers
+
+        // REMOVE A LETRA DE RESPOSTA DE OUTRA PERGUNTA
+        if(state.questionColors.includes(buttonBg) && state.questionColors[state.questionSelect] !== buttonBg) {
+          console.log("if(state.questionColors.includes(buttonBg))")
+          const indexQuestion = state.questionColors.indexOf(buttonBg)
+          console.log(indexQuestion)
+
+          let pointsAnswer: Point[] = []
+          pointsAnswer.push(...answersViewAux.pointsAnswers[indexQuestion])
+          pointsAnswer.forEach((pointAnswer: Point, index: number) => {
+            const [row, col] = point;
+            const [r, c] = pointAnswer;
+            
+            if(r === row && c === col && indexQuestion !== null) {
+              answersViewAux.answers[indexQuestion] = answersViewAux.answers[indexQuestion].slice(0,index) + answersViewAux.answers[indexQuestion].slice(index+1, answersViewAux.answers[indexQuestion].length)
+              if (index > -1) {
+                pointsAnswer.splice(index, 1);
+              }
+              return pointsAnswer
+            } 
+          });
+
+          answersViewAux.pointsAnswers[indexQuestion] = pointsAnswer
+          setState({
+            ...state,
+            answersViews: answersViewAux
+          })
         }
         
-        answersViewerAux.answers[state.questionSelect] = state.answersViewrs.answers[state.questionSelect] + event.target.innerText;
+        const textButton = event.target.innerText ? event.target.innerText : ' '
+        answersViewAux.answers[state.questionSelect] = state.answersViews.answers[state.questionSelect] + textButton;
 
         let pointsAnswer: Point[] = []
-        pointsAnswer.push(...answersViewerAux.pointsAnswers[state.questionSelect])
+        pointsAnswer.push(...answersViewAux.pointsAnswers[state.questionSelect])
         pointsAnswer.push(point)
 
-        answersViewerAux.pointsAnswers[state.questionSelect] = pointsAnswer
-        
-        console.log(answersViewerAux)
+        answersViewAux.pointsAnswers[state.questionSelect] = pointsAnswer
         setState({
           ...state,
-          answersViews: answersViewerAux
+          answersViews: answersViewAux
         })
       }
     }
@@ -142,7 +165,21 @@ function WordSearch ({ state, setState }: WordSearchProps) {
                       padding: state.debug ? 15 : 5
                     }}
                   >
-                    <button type="button" onClick={ e => selectLetterAnswer(e, [rowIndex, col])} style={{height: 26, width: 26}}>{letter.char}</button>
+                    <button
+                      type="button"
+                      className=''
+                      onClick={ e => selectLetterAnswer(e, [rowIndex, col])}
+                      title={letter.char}
+                      style={ state.windowSize.width > 1400 ?
+                        { height: 30, width: 30, fontSize: 18, padding: 0, backgroundColor: 'transparent'} :
+                        (state.windowSize.width <= 1400 && state.windowSize.width > 1200) ?
+                        { height: 24, width: 24, fontSize: 14, padding: 0, backgroundColor: 'transparent'} :
+                        (state.windowSize.width <= 1200 && state.windowSize.width >= 992) ?
+                        { height: 14, width: 14, fontSize: 8, padding: 0, backgroundColor: 'transparent'} : 
+                        { height: 12, width: 12, fontSize: 6, padding: 0, backgroundColor: 'transparent'} }
+                      >
+                      {letter.char}
+                    </button>
                     {state.debug && (
                       <div style={{ fontSize: 8 }}>
                         {rowIndex},{col}
@@ -173,13 +210,14 @@ type Table = Letter[][]
 
 const styles = {
   td: {
+    padding: 0,
     fontFamily: 'sans-serif'
   }
 }
 
 export default WordSearch
 
-const createWord = (word: string, table: Table, size: number, points: Point[], availableDirections: Direction[]): void => {
+const createAnswer = (state: any, setState: any, word: string, table: Table, size: number, points: Point[], availableDirections: Direction[]): void => {
   for (let pointIndex = 0; pointIndex < points.length; pointIndex += 1) {
     const [ x, y ] = points[pointIndex]
 
@@ -210,6 +248,7 @@ const createWord = (word: string, table: Table, size: number, points: Point[], a
 
         positions.push([ col, row ])
       }
+
 
       if (!isValid) {
         continue

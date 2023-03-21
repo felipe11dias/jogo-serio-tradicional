@@ -10,12 +10,12 @@ export default function GameSelect() {
 
 
   useEffect(() => {
-    saveGameSerius({gameSelected: '', disciplineSelected: ''})
+    saveGameSerius({gameSelected: '', activitySelected: '', disciplineSelected: ''})
   }, [])
   
 
   const selectGame = (gameSelected: string) => {
-    saveGameSerius({gameSelected, disciplineSelected: gameSerius.disciplineSelected})
+    saveGameSerius({gameSelected, activitySelected: gameSerius.activitySelected, disciplineSelected: gameSerius.disciplineSelected})
     navigate("/environment/student/discipline-select", { replace: true });
   }
 

@@ -1,10 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Form } from 'react-bootstrap'
 import { Answer, AnswerQuestions, IFormInputs } from '../../../collaboration-disciplines/create-discipline/CreateDiscipline'
 import WordSearch from './WordSearch'
 import './styles.css'
 import { Mode, Point } from './types'
-
-const SIZES = [10, 15, 20, 25, 30]
 
 const FORM_MOCK: IFormInputs = {
   name: "TESTE",
@@ -58,25 +57,6 @@ const FORM_MOCK: IFormInputs = {
   ]
 }
 
-const MODES: { label: string, value: Mode }[] = [
-  {
-    label: 'Horizontal',
-    value: 'horizontal'
-  },
-  {
-    label: 'Vertical',
-    value: 'vertical'
-  },
-  {
-    label: 'Diagonal',
-    value: 'diagonal'
-  },
-  {
-    label: 'Trás pra frente',
-    value: 'reversed'
-  }
-]
-
 export default function ResponseSearch () {
 
   const getAnswer = (): Answer[] => {
@@ -96,10 +76,11 @@ export default function ResponseSearch () {
     return answers
   }
 
-  const getAnswersViewrs = (): AnswersViewrs => {
+  const getAnswersViews = (): AnswersViews => {
     return {
       answers: Array(FORM_MOCK.answerQuestions.length).fill(''),
-      pointsAnswers: Array(FORM_MOCK.answerQuestions.length).fill([])
+      pointsAnswers: Array(FORM_MOCK.answerQuestions.length).fill([]),
+      pointsAnswersTable: Array(FORM_MOCK.answerQuestions.length).fill([])
     }
   }
 
@@ -107,12 +88,18 @@ export default function ResponseSearch () {
     return Array.from(Array(FORM_MOCK.answerQuestions.length).keys()).map( _ => '#' + Math.floor(Math.random()*16777215).toString(16))
   }
 
-  const [ state, setState ] = useState<StateProps>({
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  const stateDefault: StateProps = {
     questionSelect: null,
     questionColors: getColors(),
     answers: getAnswer(),
-    answersViewrs: getAnswersViewrs(),
-    size: 20,
+    answersViews: getAnswersViews(),
+    windowSize: windowSize,
+    size: 22,
     modes: [
       'horizontal',
       'vertical',
@@ -120,111 +107,129 @@ export default function ResponseSearch () {
       'reversed'
     ],
     debug: false,
-    highlightAnswers: true
-  })
+    highlightAnswers: false
+  }
 
-  const checkForm = () => {}
+  const [ state, setState ] = useState<StateProps>(stateDefault)
+
+  const handleWindowResize = () => {
+    setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    setState({
+      ...state,
+      windowSize: windowSize
+    })
+  };
+
+  useEffect(() => {
+    console.log(windowSize)
+    window.addEventListener('resize', handleWindowResize);
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  }, [windowSize]);
+
+  const validateAnswers = () => {
+    for (let index = 0; index < state.answersViews.answers.length; index++) {
+      const pointsAnswers = state.answersViews.pointsAnswers[index];
+      const pointsAnswersTable = state.answersViews.pointsAnswersTable[index];
+
+      console.log(state.answersViews.answers.length)
+      
+      for (let indexPoint = 0; indexPoint < pointsAnswers.length; indexPoint++) {
+        console.log(pointsAnswers)
+        console.log(pointsAnswersTable)
+        const [r, c] = pointsAnswers[indexPoint];
+        const [row, col] = pointsAnswersTable[indexPoint];
+        
+        if(!(r === row && c === col)) {
+          state.answersViews.answers[index] += "** INCORRECT ORDER ELEMENTES **";
+          break;
+        }
+      }
+    }
+  }
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault()
+    
+    // VERIFICA CADA LETRA SELECIONADA DE CADA RESPOSTA COM O SEU PONTO NA TABELA, OU SEJA, AS LETRAS E POINTOS SELECIONADOS NA TABELA TEM QUE ESTAR EM CONFORMIDADE
+    validateAnswers()
+    
+    console.log(state.answersViews)
+  }
 
   return (
-    <div className='container'>
-      <h1>Gerador de caça-respostas</h1>
-      <div className='field'>
-        <label className='label' htmlFor='size'>Tamanho (linhas x colunas):</label>
-        <select
-          id='size'
-          value={state.size.toString()}
-          onChange={e => setState({ ...state, size: parseInt(e.target.value, 10) })}
-        >
-          {SIZES.map(size => (
-            <option key={size} value={size.toString()}>{size}x{size}</option>
-          ))}
-        </select>
+    <div className='my-4'>
+      <h1 className='w-100 text-center'>CAÇA RESPOSTAS</h1>
+      <div className='my-4'>
+      <h4>Instruções:</h4>
+      <p>
+        Para cada questão existe uma resposta no caça palavras. <br/>
+        Para responder uma questão selecione a questão e selecione as letras equivalentes a resposta no caça palavras. <br/>
+        Você pode visualizar o conjunto de letras selecionadas de cada questão nos campos de respostas disponíveis abaixo das questões. <br/>
+
+        <b>Observação: Certifique-se de que a ordem das letras selecionadas seja equivalentes as posições corretas na tabela do caça palavras. Caso contrário será invalidado a resposta.</b>
+      </p>
       </div>
-      <div className='field'>
+      <div className='my-4'>
         <label className='label' htmlFor='questions'>Questions:</label>
-        <div className='w-100 d-flex'>
+        <div className='w-100 d-grid'>
           {FORM_MOCK.answerQuestions.map((aq: AnswerQuestions, index: number) => (
-            <button key={aq.id} type='button' className='mx-2'
-              style={{ backgroundColor: (state.questionSelect === index && state.questionSelect !== null) ? state.questionColors[index] : 'buttonface'  }}
+            <button key={aq.id} type='button' className='my-2'
+              style={{ backgroundColor: state.questionColors[index], border: (state.questionSelect === index && state.questionSelect !== null) ? '3px solid black' : 0 }}
               onClick={() => setState({
                 ...state,
                 questionSelect: state.questionSelect === index ? null : index
-              })}>{aq.question} {index}</button>
+              })}>
+                Question {index + 1}:<br/>
+                {aq.question}
+              </button>
           ))}
         </div>
       </div>
-      <div className='field'>
-        <label className='label' htmlFor='modes'>Modos:</label>
-        {MODES.map(mode => (
-          <div key={mode.value}>
-            <label className='checkbox'>
-              <input
-                type='checkbox'
-                onChange={e => setState({
-                  ...state,
-                  modes: e.target.checked
-                    ? state.modes.concat(mode.value)
-                    : state.modes.filter(value => value !== mode.value)
-                })}
-                checked={state.modes.includes(mode.value)}
-              />
-              <span>{mode.label}</span>
-            </label>
-          </div>
-        ))}
-      </div>
-      <div className='field'>
-        <label htmlFor='options' className='label'>Opções de visualização:</label>
-        <div>
-          <label className='checkbox'>
-            <input
-              type='checkbox'
-              checked={state.highlightAnswers}
-              onChange={() => setState({ ...state, highlightAnswers: !state.highlightAnswers })}
-            />
-            <span>Destacar as palavras</span>
-          </label>
-        </div>
-      </div>
-      <WordSearch
-        state={state}
-        setState={setState}
-      />
-
-      <div className='field mt-4'>
-          {
-            state.answers.map( (answer, index) => {
-              return (
-                <>
-                  <label htmlFor={'answerView' + index} className='label'>Answer {index}:</label>
-                  <div>
-                    <label className='input'>
-                      <input
-                        type='text'
-                        value={state.answersViewrs.answers[index]}
-                        readOnly={true}
-                      />
-                    </label>
+      <Form onSubmit={ (e) => handleSubmit(e) } className='px-0'>
+        <div className='my-4'>
+            {
+              state.answers.map( (_, index) => {
+                return (
+                  <div className='my-4' key={index}>
+                    <label htmlFor={'answerView' + index} style={{color: state.questionColors[index]}}>Answer {index}:</label>
+                    <input
+                      type='text'
+                      value={state.answersViews.answers[index]}
+                      readOnly={true}
+                    />
                   </div>
-                </>
-              )
-            })
-          }
-      </div>
+                )
+              })
+            }
+        </div>
+        
+        <div className='my-4 d-flex justify-content-center'>
+          <button className='btn btn-primary' type='submit'> Finalizar </button>
+        </div>
+        <WordSearch
+          state={state}
+          setState={setState}
+          />
+      </Form>
     </div>
   )
 }
 
-export interface AnswersViewrs {
-  answers: string[],
+export interface AnswersViews {
+  answers: string[]
   pointsAnswers: Array<Array<Point>>
+  pointsAnswersTable: Array<Array<Point>>
 }
 
 export type StateProps = {
   questionSelect: number | null
   questionColors: string[]
   answers: Answer[]
-  answersViewrs: AnswersViewrs
+  answersViews: AnswersViews
+  windowSize: {width: number, height: number}
   size: number
   modes: Mode[]
   debug: boolean

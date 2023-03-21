@@ -3,11 +3,13 @@ import GameContext from './GameContext';
 
 export interface GameSerius {
   gameSelected: string
+  activitySelected: string
   disciplineSelected: string
 };
 
 export const gameSeriusDefault: GameSerius = {
   gameSelected: "",
+  activitySelected: "",
   disciplineSelected: ""
 }
 
@@ -17,6 +19,7 @@ export default function GameContextProvider(props: any) {
   const saveGameSerius = (gameSerius: GameSerius) => {
     const newGameSerius: GameSerius = {
       gameSelected: gameSerius.gameSelected,
+      activitySelected: gameSerius.activitySelected,
       disciplineSelected: gameSerius.disciplineSelected,
     };
     setGameSerius(newGameSerius);
