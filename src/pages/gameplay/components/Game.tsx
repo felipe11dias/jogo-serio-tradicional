@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import GameSeriusContext, { GameSeriusType } from "../../../context/GameContext/GameContext";
+import ResponseSearch from "../games/response-search/ResponseSearch";
 import TicTacToe from "../games/tic-tac-toe/TicTacToe";
 
 export default function Game() {
@@ -9,9 +10,11 @@ export default function Game() {
     <>
       { 
         gameSerius.gameSelected === 'jogo_da_velha' ?
-         <TicTacToe />
+          <TicTacToe />
+         : gameSerius.gameSelected === 'response_select' ?
+          <ResponseSearch />
          :
-        <></>  
+        <></>   
       }
     </>
   )

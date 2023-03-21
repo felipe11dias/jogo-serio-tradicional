@@ -10,12 +10,12 @@ export default function GameSelect() {
 
 
   useEffect(() => {
-    saveGameSerius({gameSelected: '', disciplineSelected: ''})
+    saveGameSerius({gameSelected: '', activitySelected: '', disciplineSelected: ''})
   }, [])
   
 
   const selectGame = (gameSelected: string) => {
-    saveGameSerius({gameSelected, disciplineSelected: gameSerius.disciplineSelected})
+    saveGameSerius({gameSelected, activitySelected: gameSerius.activitySelected, disciplineSelected: gameSerius.disciplineSelected})
     navigate("/environment/student/discipline-select", { replace: true });
   }
 
@@ -37,12 +37,12 @@ export default function GameSelect() {
 
         <Card className="m-2" style={{ width: '18rem' }}>
           <Card.Body>
-            <Card.Title>Dama</Card.Title>
+            <Card.Title>Caça respostas</Card.Title>
             <Card.Text>
               Some quick example text to build on the card title and make up the
               bulk of the card's content.
             </Card.Text>
-            <Button variant="primary" onClick={() => selectGame('dama')}> SELECT </Button>
+            <Button variant="primary" onClick={() => selectGame('response_select')}> SELECT </Button>
           </Card.Body>
         </Card>
       </div>

@@ -10,7 +10,7 @@ export type IFormInputs = {
   answerQuestions: Array<AnswerQuestions>
 }
 
-interface CreateDisciplineProps {
+interface CreateActivityProps {
   questionsAmout: number
 }
 
@@ -26,7 +26,7 @@ export type Answer = {
   description: string
 }
 
-const schemaDiscipline = z.object({
+const schemaActivity = z.object({
   name: z.string({ required_error: "Name is required." }),
   theme: z.string({ required_error: "Theme is required." }),
   answerQuestions: z.array(z.object({
@@ -44,7 +44,7 @@ export async function loader() {
   return { user };
 }
 
-export default function CreateDiscipline() {
+export default function CreateActivities() {
   const defaultAnswerQuestion: AnswerQuestions = { id: 0, question: "Description question", answers: [{id: 0, description: ""}, {id: 1, description: ""}], answerCorrect: 0 }
 
   const {
@@ -55,7 +55,7 @@ export default function CreateDiscipline() {
     getValues,
     formState: { errors },
   } = useForm<IFormInputs>({
-    resolver: zodResolver(schemaDiscipline),
+    resolver: zodResolver(schemaActivity),
     defaultValues: {
       answerQuestions: [defaultAnswerQuestion]
     }
@@ -66,17 +66,17 @@ export default function CreateDiscipline() {
   return (
     <>
       <Form className='w-100 my-4' onSubmit={handleSubmit(onSubmit)} >
-        <h2 className="text-center">CREATE DISCIPLINE</h2>
+        <h2 className="text-center">CREATE ACTIVITY</h2>
 
         <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Label>Discipline name:</Form.Label>
-          <Form.Control type="text" placeholder="Enter name discipline" {...register("name")} />
+          <Form.Label>Activity name:</Form.Label>
+          <Form.Control type="text" placeholder="Enter name activity" {...register("name")} />
           <p className='text-danger'>{errors.name?.message}</p>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicTheme">
-          <Form.Label>Discipline theme:</Form.Label>
-          <Form.Control type="text" placeholder="Theme discipline" {...register("theme")} />
+          <Form.Label>Activity theme:</Form.Label>
+          <Form.Control type="text" placeholder="Theme activity" {...register("theme")} />
           <p className='text-danger'>{errors.theme?.message}</p>
         </Form.Group>
 

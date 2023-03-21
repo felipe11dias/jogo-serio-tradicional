@@ -3,8 +3,8 @@ import GameArea from "./components/GameArea";
 
 export default function Gameplay() {
   return (
-    <div>
-      <h2 className="my-3 w-100 text-center"> GAMEPLAY </h2>
+    <div className="my-4 w-100">
+      <h2 className="mb-3 w-100 text-center"> GAMEPLAY </h2>
       
       <div className="d-flex justify-content-center">
         <GameArea />
