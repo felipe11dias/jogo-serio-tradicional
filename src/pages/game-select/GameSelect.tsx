@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"; 
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import GameSeriusContext, { GameSeriusType } from "../../context/GameContext/GameContext";
 
@@ -9,13 +9,13 @@ export default function GameSelect() {
 
 
   useEffect(() => {
-    saveGameSerius({gameSelected: '', disciplineSelected: ''})
+    saveGameSerius({gameSelected: '', activitySelected: '', disciplineSelected: ''})
   }, [])
   
 
   const selectGame = (gameSelected: string) => {
-    saveGameSerius({gameSelected, disciplineSelected: gameSerius.disciplineSelected})
-    navigate("/environment/student/discipline-select", { replace: true});
+    saveGameSerius({gameSelected, activitySelected: gameSerius.activitySelected, disciplineSelected: gameSerius.disciplineSelected})
+    navigate("/environment/student/discipline-select", { replace: true });
   }
 
   return (

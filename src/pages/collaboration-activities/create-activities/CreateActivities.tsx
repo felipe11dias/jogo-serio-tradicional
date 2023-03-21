@@ -1,6 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { CreateQuestions } from './CreateQuestions';
 
 export type IFormInputs = {
   name: string
@@ -8,7 +10,7 @@ export type IFormInputs = {
   answerQuestions: Array<AnswerQuestions>
 }
 
-interface CreateDisciplineProps {
+interface CreateActivityProps {
   questionsAmout: number
 }
 
@@ -24,7 +26,7 @@ export type Answer = {
   description: string
 }
 
-const schemaDiscipline = z.object({
+const schemaActivity = z.object({
   name: z.string({ required_error: "Name is required." }),
   theme: z.string({ required_error: "Theme is required." }),
   answerQuestions: z.array(z.object({
@@ -42,7 +44,7 @@ export async function loader() {
   return { user };
 }
 
-export default function CreateDiscipline() {
+export default function CreateActivities() {
   const defaultAnswerQuestion: AnswerQuestions = { id: 0, question: "Description question", answers: [{id: 0, description: ""}, {id: 1, description: ""}], answerCorrect: 0 }
 
   const {
@@ -53,7 +55,7 @@ export default function CreateDiscipline() {
     getValues,
     formState: { errors },
   } = useForm<IFormInputs>({
-    resolver: zodResolver(schemaDiscipline),
+    resolver: zodResolver(schemaActivity),
     defaultValues: {
       answerQuestions: [defaultAnswerQuestion]
     }
@@ -63,27 +65,31 @@ export default function CreateDiscipline() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <h2 className="text-center">CREATE DISCIPLINE</h2>
+      <Form className='w-100 my-4' onSubmit={handleSubmit(onSubmit)} >
+        <h2 className="text-center">CREATE ACTIVITY</h2>
 
-        <div className="mb-3" >
-          <div>Discipline Name:</div>
-          <div  placeholder="Enter name discipline" {...register("name")} />
+        <Form.Group className="mb-3" controlId="formBasicName">
+          <Form.Label>Activity name:</Form.Label>
+          <Form.Control type="text" placeholder="Enter name activity" {...register("name")} />
           <p className='text-danger'>{errors.name?.message}</p>
-        </div>
+        </Form.Group>
 
-        <div className="mb-3" >
-          <div>Discipline Theme:</div>
-          <div  placeholder="Theme discipline" {...register("theme")} />
+        <Form.Group className="mb-3" controlId="formBasicTheme">
+          <Form.Label>Activity theme:</Form.Label>
+          <Form.Control type="text" placeholder="Theme activity" {...register("theme")} />
           <p className='text-danger'>{errors.theme?.message}</p>
-        </div>
+        </Form.Group>
+
+        <CreateQuestions
+          {...{ control, register, getValues, setValue }}
+        />
 
         <div className="d-flex justify-content-center">
-          <button   type="submit">
+          <Button variant="primary" type="submit">
             Send
-          </button>
+          </Button>
         </div>
-      </form>
+      </Form>
     </>
   )
 }

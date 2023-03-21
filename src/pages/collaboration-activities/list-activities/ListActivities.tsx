@@ -1,0 +1,119 @@
+import { Button, Form, InputGroup, Pagination, Stack, Tab, Table, Tabs } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import './style.css';
+
+export default function ListActivities() {
+  return (
+    <>
+      <h2 className="mb-5">Collaborate dashboard</h2>
+
+      <Stack className="mb-5 justify-content-between " direction="horizontal" gap={2}> 
+        <InputGroup style={{ maxWidth: '500px'}}>
+          <Form.Control
+            placeholder="Activity name"
+            aria-label="Activity name"
+          />
+          <Button variant="outline-primary" >
+            Search
+          </Button>
+        </InputGroup>
+        <Link className="btn btn-success mr-0 ml-auto" to={'/environment/teacher/collaboration-activities/create'} >Create activity</Link>
+      </Stack>
+
+      <Tabs
+        defaultActiveKey="activities"
+        id="activities-tabs"
+        className="w-100 mb-3 tab-content"
+        justify
+      >
+        <Tab eventKey="activities" title="All">
+          <Stack gap={2}>
+            <Table striped bordered hover >
+              <thead>
+                <tr>
+                  <th>Activity Name</th>
+                  <th>Theme Name</th>
+                  <th>Teacher</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Programming Logic</td>
+                  <td>Information Technology</td>
+                  <td>Felipe Dias</td>
+                </tr>
+                <tr>
+                  <td>Programming Logic</td>
+                  <td>Information Technology</td>
+                  <td>Felipe Dias</td>
+                </tr>
+              </tbody>
+            </Table>
+
+            <Pagination className="mx-auto mt-5">
+              <Pagination.First />
+              <Pagination.Prev />
+              <Pagination.Item>{1}</Pagination.Item>
+              <Pagination.Ellipsis />
+
+              <Pagination.Item>{10}</Pagination.Item>
+              <Pagination.Item>{11}</Pagination.Item>
+              <Pagination.Item active>{12}</Pagination.Item>
+              <Pagination.Item>{13}</Pagination.Item>
+              <Pagination.Item disabled>{14}</Pagination.Item>
+
+              <Pagination.Ellipsis />
+              <Pagination.Item>{20}</Pagination.Item>
+              <Pagination.Next />
+              <Pagination.Last />
+            </Pagination>
+          </Stack>
+        </Tab>
+
+        <Tab eventKey="myActivities" title="My activities">
+          <Stack gap={2}>
+            <Table striped bordered hover >
+              <thead>
+                <tr>
+                  <th>Activity Name</th>
+                  <th>Theme Name</th>
+                  <th>Teacher</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Programming Logic</td>
+                  <td>Information Technology</td>
+                  <td>Felipe Dias</td>
+                </tr>
+                <tr>
+                  <td>Programming Logic</td>
+                  <td>Information Technology</td>
+                  <td>Felipe Dias</td>
+                </tr>
+              </tbody>
+            </Table>
+
+            <Pagination className="mx-auto mt-5">
+              <Pagination.First />
+              <Pagination.Prev />
+              <Pagination.Item>{1}</Pagination.Item>
+              <Pagination.Ellipsis />
+
+              <Pagination.Item>{10}</Pagination.Item>
+              <Pagination.Item>{11}</Pagination.Item>
+              <Pagination.Item active>{12}</Pagination.Item>
+              <Pagination.Item>{13}</Pagination.Item>
+              <Pagination.Item disabled>{14}</Pagination.Item>
+
+              <Pagination.Ellipsis />
+              <Pagination.Item>{20}</Pagination.Item>
+              <Pagination.Next />
+              <Pagination.Last />
+            </Pagination>
+          </Stack>
+        </Tab>
+      </Tabs>
+    </>
+  )
+}

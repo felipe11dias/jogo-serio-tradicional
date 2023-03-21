@@ -8,6 +8,10 @@ import {
 import FormForgetPassword from "../pages/access-control/components/forms/form-forget-password/FormForgetPassword";
 import FormLogin from "../pages/access-control/components/forms/form-login/FormLogin";
 import FormSignUp from "../pages/access-control/components/forms/form-sign-up/FormSignUp";
+import CollaborationActivities from "../pages/collaboration-activities/CollaborationActivities";
+import ActivitySelect from "../pages/collaboration-activities/activity-select/ActivitySelect";
+import CreateActivities from "../pages/collaboration-activities/create-activities/CreateActivities";
+import ListActivities from "../pages/collaboration-activities/list-activities/ListActivities";
 import CollaborationDisciplines from "../pages/collaboration-disciplines/CollaborationDisciplines";
 import CreateDiscipline from "../pages/collaboration-disciplines/create-discipline/CreateDiscipline";
 import ListDisciplines from "../pages/collaboration-disciplines/list-disciplines/ListDisciplines";
@@ -59,6 +63,10 @@ const Router = createBrowserRouter(
             element={<DisciplineSelect />}
           />
           <Route
+            path="activity-select"
+            element={<ActivitySelect />}
+          />
+          <Route
             path="gameplay"
             element={<Gameplay />}
           />
@@ -82,6 +90,20 @@ const Router = createBrowserRouter(
             <Route
               path="create"
               element={<CreateDiscipline />}
+            />
+          </Route>
+
+          <Route
+            path="collaboration-activities"
+            element={<CollaborationActivities />}
+          >
+            <Route
+              path="list"
+              element={<ListActivities />}
+            />
+            <Route
+              path="create"
+              element={<CreateActivities />}
             />
           </Route>
         </Route>

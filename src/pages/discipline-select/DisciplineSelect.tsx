@@ -8,8 +8,8 @@ export default function DisciplineSelect() {
   const { gameSerius, saveGameSerius } = useContext(GameSeriusContext) as GameSeriusType;
 
   const selectDiscipline = (disciplineSelected: string) => {
-    saveGameSerius({gameSelected: gameSerius.gameSelected, disciplineSelected})
-    navigate("/environment/student/gameplay", { replace: true });
+    saveGameSerius({gameSelected: gameSerius.gameSelected, activitySelected: gameSerius.activitySelected, disciplineSelected})
+    navigate("/environment/student/activity-select", { replace: true });
   }
 
   return (
