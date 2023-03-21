@@ -1,5 +1,4 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Form } from "react-bootstrap";
+import { zodResolver } from '@hookform/resolvers/zod'; 
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { z } from "zod";
@@ -31,35 +30,38 @@ export default function FormLogin() {
   const onSubmit = (data: any) => console.log(data);
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="text-center">LOGIN</h2>
+    <form className='flex flex-col gap-y-4' onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="text-center m-1">LOGIN</h2>
 
-      <Form.Group className="mb-3" controlId="formBasicUsername">
-        <Form.Label>Username:</Form.Label>
-        <Form.Control type="text" placeholder="Enter username" {...register("username")} />
-        <p className='text-danger'>{errors.username?.message}</p>
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password:</Form.Label>
-        <Form.Control type="password" placeholder="Password" {...register("password")} />
-        <p className='text-danger'>{errors.password?.message}</p>
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
-      </Form.Group>
-
-      <div className='d-flex justify-content-between mb-4'>
-        <Link to={`/access-control/forget-password`}>Forget Password</Link>
-        <Link to={`/access-control/sign-up`}>Sing up</Link>
+      <div className="mx-3" > 
+        <h3>username:</h3>
+        <input className='border border-gray-300 focus:border-blue-700 outline-none rounded w-full px-4 h-14 text-sm' type="text" placeholder='Username*' />
+        <div  placeholder="Enter username" {...register("username")} />
+        <p className='text-red-500'>{errors.username?.message}</p>
       </div>
 
-      <div className="d-flex justify-content-center">
-        <Button variant="primary" type="submit">
+      <div className="mx-3" > 
+      <h3>password:</h3>
+        <input className='border border-gray-300 focus:border-blue-700 outline-none rounded w-full px-4 h-14 text-sm' type="text" placeholder='password*' />
+        <div placeholder="Password" {...register("password")} />
+        <p className='text-red-500'>{errors.password?.message}</p>
+      </div>
+ 
+
+      <div className='flex justify-between mx-5 mb-2'>
+        <Link to={`/access-control/forget-password`}>
+         <div className='bg-blue-800 text-white px-3 py-3 rounded-lg transition'> Forget Password</div>
+          </Link>
+        <Link to={`/access-control/sign-up`}>
+        <div className='bg-blue-800 text-white px-3 py-3 rounded-lg transition'>Sing up</div>  
+          </Link>
+      </div>
+
+      <div className="flex justify-center">
+        <button className='bg-blue-800 text-white px-3 py-3 rounded-lg transition m-2' type="submit">
           Send
-        </Button>
+        </button>
       </div>
-    </Form>
+    </form>
   )
 }

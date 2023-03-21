@@ -1,5 +1,4 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Form } from 'react-bootstrap';
+import { zodResolver } from '@hookform/resolvers/zod'; 
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { z } from 'zod';
@@ -24,25 +23,30 @@ export default function FormForgetPassword() {
   const onSubmit = (data: any) => console.log(data);
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="text-center">FORGET PASSWORD</h2>
+    <form className='flex flex-col gap-y-4' onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="text-center m-1">FORGET PASSWORD</h2>
 
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email:</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" {...register("email")} />
-        <p className='text-danger'>{errors.email?.message}</p>
-      </Form.Group>
+      <div className="mx-3" >
+        <h3>email:</h3> 
+        <input className='border border-gray-300 focus:border-blue-700 outline-none rounded w-full px-4 h-14 text-sm' type="text" placeholder='Email*' />
+        <p className='text-red-500'>{errors.email?.message}</p>
+      </div>
+ 
 
-      <div className='d-flex justify-content-between mb-4'>
-        <Link to={`/access-control/login`}>Login</Link>
-        <Link to={`/access-control/sign-up`}>Sing up</Link>
+      <div className='flex justify-between mx-5 mb-2'>
+        <Link to={`/access-control/login`}>
+         <div className='bg-blue-800 text-white px-3 py-3 rounded-lg transition'>Login</div>
+          </Link>
+        <Link to={`/access-control/sign-up`}>
+        <div className='bg-blue-800 text-white px-3 py-3 rounded-lg transition'>Sing up</div>  
+          </Link>
       </div>
 
-      <div className="d-flex justify-content-center">
-        <Button variant="primary" type="submit">
+      <div className="flex justify-center">
+        <button className='bg-blue-800 text-white px-3 py-3 rounded-lg transition m-2' type="submit">
           Send
-        </Button>
+        </button>
       </div>
-    </Form>
+    </form>
   )
 }

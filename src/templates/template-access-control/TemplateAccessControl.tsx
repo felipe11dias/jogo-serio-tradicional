@@ -1,23 +1,15 @@
-import { Card } from "react-bootstrap"
-import Container from "react-bootstrap/esm/Container"
 import { Outlet } from "react-router-dom"
 
 export default function TemplateAccessControl() {
   return (
     <>
-      <Container className="template-container" style={{ minHeight: '100vh' }}>
-        <Card
-          bg={'dark'.toLowerCase()}
-          key={'dark'}
-          text={'dark'.toLowerCase() === 'light' ? 'dark' : 'white'}
-          style={{ width: '30rem' }}
-          className="mb-2"
-        >
-          <Card.Body>
-            <Outlet />
-          </Card.Body>
-        </Card>
-      </Container>
+    <section>
+    <div className="container flex items-center justify-center mx-auto min-h-[100vh] ">
+      <div className="card w-96 rounded-none bg-gray-400 mb-2">
+           <Outlet /> 
+      </div>
+     </div>
+    </section>
     </>
   )
 }

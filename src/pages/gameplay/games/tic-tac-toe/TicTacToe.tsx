@@ -175,9 +175,10 @@ function TicTacToe() {
 
   return (
     <>
-      <div className="row justify-content-center text-center">
+      <div className='w-full h-24 '>
+     
         <div className="form-group">
-          <h3>Jogo da Velha</h3>
+          <h3 className='text-center'>Jogo da Velha</h3>
         </div>
       </div>
       <div className="form-group justify-content-center text-center">
@@ -189,16 +190,16 @@ function TicTacToe() {
       <DivJogo />
       <div className="placar">
         <div className="form-inline justify-content-center">
-          <div className="form-group text-center">
+          <div className="text-center mt-20">
             <span className="identificador" style={{ color: 'green' }}>X: {resultadoX}</span>
             <span className="separar"></span>
             <span className="identificador" style={{ color: 'black' }}>V: {resultadoV}</span>
             <span className="separar"></span>
             <span className="identificador" style={{ color: 'blue' }}>O: {resultadoO}</span>
-          </div>
-        </div>
+          </div> 
       </div>
       <DivVencedor />
+      </div>
     </>
   );
 }

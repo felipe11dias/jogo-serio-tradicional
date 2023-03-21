@@ -1,8 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { CreateQuestions } from './CreateQuestions';
 
 export type IFormInputs = {
   name: string
@@ -65,31 +63,27 @@ export default function CreateDiscipline() {
 
   return (
     <>
-      <Form className='w-100 my-4' onSubmit={handleSubmit(onSubmit)} >
+      <form onSubmit={handleSubmit(onSubmit)}>
         <h2 className="text-center">CREATE DISCIPLINE</h2>
 
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Label>Discipline name:</Form.Label>
-          <Form.Control type="text" placeholder="Enter name discipline" {...register("name")} />
+        <div className="mb-3" >
+          <div>Discipline Name:</div>
+          <div  placeholder="Enter name discipline" {...register("name")} />
           <p className='text-danger'>{errors.name?.message}</p>
-        </Form.Group>
+        </div>
 
-        <Form.Group className="mb-3" controlId="formBasicTheme">
-          <Form.Label>Discipline theme:</Form.Label>
-          <Form.Control type="text" placeholder="Theme discipline" {...register("theme")} />
+        <div className="mb-3" >
+          <div>Discipline Theme:</div>
+          <div  placeholder="Theme discipline" {...register("theme")} />
           <p className='text-danger'>{errors.theme?.message}</p>
-        </Form.Group>
-
-        <CreateQuestions
-          {...{ control, register, getValues, setValue }}
-        />
+        </div>
 
         <div className="d-flex justify-content-center">
-          <Button variant="primary" type="submit">
+          <button   type="submit">
             Send
-          </Button>
+          </button>
         </div>
-      </Form>
+      </form>
     </>
   )
 }

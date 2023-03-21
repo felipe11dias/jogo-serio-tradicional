@@ -1,5 +1,4 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Form } from 'react-bootstrap';
+import { zodResolver } from '@hookform/resolvers/zod'; 
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { z } from 'zod';
@@ -29,36 +28,38 @@ export default function FormSignUp() {
   const onSubmit = (data: any) => console.log(data);
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="text-center">SIGN UP</h2>
+    <form className='flex flex-col gap-y-4' onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="text-center m-1">SIGN UP</h2>
 
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email:</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" {...register("email")} />
-        <p className='text-danger'>{errors.email?.message}</p>
-      </Form.Group>
+      <div className="mx-3" >
+        <div>Email:</div>
+        <input className='border border-gray-300 focus:border-blue-700 outline-none rounded w-full px-4 h-14 text-sm' type="text" placeholder='Email*' />
+        <div  placeholder="Enter email" {...register("email")} />
+        <p className='text-red-500'>{errors.email?.message}</p>
+      </div>
 
-      <Form.Group className="mb-3" controlId="formBasicUsername">
-        <Form.Label>Username:</Form.Label>
-        <Form.Control type="username" placeholder="Enter username" {...register("username")} />
-        <p className='text-danger'>{errors.username?.message}</p>
-      </Form.Group>
+      <div className="mx-3"  >
+        <div>Username:</div>
+        <input className='border border-gray-300 focus:border-blue-700 outline-none rounded w-full px-4 h-14 text-sm' type="text" placeholder='Username*' />
+        <div   placeholder="Enter Username" {...register("username")} />
+        <p className='text-red-500'>{errors.username?.message}</p>
+      </div>
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password:</Form.Label>
-        <Form.Control type="password" placeholder="Password" {...register("password")} />
-        <p className='text-danger'>{errors.password?.message}</p>
-      </Form.Group>
-
-      <div className='mb-4'>
+      <div className="mx-3"  >
+        <div>Password:</div>
+        <input className='border border-gray-300 focus:border-blue-700 outline-none rounded w-full px-4 h-14 text-sm' type="text" placeholder='Password*' />
+        <div   placeholder="Password" {...register("password")} />
+        <p className='text-red-500'>{errors.password?.message}</p>
+      </div>
+ 
+      <div className="flex justify-center">
+        <button className='bg-blue-800 text-white px-3 py-3 rounded-lg transition m-2' type="submit">
+          Send
+        </button>
+        <div className='bg-blue-800 text-white px-3 py-3 rounded-lg transition m-2'>
         <Link to={`/access-control/login`}>Login</Link>
       </div>
-
-      <div className="d-flex justify-content-center">
-        <Button variant="primary" type="submit">
-          Send
-        </Button>
       </div>
-    </Form>
+    </form>
   )
 }

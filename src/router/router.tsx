@@ -32,6 +32,7 @@ const PrivateWrapper = ({ auth: any = { isAuthenticated: boolean } }) => {
 const Router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Outlet />}>
+      
       <Route index element={<Navigate to="/access-control/login" />} />
       <Route path="access-control" element={<TemplateAccessControl />}>
         <Route
@@ -79,10 +80,13 @@ const Router = createBrowserRouter(
             path="collaboration-disciplines"
             element={<CollaborationDisciplines />}
           >
+      {/*
             <Route
               path="list"
               element={<ListDisciplines />}
-            />
+              />
+      */}
+            
             <Route
               path="create"
               element={<CreateDiscipline />}
