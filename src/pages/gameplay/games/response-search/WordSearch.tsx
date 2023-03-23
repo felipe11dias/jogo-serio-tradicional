@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { rgbToHexString } from '../../../../util/Util'
-import { Answer } from '../../../collaboration-disciplines/create-discipline/CreateDiscipline'
+import { Answer } from '../../../collaboration-activities/create-activities/CreateActivities'
 import { AnswersViews, StateProps } from './ResponseSearch'
 import {
   DOWN,

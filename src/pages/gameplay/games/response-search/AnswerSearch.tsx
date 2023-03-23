@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Answer } from '../../../collaboration-disciplines/create-discipline/CreateDiscipline';
 import {
   Point
 } from './types';
 import { randomChar, range } from './utils';
 
+import { Answer } from '../../../collaboration-activities/create-activities/CreateActivities';
 import './stylesSearch.css';
 
 

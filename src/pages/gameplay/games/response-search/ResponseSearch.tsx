@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Form } from 'react-bootstrap'
-import { Answer, AnswerQuestions, IFormInputs } from '../../../collaboration-disciplines/create-discipline/CreateDiscipline'
+import { Answer, AnswerQuestions, IFormInputs } from '../../../collaboration-activities/create-activities/CreateActivities'
 import WordSearch from './WordSearch'
 import './styles.css'
 import { Mode, Point } from './types'
@@ -188,7 +187,7 @@ export default function ResponseSearch () {
           ))}
         </div>
       </div>
-      <Form onSubmit={ (e) => handleSubmit(e) } className='px-0'>
+      <form onSubmit={ (e) => handleSubmit(e) } className='px-0'>
         <div className='my-4'>
             {
               state.answers.map( (_, index) => {
@@ -213,7 +212,7 @@ export default function ResponseSearch () {
           state={state}
           setState={setState}
           />
-      </Form>
+      </form>
     </div>
   )
 }

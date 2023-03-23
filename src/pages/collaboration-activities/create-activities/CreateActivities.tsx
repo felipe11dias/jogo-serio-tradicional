@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { CreateQuestions } from './CreateQuestions';
@@ -65,31 +64,31 @@ export default function CreateActivities() {
 
   return (
     <>
-      <Form className='w-100 my-4' onSubmit={handleSubmit(onSubmit)} >
+      <form className='w-100 my-4' onSubmit={handleSubmit(onSubmit)} >
         <h2 className="text-center">CREATE ACTIVITY</h2>
 
-        <Form.Group className="mb-3" controlId="formBasicName">
-          <Form.Label>Activity name:</Form.Label>
-          <Form.Control type="text" placeholder="Enter name activity" {...register("name")} />
+        <div className="mb-3">
+          <label>Activity name:</label>
+          <input type="text" placeholder="Enter name activity" {...register("name")} />
           <p className='text-danger'>{errors.name?.message}</p>
-        </Form.Group>
+        </div>
 
-        <Form.Group className="mb-3" controlId="formBasicTheme">
-          <Form.Label>Activity theme:</Form.Label>
-          <Form.Control type="text" placeholder="Theme activity" {...register("theme")} />
+        <div className="mb-3">
+          <label>Activity theme:</label>
+          <input type="text" placeholder="Theme activity" {...register("theme")} />
           <p className='text-danger'>{errors.theme?.message}</p>
-        </Form.Group>
+        </div>
 
         <CreateQuestions
           {...{ control, register, getValues, setValue }}
         />
 
         <div className="d-flex justify-content-center">
-          <Button variant="primary" type="submit">
+          <button className="" type="submit">
             Send
-          </Button>
+          </button>
         </div>
-      </Form>
+      </form>
     </>
   )
 }

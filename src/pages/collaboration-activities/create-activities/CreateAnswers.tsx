@@ -1,4 +1,3 @@
-import { Form } from "react-bootstrap";
 import {
   Control,
   useFieldArray,
@@ -25,10 +24,10 @@ export function CreateAnswers ({
       {fields.map((item: any, index: number) => {
         return (
           <>
-            <Form.Group style={{ marginLeft: 'auto', width: "80%" }} className="mb-3" controlId={"formBasicAnswer" + index} key={item.id}>
-              <Form.Label>Answer {index + 1}:</Form.Label>
-              <Form.Control type="text" placeholder="Answer" {...register(`answerQuestions.${indexQuestion}.answers.${index}.description`)} />
-            </Form.Group>
+            <div style={{ marginLeft: 'auto', width: "80%" }} className="mb-3" key={item.id}>
+              <label>Answer {index + 1}:</label>
+              <input type="text" placeholder="Answer" {...register(`answerQuestions.${indexQuestion}.answers.${index}.description`)} />
+            </div>
           </>
         )
       })}

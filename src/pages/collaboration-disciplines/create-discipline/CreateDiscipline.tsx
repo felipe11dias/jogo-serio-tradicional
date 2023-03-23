@@ -5,36 +5,11 @@ import { z } from "zod";
 export type IFormInputs = {
   name: string
   theme: string
-  answerQuestions: Array<AnswerQuestions>
-}
-
-interface CreateDisciplineProps {
-  questionsAmout: number
-}
-
-export type AnswerQuestions = { 
-  id: number,
-  question: string,
-  answers: Array<Answer>,
-  answerCorrect: number
-}
-
-export type Answer = {
-  id: number,
-  description: string
 }
 
 const schemaDiscipline = z.object({
   name: z.string({ required_error: "Name is required." }),
   theme: z.string({ required_error: "Theme is required." }),
-  answerQuestions: z.array(z.object({
-    question: z.string(),
-    answers: z.object({
-      id: z.string(),
-      description: z.number(),
-    }),
-    answerCorrect: z.number(),
-  })),
 });
 
 export async function loader() {
@@ -43,8 +18,6 @@ export async function loader() {
 }
 
 export default function CreateDiscipline() {
-  const defaultAnswerQuestion: AnswerQuestions = { id: 0, question: "Description question", answers: [{id: 0, description: ""}, {id: 1, description: ""}], answerCorrect: 0 }
-
   const {
     register,
     control,
@@ -54,12 +27,9 @@ export default function CreateDiscipline() {
     formState: { errors },
   } = useForm<IFormInputs>({
     resolver: zodResolver(schemaDiscipline),
-    defaultValues: {
-      answerQuestions: [defaultAnswerQuestion]
-    }
   });
 
-  const onSubmit = (data: any) => console.log(data, data.answerQuestions = getValues("answerQuestions"));
+  const onSubmit = (data: any) => console.log(data);
 
   return (
     <>

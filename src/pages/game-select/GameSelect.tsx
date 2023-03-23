@@ -37,12 +37,12 @@ export default function GameSelect() {
 
         <div className="m-2 border rounded-md p-2" style={{ width: '18rem' }}>
           <div className="flex flex-col items-center">
-            <div className="text-center mb-2">Dama</div>
+            <div className="text-center mb-2">Response select</div>
             <div  className="text-center mb-2">
               Some quick example text to build on the card title and make up the
               bulk of the card's content.
             </div>
-            <button className="bg-blue-800 w-24 text-white px-4 py-1 mt-2 rounded-lg transition" onClick={() => selectGame('dama')}> SELECT </button>
+            <button className="bg-blue-800 w-24 text-white px-4 py-1 mt-2 rounded-lg transition" onClick={() => selectGame('response_select')}> SELECT </button>
           </div>
         </div>
 

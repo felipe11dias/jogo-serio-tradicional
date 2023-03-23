@@ -1,4 +1,3 @@
-import { Form } from "react-bootstrap";
 import {
   Control,
   UseFormGetValues,
@@ -41,15 +40,15 @@ export function CreateQuestions ({
       {fields.map((item, index: number) => {
         return (
           <li key={item.id}>
-            <Form.Group className="mb-3" controlId={"formBasicQuestion" + index}>
-              <Form.Label>Question {index + 1}: {item.question}</Form.Label>
-              <Form.Control type="text" placeholder="Question" {...register(`answerQuestions.${index}.question`, { required: true })} />
+            <div className="mb-3">
+              <label>Question {index + 1}: {item.question}</label>
+              <input type="text" placeholder="Question" {...register(`answerQuestions.${index}.question`, { required: true })} />
 
               <CreateAnswers 
                 indexQuestion={index}
                 {...{ control, register }}
               />
-            </Form.Group>
+            </div>
             
             <button type="button" onClick={() => remove(index)}>
               Delete
