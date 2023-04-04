@@ -11,7 +11,7 @@ export default function Gameplay() {
       </div>
 
       <div className="w-100 d-flex">
-        <NavLink className={'btn btn-primary m-auto mt-2'} to="/environment/student/game-select" >
+        <NavLink className={'btn btn-backgroundColorPrimary m-auto mt-2'} to="/environment/student/game-select" >
           Back
         </NavLink>
       </div>
