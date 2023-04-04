@@ -13,7 +13,19 @@ module.exports = {
       },
     },
     screens: {
-      sm: '640px',
+      'sm': {'min': '10px', 'max': '768px'},
+      // => @media (min-width: 640px and max-width: 767px) { ... }
+
+      'md': {'min': '768px', 'max': '768px'},
+      // => @media (min-width: 768px and max-width: 1023px) { ... }
+
+      'lg': {'min': '768px', 'max': '1024px'},
+      // => @media (min-width: 1024px and max-width: 1279px) { ... }
+
+      'xl': {'min': '1024px', 'max': '1234px'},
+      // => @media (min-width: 1280px and max-width: 1535px) { ... }
+
+      sm: '200px',
       md: '768px',
       lg: '1024px',
       xl: '1234px',
