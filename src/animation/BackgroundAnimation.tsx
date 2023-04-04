@@ -2,7 +2,7 @@ export default function BackgroundAnimation()
     {
       return (
         <>
-        <div>
+        <div className="absolute inset-2">
 
 <svg className="BgAnimation__svg"  viewBox="0 0 602 602"  fill="none" xmlns="http://www.w3.org/2000/svg">
   
