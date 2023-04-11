@@ -9,7 +9,7 @@ export default function TemplateStudent() {
 
   return (
     <>
-      <Header bg="dark" variant="dark" />
+      <Header />
       
       <div className="template-container" style={{ minHeight: 'calc(100vh - 96px)' }}>
         <GameContextProvider>

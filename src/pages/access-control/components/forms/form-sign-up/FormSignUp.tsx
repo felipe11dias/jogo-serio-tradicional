@@ -28,35 +28,37 @@ export default function FormSignUp() {
   const onSubmit = (data: any) => console.log(data);
 
   return (
-    <form className='flex flex-col gap-y-4' onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="text-center m-1">SIGN UP</h2>
+    <form className='max-w-[400px] w-full mx-auto rounded-lg bg-gray-900 p-8 px-8' onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="text-4xl text-white font-bold text-center">SIGN UP</h2>
 
-      <div className="mx-3" >
-        <div>Email:</div>
-        <input className='border border-gray-300 focus:border-blue-700 outline-none rounded w-full px-4 h-14 text-sm' type="text" placeholder='Email*' />
+      <div className="className='flex flex-col text-gray-400 py-2'" >
+        <h3>Email:</h3>
+        <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="text" placeholder='Email*' />
         <div  placeholder="Enter email" {...register("email")} />
         <p className='text-red-500'>{errors.email?.message}</p>
       </div>
 
-      <div className="mx-3"  >
-        <div>Username:</div>
-        <input className='border border-gray-300 focus:border-blue-700 outline-none rounded w-full px-4 h-14 text-sm' type="text" placeholder='Username*' />
+      <div className="className='flex flex-col text-gray-400 py-2" >
+        <h3>Username:</h3>
+        <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="text" placeholder='Username*' />
         <div   placeholder="Enter Username" {...register("username")} />
         <p className='text-red-500'>{errors.username?.message}</p>
       </div>
 
-      <div className="mx-3"  >
-        <div>Password:</div>
-        <input className='border border-gray-300 focus:border-blue-700 outline-none rounded w-full px-4 h-14 text-sm' type="text" placeholder='Password*' />
+      <div className="className='flex flex-col text-gray-400 py-2" >
+        <h3>Password:</h3>
+        <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="text" placeholder='Password*' />
         <div   placeholder="Password" {...register("password")} />
         <p className='text-red-500'>{errors.password?.message}</p>
       </div>
  
-      <div className="flex justify-center">
-        <button className='bg-blue-800 text-white px-3 py-3 rounded-lg transition m-2' type="submit">
+      <div className="flex justify-between ">
+        
+        <button className='my-5 py-2 w-28 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg' type="submit">
           Send
         </button>
-        <div className='bg-blue-800 text-white px-3 py-3 rounded-lg transition m-2'>
+
+        <div className='flex justify-center items-center w-28 my-5 py-2 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg'>
         <Link to={`/access-control/login`}>Login</Link>
       </div>
       </div>

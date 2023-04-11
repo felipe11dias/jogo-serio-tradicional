@@ -30,19 +30,20 @@ export default function FormLogin() {
   const onSubmit = (data: any) => console.log(data);
 
   return (
-    <form className='flex flex-col gap-y-4' onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="text-center m-1">LOGIN</h2>
+    
+    <form className='max-w-[400px] w-full mx-auto rounded-lg bg-gray-900 p-8 px-8' onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="text-4xl text-white font-bold text-center">LOGIN</h2>
 
-      <div className="mx-3" > 
+      <div className='flex flex-col text-gray-400 py-2' > 
         <h3>username:</h3>
-        <input className='border border-gray-300 focus:border-blue-700 outline-none rounded w-full px-4 h-14 text-sm' type="text" placeholder='Username*' />
+        <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="text" placeholder='Username*' />
         <div  placeholder="Enter username" {...register("username")} />
         <p className='text-red-500'>{errors.username?.message}</p>
       </div>
 
-      <div className="mx-3" > 
+      <div className='flex flex-col text-gray-400 py-2' > 
       <h3>password:</h3>
-        <input className='border border-gray-300 focus:border-blue-700 outline-none rounded w-full px-4 h-14 text-sm' type="text" placeholder='password*' />
+        <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="text" placeholder='password*' />
         <div placeholder="Password" {...register("password")} />
         <p className='text-red-500'>{errors.password?.message}</p>
       </div>
@@ -50,15 +51,15 @@ export default function FormLogin() {
 
       <div className='flex justify-between mx-5 mb-2'>
         <Link to={`/access-control/forget-password`}>
-         <div className='bg-blue-800 text-white px-3 py-3 rounded-lg transition'> Forget Password</div>
+         <div className='w-full my-5 py-2 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg'> Forget Password</div>
           </Link>
         <Link to={`/access-control/sign-up`}>
-        <div className='bg-blue-800 text-white px-3 py-3 rounded-lg transition'>Sing up</div>  
+        <div className='w-full my-5 py-2 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg'>Sing up</div>  
           </Link>
       </div>
 
       <div className="flex justify-center">
-        <button className='bg-blue-800 text-white px-3 py-3 rounded-lg transition m-2' type="submit">
+        <button className='w-full my-5 py-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg' type="submit">
           Send
         </button>
       </div>
