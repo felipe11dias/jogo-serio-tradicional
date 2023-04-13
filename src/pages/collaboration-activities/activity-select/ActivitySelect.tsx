@@ -12,34 +12,62 @@ export default function ActivitySelect() {
     navigate("/environment/student/gameplay", { replace: true });
   }
 
-  return (
-    <div>
-      <h2 className="mb-5 w-100 text-center"> ACTIVITY SELECT </h2>
-      
-      <table>
-        <thead>
-          <tr>
-            <th>Activity Name</th>
-            <th>Theme Name</th>
-            <th>Teacher</th>
-            <th> SELECTION </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Programming Logic</td>
-            <td>Information Technology</td>
-            <td>Felipe Dias</td>
-            <td><button className="" onClick={() => selectActivity('cf64e17b-af4f-4a8e-b9b1-28f3c1996aaf')}> SELECT </button></td>
-          </tr>
-          <tr>
-            <td>Computational Introduction</td>
-            <td>Information Technology</td>
-            <td>Felipe Dias</td>
-            <td><button className="" onClick={() => selectActivity('66407ef8-87e9-4781-99d5-4d36d53753f7')}> SELECT </button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  return ( 
+
+<div>
+<h2 className="text-4xl text-white font-bold text-center mb-10 "> ACTIVITY SELECT </h2>
+
+<div className="relative overflow-x-auto rounded ">
+<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+  <thead className="text-xs text-gray-700 uppercase bg-teal-100 dark:bg-gray-700 dark:text-gray-400 ">
+      <tr>
+          <th scope="col" className="px-6 py-3">
+          Activity Name
+          </th>
+          <th scope="col" className="px-6 py-3">
+          Theme Name
+          </th>
+          <th scope="col" className="px-6 py-3">
+          Teacher
+          </th>
+          <th scope="col" className="px-6 py-3">
+          SELECTION
+          </th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          Programming Logic	
+          </th>
+          <td className="px-6 py-4">
+          Information Technology	
+          </td>
+          <td className="px-6 py-4">
+          Felipe Dias	
+          </td>
+          <td className="px-6 py-4">
+          <td className="w-full my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"><button  onClick={() => selectActivity('cf64e17b-af4f-4a8e-b9b1-28f3c1996aaf')}> SELECT </button></td>
+          </td>
+      </tr>
+      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          Computational Introduction	
+          </th>
+          <td className="px-6 py-4">
+          Information Technology	
+          </td>
+          <td className="px-6 py-4">
+          Felipe Dias	
+          </td>
+          <td className="px-6 py-4">
+          <td className="w-full my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"><button  onClick={() => selectActivity('66407ef8-87e9-4781-99d5-4d36d53753f7')}> SELECT </button></td>
+          </td>
+      </tr> 
+  </tbody>
+</table>
+</div>
+ 
+</div>
   )
 }
