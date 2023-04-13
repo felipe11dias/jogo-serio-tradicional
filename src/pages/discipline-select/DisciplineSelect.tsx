@@ -14,37 +14,62 @@ export default function DisciplineSelect() {
 
   return (
     <div>
-      <h2 className="mb-5 text-center"> DISCIPLINE SELECT </h2>
-     
-
-    <div className="flex justify-center w-full">
-    <table className="table-auto">
-      <thead>
-        <tr>
-        <th className="px-4 py-2">Discipline Name</th>
-          <th className="px-4 py-2">Theme Name</th>
-          <th className="px-4 py-2">Teacher</th>
-          <th className="px-4 py-2">SELECTION</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td className="border px-4 py-2">Programming Logic</td>
-          <td className="border px-4 py-2">Information Technology</td>
-          <td className="border px-4 py-2">Felipe Dias</td>
-          <td className="border bg-blue-800 text-center text-white px-2 py-2 transition"><button  onClick={() => selectDiscipline('logica_programacao')}> SELECT </button></td>
-        </tr>
-        <tr>
-          <td className="border px-4 py-2">Computational Introduction</td>
-          <td className="border px-4 py-2">Information Technology</td>
-          <td className="border px-4 py-2">Felipe Dias</td>
-          <td className="border bg-blue-800 text-center text-white px-2 py-2 transition"><button  onClick={() => selectDiscipline('introducao_computacional')}> SELECT </button></td>
-        </tr>
-      </tbody>
+      <h2 className="text-4xl text-white font-bold text-center mb-10 "> DISCIPLINE SELECT </h2>
+      
+    <div className="relative overflow-x-auto rounded ">
+    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+        <thead className="text-xs text-gray-700 uppercase bg-teal-100 dark:bg-gray-700 dark:text-gray-400 ">
+            <tr>
+                <th scope="col" className="px-6 py-3">
+                    Discipline Name
+                </th>
+                <th scope="col" className="px-6 py-3">
+                Theme Name
+                </th>
+                <th scope="col" className="px-6 py-3">
+                Teacher
+                </th>
+                <th scope="col" className="px-6 py-3">
+                SELECTION
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                Programming Logic	
+                </th>
+                <td className="px-6 py-4">
+                Information Technology	
+                </td>
+                <td className="px-6 py-4">
+                Felipe Dias	
+                </td>
+                <td className="px-6 py-4">
+                <td className="w-full my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"><button  onClick={() => selectDiscipline('logica_programacao')}> SELECT </button></td>
+                </td>
+            </tr>
+            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                Computational Introduction	
+                </th>
+                <td className="px-6 py-4">
+                Information Technology	
+                </td>
+                <td className="px-6 py-4">
+                Felipe Dias	
+                </td>
+                <td className="px-6 py-4">
+                <td className="w-full my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"><button  onClick={() => selectDiscipline('introducao_computacional')}> SELECT </button></td>
+                </td>
+            </tr> 
+        </tbody>
     </table>
-    </div>
-   
+</div>
+
+
 
     </div>
+    
   )
 }
