@@ -1,16 +1,25 @@
-import { zodResolver } from '@hookform/resolvers/zod'; 
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { z } from "zod";
+import { useLoginUserMutation } from '../../../../../redux/apis/authApi';
 
-interface IFormInputs {
+
+export interface ILoginInputs {
   username: string
   password: string
 }
 
 const schemaLogin = z.object({
-  username: z.string().min(6, { message: 'Required 6 caracters.' }),
-  password: z.string().max(16, { message: 'Max caracters is 16.' }),
+  username: z.string()
+    .min(1, 'Email address is required')
+    .email('Email Address is invalid'),
+  password: z.string()
+    .min(1, 'Password is required')
+    .min(8, 'Password must be more than 8 characters')
+    .max(32, 'Password must be less than 32 characters'),
 });
 
 export async function loader() {
@@ -19,32 +28,69 @@ export async function loader() {
 }
 
 export default function FormLogin() {
+  
   const {
     register,
+    reset,
     handleSubmit,
-    formState: { errors },
-  } = useForm<IFormInputs>({
+    formState: { isSubmitSuccessful, errors },
+  } = useForm<ILoginInputs>({
     resolver: zodResolver(schemaLogin),
   });
-  
-  const onSubmit = (data: any) => console.log(data);
+
+  const [loginUser, { isLoading, isError, error, isSuccess }] = useLoginUserMutation();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success('You successfully logged in');
+      navigate('/environment/student/game-select', { replace: true });
+    }
+    if (isError) {
+      if (Array.isArray((error as any).data.error)) {
+        (error as any).data.error.forEach((el: any) =>
+          toast.error(el.message, {
+            position: 'top-right',
+          })
+        );
+      } else {
+        toast.error((error as any).data.message, {
+          position: 'top-right',
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSubmitSuccessful]);
+
+  const onSubmitHandler: SubmitHandler<ILoginInputs> = (values) => {
+    // 👇 Executing the loginUser Mutation
+    console.log(values)
+    loginUser(values);
+  };
 
   return (
     
-    <form className='max-w-[400px] w-full mx-auto rounded-lg bg-gray-900 p-8 px-8' onSubmit={handleSubmit(onSubmit)}>
+    <form className='max-w-[400px] w-full mx-auto rounded-lg bg-gray-900 p-8 px-8' onSubmit={handleSubmit(onSubmitHandler)}>
       <h2 className="text-4xl text-white font-bold text-center">LOGIN</h2>
 
       <div className='flex flex-col text-gray-400 py-2' > 
-        <h3>username:</h3>
-        <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="text" placeholder='Username*' />
-        <div  placeholder="Enter username" {...register("username")} />
+        <h3>Email:</h3>
+        <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="text" placeholder="Email*" {...register("username")} />
         <p className='text-red-500'>{errors.username?.message}</p>
       </div>
 
       <div className='flex flex-col text-gray-400 py-2' > 
       <h3>password:</h3>
-        <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="text" placeholder='password*' />
-        <div placeholder="Password" {...register("password")} />
+        <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="text" placeholder="Password*" {...register("password")} />
         <p className='text-red-500'>{errors.password?.message}</p>
       </div>
  

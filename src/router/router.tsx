@@ -22,91 +22,95 @@ import TemplateAccessControl from "../templates/template-access-control/Template
 import TemplateEnvironment from "../templates/template-environment/TemplateEnvironment";
 import TemplateStudent from "../templates/template-student/TemplateStudent";
 import TemplateTeacher from "../templates/template-teacher/TemplateTeacher";
+import RequireUser from "./requireUser";
 
-/*
-const PrivateWrapper = ({ auth: any = { isAuthenticated: boolean } }) => {
-  return isAuthenticated ? <Outlet /> : <Navigate to="/access-control/login" />;
-};
-*/
+enum ROLES {
+  STUDENT,
+  TEACHER
+}
 
 const Router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Outlet />}>
-      
-      <Route index element={<Navigate to="/access-control/login" />} />
-      <Route path="access-control" element={<TemplateAccessControl />}>
-        <Route
-          path="login" 
-          element={<FormLogin />}
-        />
-        <Route
-          path="forget-password"
-          element={<FormForgetPassword />}
-        />
-        <Route
-          path="sign-up"
-          element={<FormSignUp />}
-        />
-      </Route>
-
-      <Route path="environment" element={<TemplateEnvironment />}>
-        <Route
-          path="student"
-          element={<TemplateStudent />}
-        >
+      <Route path="/" element={<Outlet />}>
+        
+        <Route index element={<Navigate to="/access-control/login" />} />
+        <Route path="access-control" element={<TemplateAccessControl />}>
           <Route
-            path="game-select"
-            element={<GameSelect />}
-          />,
-          <Route
-            path="discipline-select"
-            element={<DisciplineSelect />}
+            path="login" 
+            element={<FormLogin />}
           />
           <Route
-            path="activity-select"
-            element={<ActivitySelect />}
+            path="forget-password"
+            element={<FormForgetPassword />}
           />
           <Route
-            path="gameplay"
-            element={<Gameplay />}
+            path="sign-up"
+            element={<FormSignUp />}
           />
         </Route>
 
-        <Route
-          path="teacher"
-          element={<TemplateTeacher />}
-        >
-          <Route
-            path="collaboration-disciplines"
-            element={<CollaborationDisciplines />}
-          >
+        <Route path="environment" element={<TemplateEnvironment />}>
+          <Route element={<RequireUser allowedRoles={[ROLES.STUDENT.toString(), ROLES.TEACHER.toString()]} />}>
             <Route
-              path="list"
-              element={<ListDisciplines />}
-            />
-            
-            <Route
-              path="create"
-              element={<CreateDiscipline />}
-            />
+              path="student"
+              element={<TemplateStudent />}
+            >
+              <Route
+                path="game-select"
+                element={<GameSelect />}
+              />
+              <Route
+                path="discipline-select"
+                element={<DisciplineSelect />}
+              />
+              <Route
+                path="activity-select"
+                element={<ActivitySelect />}
+              />
+              <Route
+                path="gameplay"
+                element={<Gameplay />}
+              />
+            </Route>
           </Route>
 
-          <Route
-            path="collaboration-activities"
-            element={<CollaborationActivities />}
-          >
+          <Route element={<RequireUser allowedRoles={[ROLES.TEACHER.toString()]} />}>
             <Route
-              path="list"
-              element={<ListActivities />}
-            />
-            <Route
-              path="create"
-              element={<CreateActivities />}
-            />
+              path="teacher"
+              element={<TemplateTeacher />}
+            >
+              <Route
+                path="collaboration-disciplines"
+                element={<CollaborationDisciplines />}
+              >
+                <Route
+                  path="list"
+                  element={<ListDisciplines />}
+                />
+                
+                <Route
+                  path="create"
+                  element={<CreateDiscipline />}
+                />
+              </Route>
+
+              <Route
+                path="collaboration-activities"
+                element={<CollaborationActivities />}
+              >
+                <Route
+                  path="list"
+                  element={<ListActivities />}
+                />
+                <Route
+                  path="create"
+                  element={<CreateActivities />}
+                />
+              </Route>
+            </Route>
           </Route>
         </Route>
       </Route>
-    </Route>
   ));
 
 export default Router;

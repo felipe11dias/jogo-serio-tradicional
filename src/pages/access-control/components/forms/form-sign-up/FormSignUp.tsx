@@ -1,4 +1,4 @@
-import { zodResolver } from '@hookform/resolvers/zod'; 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { z } from 'zod';
@@ -11,9 +11,16 @@ interface IFormInputs {
 }
 
 const schemaLogin = z.object({
-  email: z.string().email().min(6, { message: 'Required 6 caracters.' }),
-  username: z.string().min(6, { message: 'Required 6 caracters.' }),
-  password: z.string().max(16, { message: 'Max caracters is 16.' }),
+  username: z.string()
+    .min(1, 'Password is required')
+    .min(6, 'Required 6 caracters.'),
+  email: z.string()
+    .min(1, 'Email address is required')
+    .email('Email Address is invalid'),
+  password: z.string()
+    .min(1, 'Password is required')
+    .min(8, 'Password must be more than 8 characters')
+    .max(32, 'Password must be less than 32 characters'),
 });
 
 export default function FormSignUp() {
