@@ -21,7 +21,7 @@ export default function ListDisciplines() {
       <div>
         <div>
           <div>
-            <table >
+            <table align="center">
               <thead>
                 <tr>
                   <th>Discipline Name</th>
@@ -42,13 +42,12 @@ export default function ListDisciplines() {
                 </tr>
               </tbody>
             </table>
-
           </div>
         </div>
 
         <div>
           <div>
-            <div>
+            <table align="center">
               <thead>
                 <tr>
                   <th>Discipline Name</th>
@@ -68,9 +67,7 @@ export default function ListDisciplines() {
                   <td>Felipe Dias</td>
                 </tr>
               </tbody>
-            </div>
-
-            
+            </table>
           </div>
         </div>
       </div>

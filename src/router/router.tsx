@@ -24,7 +24,7 @@ import TemplateStudent from "../templates/template-student/TemplateStudent";
 import TemplateTeacher from "../templates/template-teacher/TemplateTeacher";
 import RequireUser from "./requireUser";
 
-enum ROLES {
+export enum ROLES {
   STUDENT,
   TEACHER
 }
@@ -32,8 +32,8 @@ enum ROLES {
 const Router = createBrowserRouter(
   createRoutesFromElements(
       <Route path="/" element={<Outlet />}>
-        
         <Route index element={<Navigate to="/access-control/login" />} />
+        
         <Route path="access-control" element={<TemplateAccessControl />}>
           <Route
             path="login" 
@@ -50,7 +50,7 @@ const Router = createBrowserRouter(
         </Route>
 
         <Route path="environment" element={<TemplateEnvironment />}>
-          <Route element={<RequireUser allowedRoles={[ROLES.STUDENT.toString(), ROLES.TEACHER.toString()]} />}>
+          <Route element={<RequireUser allowedRoles={[ROLES[ROLES.STUDENT], ROLES[ROLES.TEACHER]]} />}>
             <Route
               path="student"
               element={<TemplateStudent />}
@@ -74,7 +74,7 @@ const Router = createBrowserRouter(
             </Route>
           </Route>
 
-          <Route element={<RequireUser allowedRoles={[ROLES.TEACHER.toString()]} />}>
+          <Route element={<RequireUser allowedRoles={[ROLES[ROLES.TEACHER]]} />}>
             <Route
               path="teacher"
               element={<TemplateTeacher />}

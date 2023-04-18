@@ -5,18 +5,17 @@ import { User } from "../types/User";
 
 export const userApi = createApi({
   reducerPath: 'userApi',
+  refetchOnFocus: true,
   baseQuery: fetchBaseQuery({
     baseUrl: `${BASE_URL}users`,
   }),
-  tagTypes: ['User'],
   endpoints: (builder) => ({
     getMe: builder.query<User, null>({
       query() {
-        console.log(JSON.parse(localStorage.getItem('auth') || '').access_token)
         return {
           method: 'GET',
           url: 'profile',
-          headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('auth') || '').access_token}` }
+          headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('auth') || '')?.access_token || ''}` }
         };
       },
       transformResponse: (result: User) =>
@@ -25,9 +24,12 @@ export const userApi = createApi({
         try {
           const { data } = await queryFulfilled;
           dispatch(setUser(data));
-          localStorage.setItem('user', JSON.stringify(data));
         } catch (error) {}
       },
     }),
   }),
 });
+
+export const {
+  useGetMeQuery
+} = userApi;

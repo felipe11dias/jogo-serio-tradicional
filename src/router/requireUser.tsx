@@ -4,20 +4,23 @@ import {
   useLocation
 } from "react-router-dom";
 import { useAppSelector } from "../redux/store";
-import { Auth } from "../redux/types/Auth";
 import { User } from "../redux/types/User";
+import { checkToken } from "../service/authService";
 
 const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
   const location = useLocation();
-
+  const token = checkToken();
   const user: User | null = useAppSelector(state => state.userState.user)
-  const auth: Auth | null = useAppSelector(state => state.authState.auth)
+
+  console.log(user)
   
-  return (auth != null && allowedRoles.includes(user?.role || '')) ? (
+  return token && allowedRoles.includes(user?.role as string) ? (
     <Outlet />
+  ) : token && user ? (
+    <Navigate to='/unauthorized' state={{ from: location }} replace />
   ) : (
     <Navigate to='/access-control/login' state={{ from: location }} replace />
   );
-};
+};  
 
 export default RequireUser;

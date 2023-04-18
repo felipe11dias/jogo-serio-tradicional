@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { ILoginInputs } from "../../pages/access-control/components/forms/form-login/FormLogin";
 import { BASE_URL } from "../../util/constants";
-import { logout, setAuth } from "../slices/authSlice";
+import { logout } from "../slices/userSlice";
 import { Auth } from "../types/Auth";
 import { User } from "../types/User";
 import { userApi } from "./userApi";
@@ -24,7 +24,6 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     registerUser: builder.mutation<User, ILoginInputs>({
       query(data) {
-        console.log(data)
         return {
           url: 'register',
           method: 'POST',
@@ -47,12 +46,11 @@ export const authApi = createApi({
         try {
           const { data } = await queryFulfilled;
           const auth: Auth = { access_token: data.access_token, refresh_token: data.refresh_token }
-          dispatch(setAuth(auth));
-          await dispatch(userApi.endpoints.getMe.initiate(null));
           localStorage.setItem('auth', JSON.stringify(auth));
+          await dispatch(userApi.endpoints.getMe.initiate(null));
         } catch (error) {}
       },
-      }),
+    }),
       verifyEmail: builder.mutation<
         any,
         { verificationCode: string }
@@ -73,9 +71,7 @@ export const authApi = createApi({
         },
         async onQueryStarted(args, { dispatch, queryFulfilled }) {
           try {
-            const { data } = await queryFulfilled;
-            console.log(data)
-            dispatch(logout());
+            await queryFulfilled;
             dispatch(logout());
             localStorage.remove("user")
             localStorage.remove("auth")

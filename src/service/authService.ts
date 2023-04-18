@@ -1,4 +1,5 @@
-export const CheckToken = (): string | null => {
-  console.log(localStorage.getItem('access_token'))
-    return localStorage.getItem('access_token') || null;
+
+export const checkToken = (): string | null => {
+  const auth: string | null = localStorage.getItem('auth') != null ? JSON.parse(localStorage.getItem('auth') || 'null').access_token as string : null;
+  return auth || null;
 }

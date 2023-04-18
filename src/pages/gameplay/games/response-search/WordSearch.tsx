@@ -107,9 +107,7 @@ function WordSearch ({ state, setState }: WordSearchProps) {
 
         // REMOVE A LETRA DE RESPOSTA DE OUTRA PERGUNTA
         if(state.questionColors.includes(buttonBg) && state.questionColors[state.questionSelect] !== buttonBg) {
-          console.log("if(state.questionColors.includes(buttonBg))")
           const indexQuestion = state.questionColors.indexOf(buttonBg)
-          console.log(indexQuestion)
 
           let pointsAnswer: Point[] = []
           pointsAnswer.push(...answersViewAux.pointsAnswers[indexQuestion])

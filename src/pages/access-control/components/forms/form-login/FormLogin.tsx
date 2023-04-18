@@ -5,6 +5,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { z } from "zod";
 import { useLoginUserMutation } from '../../../../../redux/apis/authApi';
+import { useAppSelector } from '../../../../../redux/store';
+import { User } from '../../../../../redux/types/User';
 
 
 export interface ILoginInputs {
@@ -28,6 +30,7 @@ export async function loader() {
 }
 
 export default function FormLogin() {
+  const user: User | null = useAppSelector(state => state.userState.user)
   
   const {
     register,
@@ -46,8 +49,13 @@ export default function FormLogin() {
   useEffect(() => {
     if (isSuccess) {
       toast.success('You successfully logged in');
-      navigate('/environment/student/game-select', { replace: true });
+      if(user?.role === 'TEACHER') {
+        navigate('/environment/teacher/collaboration-disciplines/list', { replace: true });
+      }else {
+        navigate('/environment/student/game-select', { replace: true });
+      }
     }
+    
     if (isError) {
       if (Array.isArray((error as any).data.error)) {
         (error as any).data.error.forEach((el: any) =>
@@ -61,6 +69,7 @@ export default function FormLogin() {
         });
       }
     }
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
@@ -71,10 +80,9 @@ export default function FormLogin() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitSuccessful]);
 
-  const onSubmitHandler: SubmitHandler<ILoginInputs> = (values) => {
+  const onSubmitHandler: SubmitHandler<ILoginInputs> = async (values) => {
     // 👇 Executing the loginUser Mutation
-    console.log(values)
-    loginUser(values);
+    await loginUser(values);
   };
 
   return (

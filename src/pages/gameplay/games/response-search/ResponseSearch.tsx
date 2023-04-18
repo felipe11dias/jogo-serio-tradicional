@@ -120,7 +120,6 @@ export default function ResponseSearch () {
   };
 
   useEffect(() => {
-    console.log(windowSize)
     window.addEventListener('resize', handleWindowResize);
 
     return () => {
@@ -132,12 +131,8 @@ export default function ResponseSearch () {
     for (let index = 0; index < state.answersViews.answers.length; index++) {
       const pointsAnswers = state.answersViews.pointsAnswers[index];
       const pointsAnswersTable = state.answersViews.pointsAnswersTable[index];
-
-      console.log(state.answersViews.answers.length)
       
       for (let indexPoint = 0; indexPoint < pointsAnswers.length; indexPoint++) {
-        console.log(pointsAnswers)
-        console.log(pointsAnswersTable)
         const [r, c] = pointsAnswers[indexPoint];
         const [row, col] = pointsAnswersTable[indexPoint];
         
@@ -154,8 +149,6 @@ export default function ResponseSearch () {
     
     // VERIFICA CADA LETRA SELECIONADA DE CADA RESPOSTA COM O SEU PONTO NA TABELA, OU SEJA, AS LETRAS E POINTOS SELECIONADOS NA TABELA TEM QUE ESTAR EM CONFORMIDADE
     validateAnswers()
-    
-    console.log(state.answersViews)
   }
 
   return (
