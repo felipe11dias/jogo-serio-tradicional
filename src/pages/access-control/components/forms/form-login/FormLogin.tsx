@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { z } from "zod";
 import FullScreenLoader from '../../../../../components/loader/FullScreenLoader/FullScreenLoader';
 import { useLoginUserMutation } from '../../../../../redux/apis/authApi';
+import { useAppSelector } from '../../../../../redux/store';
 import { User } from '../../../../../redux/types/User';
 import { ROLES } from '../../../../../router/router';
 
@@ -30,7 +31,8 @@ export async function loader() {
   return { user };
 }
 
-export default function FormLogin({ user }: { user: User | null }) {
+export default function FormLogin() {
+  const user: User | null = useAppSelector(state => state.userState.user)
   
   const {
     register,
@@ -41,17 +43,18 @@ export default function FormLogin({ user }: { user: User | null }) {
     resolver: zodResolver(schemaLogin),
   });
 
-  const [loginUser, { isLoading, isError, error, isSuccess }] = useLoginUserMutation();
+  const [loginUser, { isLoading, isError, error, isSuccess,  }] = useLoginUserMutation();
 
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && user) {
+      console.log(user)
       toast.success('You successfully logged in');
       if(user?.role === ROLES[ROLES.TEACHER]) {
         navigate('/environment/teacher/collaboration-disciplines/list', { replace: true });
-      }else {
+      }else if(user?.role === ROLES[ROLES.STUDENT]) {
         navigate('/environment/student/game-select', { replace: true });
       }
     }
@@ -67,7 +70,7 @@ export default function FormLogin({ user }: { user: User | null }) {
     }
     
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  }, [isLoading, user]);
 
   useEffect(() => {
     if (isSubmitSuccessful) {

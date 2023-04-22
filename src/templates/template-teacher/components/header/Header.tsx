@@ -23,7 +23,7 @@ export default function Header(props: HeaderProps) {
   useEffect(() => {
     if (isSuccess) {
       toast.success('You successfully logout');
-      navigate('/access-control/login', { replace: true })
+      window.location.reload()
     }
     
     if (isError) {

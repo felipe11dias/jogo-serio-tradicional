@@ -18,7 +18,7 @@ export default function () {
   useEffect(() => {
     if (isSuccess) {
       toast.success('You successfully logout');
-      navigate('/access-control/login', { replace: true })
+      window.location.reload()
     }
     
     if (isError) {

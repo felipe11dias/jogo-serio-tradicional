@@ -1,25 +1,19 @@
 import {
   Navigate,
-  Outlet,
-  useLocation
+  Outlet
 } from "react-router-dom";
 import { toast } from "react-toastify";
 import FullScreenLoader from "../components/loader/FullScreenLoader/FullScreenLoader";
-import { userApi } from "../redux/apis/userApi";
+import { useGetMeQuery } from "../redux/apis/userApi";
 import { checkToken } from "../service/authService";
 
 const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
   //  const user: User | null = useAppSelector(state => state.userState.user)
   const token = checkToken();
   
-  const location = useLocation();
-  
-  //const { data: user, isLoading, isError, error } = useGetMeQuery(null);
-
-  const { data: user, isLoading, isError, error } = userApi.endpoints.getMe.useQuery(null, {
-    skip: !token,
+  const { data: user, isLoading, isError, error } = useGetMeQuery(null, {
+    skip: !token
   });
-  
   
   if (isError) {
     if(Array.isArray((error as any).data)) {
@@ -33,10 +27,6 @@ const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
     }
   }
   
-  console.log("user: ", user)
-  console.log("token: ", token)
-  console.log("isLoading: ", isLoading)
-  
   if(isLoading && !user) {
     return (
       <>
@@ -48,7 +38,7 @@ const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
   return token && allowedRoles.includes(user?.role as string) ? (
     <Outlet />
   ) : (
-    <Navigate to='/access-control/login' state={{ from: location }} replace />
+    <Navigate to='/access-control/login' replace />
   );
 };  
 
