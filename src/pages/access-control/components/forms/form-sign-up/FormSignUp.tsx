@@ -1,7 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { z } from 'zod';
+import FullScreenLoader from '../../../../../components/loader/FullScreenLoader/FullScreenLoader';
 
 
 interface IFormInputs {
@@ -24,18 +27,42 @@ const schemaLogin = z.object({
 });
 
 export default function FormSignUp() {
+
   const {
     register,
+    reset,
     handleSubmit,
-    formState: { errors },
+    formState: { isLoading, isSubmitSuccessful, errors },
   } = useForm<IFormInputs>({
     resolver: zodResolver(schemaLogin),
   });
+  
+  const navigate = useNavigate();
 
-  const onSubmit = (data: any) => console.log(data);
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      toast.success('You successfully create user');
+      reset();
+      navigate('/access-control/login', { replace: true })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSubmitSuccessful]);
+
+  if(isLoading) {
+    return (
+      <>
+        <FullScreenLoader/>
+      </>
+    )
+  }
+
+  const onSubmitHandler: SubmitHandler<IFormInputs> = async (values) => {
+    console.log(values);
+    
+  };
 
   return (
-    <form className='max-w-[400px] w-full mx-auto rounded-lg bg-gray-900 p-8 px-8' onSubmit={handleSubmit(onSubmit)}>
+    <form className='max-w-[400px] w-full mx-auto rounded-lg bg-gray-900 p-8 px-8' onSubmit={handleSubmit(onSubmitHandler)}>
       <h2 className="text-4xl text-white font-bold text-center">SIGN UP</h2>
 
       <div className="className='flex flex-col text-gray-400 py-2'" >

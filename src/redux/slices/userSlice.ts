@@ -5,15 +5,6 @@ interface UserState {
   user: User | null;
 }
 
-export const getUserStorage = () => {
-  if(localStorage.getItem("persist:jogosSerios") !== null){
-      const state = JSON.parse(localStorage.getItem("persist:jogosSerios") || 'null');
-      const user: User | null = JSON.parse(state.user) || null;
-      return user;
-  }
-  return null;
-}
-
 const initialState: UserState = {
   user: null
 };

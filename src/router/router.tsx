@@ -6,8 +6,8 @@ import {
   createRoutesFromElements
 } from "react-router-dom";
 import FormForgetPassword from "../pages/access-control/components/forms/form-forget-password/FormForgetPassword";
-import FormLogin from "../pages/access-control/components/forms/form-login/FormLogin";
 import FormSignUp from "../pages/access-control/components/forms/form-sign-up/FormSignUp";
+import Login from "../pages/access-control/login/Login";
 import CollaborationActivities from "../pages/collaboration-activities/CollaborationActivities";
 import ActivitySelect from "../pages/collaboration-activities/activity-select/ActivitySelect";
 import CreateActivities from "../pages/collaboration-activities/create-activities/CreateActivities";
@@ -31,13 +31,13 @@ export enum ROLES {
 
 const Router = createBrowserRouter(
   createRoutesFromElements(
-      <Route path="/" element={<Outlet />}>
+      <Route  path="/" element={<Outlet />}>
         <Route index element={<Navigate to="/access-control/login" />} />
         
         <Route path="access-control" element={<TemplateAccessControl />}>
           <Route
             path="login" 
-            element={<FormLogin />}
+            element={<Login />}
           />
           <Route
             path="forget-password"
@@ -111,6 +111,8 @@ const Router = createBrowserRouter(
           </Route>
         </Route>
       </Route>
-  ));
+  ), {
+    basename: "/jogos-serios-tradicionais-fe",
+  });
 
 export default Router;

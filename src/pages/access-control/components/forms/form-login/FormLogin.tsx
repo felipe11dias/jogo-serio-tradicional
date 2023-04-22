@@ -4,9 +4,10 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { z } from "zod";
+import FullScreenLoader from '../../../../../components/loader/FullScreenLoader/FullScreenLoader';
 import { useLoginUserMutation } from '../../../../../redux/apis/authApi';
-import { useAppSelector } from '../../../../../redux/store';
 import { User } from '../../../../../redux/types/User';
+import { ROLES } from '../../../../../router/router';
 
 
 export interface ILoginInputs {
@@ -29,8 +30,7 @@ export async function loader() {
   return { user };
 }
 
-export default function FormLogin() {
-  const user: User | null = useAppSelector(state => state.userState.user)
+export default function FormLogin({ user }: { user: User | null }) {
   
   const {
     register,
@@ -49,7 +49,7 @@ export default function FormLogin() {
   useEffect(() => {
     if (isSuccess) {
       toast.success('You successfully logged in');
-      if(user?.role === 'TEACHER') {
+      if(user?.role === ROLES[ROLES.TEACHER]) {
         navigate('/environment/teacher/collaboration-disciplines/list', { replace: true });
       }else {
         navigate('/environment/student/game-select', { replace: true });
@@ -59,14 +59,10 @@ export default function FormLogin() {
     if (isError) {
       if (Array.isArray((error as any).data.error)) {
         (error as any).data.error.forEach((el: any) =>
-          toast.error(el.message, {
-            position: 'top-right',
-          })
+          toast.error(el.message)
         );
       } else {
-        toast.error((error as any).data.message, {
-          position: 'top-right',
-        });
+        toast.error((error as any).data.message);
       }
     }
     
@@ -85,8 +81,15 @@ export default function FormLogin() {
     await loginUser(values);
   };
 
+  if(isLoading) {
+    return (
+      <>
+        <FullScreenLoader/>
+      </>
+    )
+  }
+
   return (
-    
     <form className='max-w-[400px] w-full mx-auto rounded-lg bg-gray-900 p-8 px-8' onSubmit={handleSubmit(onSubmitHandler)}>
       <h2 className="text-4xl text-white font-bold text-center">LOGIN</h2>
 
