@@ -74,7 +74,6 @@ export const authApi = createApi({
           try {
             await queryFulfilled;
             dispatch(logout());
-            //dispatch(authApi.util.resetApiState())
             localStorage.removeItem("persist:jogosSerios")
             localStorage.removeItem("auth")
           } catch (error) {}

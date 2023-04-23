@@ -4,7 +4,7 @@ const FullScreenLoader = () => {
 
   return (
     <>
-      <div className="flex align-center justify-center">
+      <div className="w-full flex align-center justify-center">
         <RotatingLines
           strokeColor="grey"
           strokeWidth="5"

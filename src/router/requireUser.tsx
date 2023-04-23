@@ -1,15 +1,15 @@
 import {
-  Navigate,
-  Outlet
+    Navigate,
+    Outlet
 } from "react-router-dom";
 import { toast } from "react-toastify";
-import FullScreenLoader from "../components/loader/FullScreenLoader/FullScreenLoader";
+import FullScreenLoader from "../components/loader/full-screen-loader/FullScreenLoader";
 import { useGetMeQuery } from "../redux/apis/userApi";
-import { checkToken } from "../service/authService";
+import { getToken } from "../service/authService";
 
 const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
   //  const user: User | null = useAppSelector(state => state.userState.user)
-  const token = checkToken();
+  const token = getToken();
   
   const { data: user, isLoading, isError, error } = useGetMeQuery(null, {
     skip: !token

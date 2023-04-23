@@ -3,10 +3,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { CreateQuestions } from './CreateQuestions';
 
-export type IFormInputs = {
+export type IRegisterActivityInputs = {
   name: string
   theme: string
-  answerQuestions: Array<AnswerQuestions>
+  questions: Array<AnswerQuestions>
 }
 
 interface CreateActivityProps {
@@ -28,7 +28,7 @@ export type Answer = {
 const schemaActivity = z.object({
   name: z.string({ required_error: "Name is required." }),
   theme: z.string({ required_error: "Theme is required." }),
-  answerQuestions: z.array(z.object({
+  questions: z.array(z.object({
     question: z.string(),
     answers: z.object({
       id: z.string(),
@@ -53,14 +53,14 @@ export default function CreateActivities() {
     setValue,
     getValues,
     formState: { errors },
-  } = useForm<IFormInputs>({
+  } = useForm<IRegisterActivityInputs>({
     resolver: zodResolver(schemaActivity),
     defaultValues: {
-      answerQuestions: [defaultAnswerQuestion]
+      questions: [defaultAnswerQuestion]
     }
   });
 
-  const onSubmit = (data: any) => console.log(data, data.answerQuestions = getValues("answerQuestions"));
+  const onSubmit = (data: any) => console.log(data, data.questions = getValues("questions"));
 
   return (
     <>

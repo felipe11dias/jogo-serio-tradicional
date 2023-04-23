@@ -5,7 +5,7 @@ import {
   UseFormSetValue,
   useFieldArray
 } from "react-hook-form";
-import { IFormInputs } from "./CreateActivities";
+import { IRegisterActivityInputs } from "./CreateActivities";
 import { CreateAnswers } from "./CreateAnswers";
 
 export function CreateQuestions ({
@@ -14,10 +14,10 @@ export function CreateQuestions ({
   getValues,
   setValue
 }: {
-  control: Control<IFormInputs>;
-  register: UseFormRegister<IFormInputs>;
-  getValues: UseFormGetValues<IFormInputs>;
-  setValue: UseFormSetValue<IFormInputs>;
+  control: Control<IRegisterActivityInputs>;
+  register: UseFormRegister<IRegisterActivityInputs>;
+  getValues: UseFormGetValues<IRegisterActivityInputs>;
+  setValue: UseFormSetValue<IRegisterActivityInputs>;
 }) {
   const {
     fields,
@@ -25,7 +25,7 @@ export function CreateQuestions ({
     remove,
   } = useFieldArray({
     control,
-    name: "answerQuestions"
+    name: "questions"
   });
   
   return (
@@ -42,7 +42,7 @@ export function CreateQuestions ({
           <li key={item.id}>
             <div className="mb-3">
               <label>Question {index + 1}: {item.question}</label>
-              <input type="text" placeholder="Question" {...register(`answerQuestions.${index}.question`, { required: true })} />
+              <input type="text" placeholder="Question" {...register(`questions.${index}.question`, { required: true })} />
 
               <CreateAnswers 
                 indexQuestion={index}

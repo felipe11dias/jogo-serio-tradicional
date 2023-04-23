@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { z } from 'zod';
-import FullScreenLoader from '../../../../../components/loader/FullScreenLoader/FullScreenLoader';
+import FullScreenLoader from '../../../../../components/loader/full-screen-loader/FullScreenLoader';
 
 
 interface IFormInputs {

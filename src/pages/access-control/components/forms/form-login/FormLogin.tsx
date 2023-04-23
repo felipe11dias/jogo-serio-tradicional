@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { z } from "zod";
-import FullScreenLoader from '../../../../../components/loader/FullScreenLoader/FullScreenLoader';
+import FullScreenLoader from '../../../../../components/loader/full-screen-loader/FullScreenLoader';
 import { useLoginUserMutation } from '../../../../../redux/apis/authApi';
 import { useAppSelector } from '../../../../../redux/store';
 import { User } from '../../../../../redux/types/User';
@@ -103,19 +103,19 @@ export default function FormLogin() {
       </div>
 
       <div className='flex flex-col text-gray-400 py-2' > 
-      <h3>password:</h3>
+      <h3>Password:</h3>
         <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="text" placeholder="Password*" {...register("password")} />
         <p className='text-red-500'>{errors.password?.message}</p>
       </div>
  
 
       <div className='flex justify-between mx-5 mb-2'>
-        <Link to={`/access-control/forget-password`}>
-         <div className='w-full my-5 py-2 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg'> Forget Password</div>
-          </Link>
-        <Link to={`/access-control/sign-up`}>
-        <div className='w-full my-5 py-2 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg'>Sing up</div>  
-          </Link>
+        <Link className='w-full my-5 py-2 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg' to={`/access-control/forget-password`}>
+          Forget Password
+        </Link>
+        <Link  className='w-full my-5 py-2 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg'to={`/access-control/sign-up`}>
+          Sing up
+        </Link>
       </div>
 
       <div className="flex justify-center">

@@ -3,7 +3,7 @@ import {
   useFieldArray,
   UseFormRegister
 } from "react-hook-form";
-import { IFormInputs } from "./CreateActivities";
+import { IRegisterActivityInputs } from "./CreateActivities";
 
 export function CreateAnswers ({
   indexQuestion,
@@ -11,12 +11,12 @@ export function CreateAnswers ({
   register
 }: {
   indexQuestion: number,
-  control: Control<IFormInputs>;
-  register: UseFormRegister<IFormInputs>;
+  control: Control<IRegisterActivityInputs>;
+  register: UseFormRegister<IRegisterActivityInputs>;
 }) {
   const { fields, remove, append } = useFieldArray({
     control,
-    name: `answerQuestions.${indexQuestion}.answers` 
+    name: `questions.${indexQuestion}.answers` 
   });
 
   return (
@@ -26,7 +26,7 @@ export function CreateAnswers ({
           <>
             <div style={{ marginLeft: 'auto', width: "80%" }} className="mb-3" key={item.id}>
               <label>Answer {index + 1}:</label>
-              <input type="text" placeholder="Answer" {...register(`answerQuestions.${indexQuestion}.answers.${index}.description`)} />
+              <input type="text" placeholder="Answer" {...register(`questions.${indexQuestion}.answers.${index}.description`)} />
             </div>
           </>
         )
