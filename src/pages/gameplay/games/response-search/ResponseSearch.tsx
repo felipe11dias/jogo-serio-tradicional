@@ -160,10 +160,10 @@ export default function ResponseSearch () {
 
   return (
     <div className='my-4'>
-      <h1 className='w-100 text-center'>CAÇA RESPOSTAS</h1>
+      <h1 className='w-100 text-center text-white font-bold'>CAÇA RESPOSTAS</h1>
       <div className='my-4'>
-      <h4>Instruções:</h4>
-      <p>
+      <h4 className='w-100 text-center text-white font-bold'>Instruções:</h4>
+      <p className='w-100 text-center text-white'>
         Para cada questão existe uma resposta no caça palavras. <br/>
         Para responder uma questão selecione a questão e selecione as letras equivalentes a resposta no caça palavras. <br/>
         Você pode visualizar o conjunto de letras selecionadas de cada questão nos campos de respostas disponíveis abaixo das questões. <br/>
@@ -172,10 +172,10 @@ export default function ResponseSearch () {
       </p>
       </div>
       <div className='my-4'>
-        <label className='label' htmlFor='questions'>Questions:</label>
+        <label className='label w-100 text-center text-white font-bold' htmlFor='questions'>Questions:</label>
         <div className='w-100 d-grid'>
           {FORM_MOCK.answerQuestions.map((aq: AnswerQuestions, index: number) => (
-            <button key={aq.id} type='button' className='my-2'
+            <button key={aq.id} type='button' className='m-5 p-2 rounded-md'
               style={{ backgroundColor: state.questionColors[index], border: (state.questionSelect === index && state.questionSelect !== null) ? '3px solid black' : 0 }}
               onClick={() => setState({
                 ...state,
@@ -206,7 +206,7 @@ export default function ResponseSearch () {
         </div>
         
         <div className='my-4 d-flex justify-content-center'>
-          <button className='btn btn-primary' type='submit'> Finalizar </button>
+          <button className='btn btn-primary text-white' type='submit'> Finalizar </button>
         </div>
         <WordSearch
           state={state}
