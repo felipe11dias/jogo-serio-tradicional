@@ -1,7 +1,23 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { listActivities } from "../../../service/rest/apis/activityRestApi";
+import { Activity } from "../../../types/Activity";
 import './style.css';
 
 export default function ListActivities() {
+  const [activities, setActivities] = useState<Activity[]>([]);
+
+  useEffect(() => {
+    listActivities().then( data => {
+      console.log(data)
+      setActivities(data)
+    }).catch( error => {
+      toast.error('Error: ' + error?.message)
+      return null
+    })
+  }, [])
+
   return (
     <>
       <h2 className="mb-5">Collaborate dashboard</h2>
@@ -20,60 +36,30 @@ export default function ListActivities() {
       </div>
 
       <div>
-        <div>
-          <div>
-            <table >
-              <thead>
-                <tr>
-                  <th>Activity Name</th>
-                  <th>Theme Name</th>
-                  <th>Teacher</th>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Discipline</th>
+              <th>Teacher</th>
+              <th>Questions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              activities.length > 0 ? activities.map(activity => (
+                <tr key={activity.id}>
+                  <td>{activity.name}</td>
+                  <td>{activity.discipline}</td>
+                  <td>{activity.user}</td>
+                  <td><button type='button'>CHECK</button></td>
                 </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Programming Logic</td>
-                  <td>Information Technology</td>
-                  <td>Felipe Dias</td>
-                </tr>
-                <tr>
-                  <td>Programming Logic</td>
-                  <td>Information Technology</td>
-                  <td>Felipe Dias</td>
-                </tr>
-              </tbody>
-            </table>
-
-          </div>
-        </div>
-
-        <div>
-          <div>
-            <div>
-              <thead>
-                <tr>
-                  <th>Activity Name</th>
-                  <th>Theme Name</th>
-                  <th>Teacher</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Programming Logic</td>
-                  <td>Information Technology</td>
-                  <td>Felipe Dias</td>
-                </tr>
-                <tr>
-                  <td>Programming Logic</td>
-                  <td>Information Technology</td>
-                  <td>Felipe Dias</td>
-                </tr>
-              </tbody>
-            </div>
-
-            
-          </div>
-        </div>
+              ))
+              :
+              <p> List empty </p>
+            }
+          </tbody>
+        </table>
       </div>
     </>
   )

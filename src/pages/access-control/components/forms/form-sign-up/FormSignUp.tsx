@@ -1,7 +1,10 @@
-import { zodResolver } from '@hookform/resolvers/zod'; 
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { z } from 'zod';
+import FullScreenLoader from '../../../../../components/loader/full-screen-loader/FullScreenLoader';
 
 
 interface IFormInputs {
@@ -11,24 +14,55 @@ interface IFormInputs {
 }
 
 const schemaLogin = z.object({
-  email: z.string().email().min(6, { message: 'Required 6 caracters.' }),
-  username: z.string().min(6, { message: 'Required 6 caracters.' }),
-  password: z.string().max(16, { message: 'Max caracters is 16.' }),
+  username: z.string()
+    .min(1, 'Password is required')
+    .min(6, 'Required 6 caracters.'),
+  email: z.string()
+    .min(1, 'Email address is required')
+    .email('Email Address is invalid'),
+  password: z.string()
+    .min(1, 'Password is required')
+    .min(8, 'Password must be more than 8 characters')
+    .max(32, 'Password must be less than 32 characters'),
 });
 
 export default function FormSignUp() {
+
   const {
     register,
+    reset,
     handleSubmit,
-    formState: { errors },
+    formState: { isLoading, isSubmitSuccessful, errors },
   } = useForm<IFormInputs>({
     resolver: zodResolver(schemaLogin),
   });
+  
+  const navigate = useNavigate();
 
-  const onSubmit = (data: any) => console.log(data);
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      toast.success('You successfully create user');
+      reset();
+      navigate('/access-control/login', { replace: true })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSubmitSuccessful]);
+
+  if(isLoading) {
+    return (
+      <>
+        <FullScreenLoader/>
+      </>
+    )
+  }
+
+  const onSubmitHandler: SubmitHandler<IFormInputs> = async (values) => {
+    console.log(values);
+    
+  };
 
   return (
-    <form className='max-w-[400px] w-full mx-auto rounded-lg bg-gray-900 p-8 px-8' onSubmit={handleSubmit(onSubmit)}>
+    <form className='max-w-[400px] w-full mx-auto rounded-lg bg-gray-900 p-8 px-8' onSubmit={handleSubmit(onSubmitHandler)}>
       <h2 className="text-4xl text-white font-bold text-center">SIGN UP</h2>
 
       <div className="className='flex flex-col text-gray-400 py-2'" >
