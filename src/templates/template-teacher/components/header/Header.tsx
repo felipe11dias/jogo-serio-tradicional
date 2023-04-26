@@ -1,7 +1,7 @@
  
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useLogoutUserMutation } from '../../../../redux/apis/authApi';
 
@@ -15,8 +15,6 @@ export default function Header(props: HeaderProps) {
   const {
     handleSubmit,
   } = useForm<{}>({});
-
-  const navigate = useNavigate();
 
   const [logoutUser, { isLoading, isError, error, isSuccess }] = useLogoutUserMutation();
 
@@ -47,11 +45,12 @@ export default function Header(props: HeaderProps) {
   return (
     <header className='py-6 mb-12 border-b'>
       <div className='container mx-auto flex justify-between items-center'>
-        <Link to="#home"></Link>
+        <Link to="/environment/teacher/home"></Link>
         <div className='flex items-center gap-6'>
-          <Link to="#home" className='hover:text-violet-900' >Home</Link>
-          <Link to="#features" className='bg-violet-800 text-white px-4 py-3 rounded-lg transition' >Features</Link>
-          <Link to="#pricing" className='bg-violet-800 text-white px-4 py-3 rounded-lg transition' >Pricing</Link>
+          <Link to="/environment/teacher/home" className='hover:text-violet-900'>Home</Link>
+          <Link to="/environment/teacher/collaboration-disciplines/list" className='bg-violet-800 text-white px-4 py-3 rounded-lg transition'>Disciplines</Link>
+          <Link to="/environment/teacher/collaboration-activities/list" className='bg-violet-800 text-white px-4 py-3 rounded-lg transition'>Activities</Link>
+          <Link to="/environment/student/game-select" className='bg-violet-800 text-white px-4 py-3 rounded-lg transition'>Games</Link>
         </div>
         <div className='w-auto rounded p-3 text-primary bg-white'>
           <form onSubmit={handleSubmit(onSubmitHandler)}>

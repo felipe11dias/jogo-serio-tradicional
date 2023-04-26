@@ -1,16 +1,20 @@
 import { useEffect, useState } from 'react'
-import { Answer, AnswerQuestions, IFormInputs } from '../../../collaboration-activities/create-activities/CreateActivities'
+import { Activity } from '../../../../types/Activity'
+import { Question } from '../../../../types/Question'
+import { Answer } from '../../../collaboration-activities/create-activities/CreateActivities'
 import WordSearch from './WordSearch'
 import './styles.css'
 import { Mode, Point } from './types'
 
-const FORM_MOCK: IFormInputs = {
+const FORM_MOCK: Activity = {
+  id: 0,
+  user: '',
+  discipline: '',
   name: "TESTE",
-  theme: "PROGRAMACAO",
-  answerQuestions: [
+  questions: [
     {
       id: 0,
-      question: "Questão 1",
+      description: "Questão 1",
       answers: [
         {
           id: 0,
@@ -21,11 +25,11 @@ const FORM_MOCK: IFormInputs = {
           description: "Resposta 2"
         }
       ],
-      answerCorrect: 0
+      idAnswerCorrect: 0
     },
     {
       id: 1,
-      question: "Questão 2",
+      description: "Questão 2",
       answers: [
         {
           id: 0,
@@ -36,11 +40,11 @@ const FORM_MOCK: IFormInputs = {
           description: "Resposta 2"
         }
       ],
-      answerCorrect: 0
+      idAnswerCorrect: 0
     },
     {
       id: 2,
-      question: "Questão 3",
+      description: "Questão 3",
       answers: [
         {
           id: 0,
@@ -51,7 +55,7 @@ const FORM_MOCK: IFormInputs = {
           description: "Resposta 2"
         }
       ],
-      answerCorrect: 0
+      idAnswerCorrect: 0
     }
   ]
 }
@@ -60,9 +64,9 @@ export default function ResponseSearch () {
 
   const getAnswer = (): Answer[] => {
     let answers: Answer[] = [];
-    FORM_MOCK.answerQuestions.map( (aq) => {
+    FORM_MOCK.questions.map( (aq) => {
       const answerFinded: Answer | null = aq.answers.find( answer => {
-        return answer.id === aq.answerCorrect;
+        return answer.id === aq.idAnswerCorrect;
       }) || null
 
       if(answerFinded === null) {
@@ -77,14 +81,14 @@ export default function ResponseSearch () {
 
   const getAnswersViews = (): AnswersViews => {
     return {
-      answers: Array(FORM_MOCK.answerQuestions.length).fill(''),
-      pointsAnswers: Array(FORM_MOCK.answerQuestions.length).fill([]),
-      pointsAnswersTable: Array(FORM_MOCK.answerQuestions.length).fill([])
+      answers: Array(FORM_MOCK.questions.length).fill(''),
+      pointsAnswers: Array(FORM_MOCK.questions.length).fill([]),
+      pointsAnswersTable: Array(FORM_MOCK.questions.length).fill([])
     }
   }
 
   const getColors = (): string[] => {
-    return Array.from(Array(FORM_MOCK.answerQuestions.length).keys()).map( _ => '#' + Math.floor(Math.random()*16777215).toString(16))
+    return Array.from(Array(FORM_MOCK.questions.length).keys()).map( _ => '#' + Math.floor(Math.random()*16777215).toString(16))
   }
 
   const [windowSize, setWindowSize] = useState({
@@ -167,7 +171,7 @@ export default function ResponseSearch () {
       <div className='my-4'>
         <label className='label' htmlFor='questions'>Questions:</label>
         <div className='w-100 d-grid'>
-          {FORM_MOCK.answerQuestions.map((aq: AnswerQuestions, index: number) => (
+          {FORM_MOCK.questions.map((aq: Question, index: number) => (
             <button key={aq.id} type='button' className='my-2'
               style={{ backgroundColor: state.questionColors[index], border: (state.questionSelect === index && state.questionSelect !== null) ? '3px solid black' : 0 }}
               onClick={() => setState({
@@ -175,7 +179,7 @@ export default function ResponseSearch () {
                 questionSelect: state.questionSelect === index ? null : index
               })}>
                 Question {index + 1}:<br/>
-                {aq.question}
+                {aq.description}
               </button>
           ))}
         </div>

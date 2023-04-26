@@ -18,6 +18,7 @@ import ListDisciplines from "../pages/collaboration-disciplines/list-disciplines
 import DisciplineSelect from "../pages/discipline-select/DisciplineSelect";
 import GameSelect from "../pages/game-select/GameSelect";
 import Gameplay from "../pages/gameplay/Gameplay";
+import HomeTeacher from "../pages/home/teacher/Home";
 import TemplateAccessControl from "../templates/template-access-control/TemplateAccessControl";
 import TemplateEnvironment from "../templates/template-environment/TemplateEnvironment";
 import TemplateStudent from "../templates/template-student/TemplateStudent";
@@ -79,6 +80,11 @@ const Router = createBrowserRouter(
               path="teacher"
               element={<TemplateTeacher />}
             >
+              <Route
+                path="home"
+                element={<HomeTeacher />}
+              />
+              
               <Route
                 path="collaboration-disciplines"
                 element={<CollaborationDisciplines />}

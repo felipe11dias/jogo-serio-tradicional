@@ -24,7 +24,7 @@ export function CreateAnswers ({
       {fields.map((item: any, index: number) => {
         return (
           <>
-            <div style={{ marginLeft: 'auto', width: "80%" }} className="mb-3" key={item.id}>
+            <div style={{ marginLeft: 'auto', width: "80%" }} className="mb-3" key={index}>
               <label>Answer {index + 1}:</label>
               <input type="text" placeholder="Answer" {...register(`questions.${indexQuestion}.answers.${index}.description`)} />
             </div>

@@ -1,50 +1,36 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { CreateQuestions } from './CreateQuestions';
 
 export type IRegisterActivityInputs = {
   name: string
-  theme: string
   questions: Array<AnswerQuestions>
 }
 
-interface CreateActivityProps {
-  questionsAmout: number
-}
-
-export type AnswerQuestions = { 
-  id: number,
-  question: string,
+export type AnswerQuestions = {
+  description: string,
   answers: Array<Answer>,
-  answerCorrect: number
+  idAnswerCorrect: number
 }
 
 export type Answer = {
-  id: number,
   description: string
 }
 
 const schemaActivity = z.object({
-  name: z.string({ required_error: "Name is required." }),
-  theme: z.string({ required_error: "Theme is required." }),
+  name: z.string().min(1, "Name is required."),
   questions: z.array(z.object({
-    question: z.string(),
+    description: z.string().min(1, "Description is required."),
     answers: z.object({
-      id: z.string(),
-      description: z.number(),
+      description: z.string().min(1, "Description is required."),
     }),
-    answerCorrect: z.number(),
+    idAnswerCorrect: z.number(),
   })),
 });
 
-export async function loader() {
-  const user = 'teste'
-  return { user };
-}
-
 export default function CreateActivities() {
-  const defaultAnswerQuestion: AnswerQuestions = { id: 0, question: "Description question", answers: [{id: 0, description: ""}, {id: 1, description: ""}], answerCorrect: 0 }
+  const defaultAnswerQuestion: AnswerQuestions = {description: "Description question", answers: [{description: ""}, {description: ""}], idAnswerCorrect: 0 }
 
   const {
     register,
@@ -60,11 +46,17 @@ export default function CreateActivities() {
     }
   });
 
-  const onSubmit = (data: any) => console.log(data, data.questions = getValues("questions"));
+  function verificarForm() {
+    console.log(getValues())
+  }
+
+  const onSubmitHandler: SubmitHandler<IRegisterActivityInputs> = async (values) => {
+    console.log(values)
+  };
 
   return (
     <>
-      <form className='w-100 my-4' onSubmit={handleSubmit(onSubmit)} >
+      <form className='w-100 my-4' onSubmit={handleSubmit(onSubmitHandler)} >
         <h2 className="text-center">CREATE ACTIVITY</h2>
 
         <div className="mb-3">
@@ -73,19 +65,16 @@ export default function CreateActivities() {
           <p className='text-danger'>{errors.name?.message}</p>
         </div>
 
-        <div className="mb-3">
-          <label>Activity theme:</label>
-          <input type="text" placeholder="Theme activity" {...register("theme")} />
-          <p className='text-danger'>{errors.theme?.message}</p>
-        </div>
-
         <CreateQuestions
-          {...{ control, register, getValues, setValue }}
+          {...{ control, register }}
         />
 
         <div className="d-flex justify-content-center">
           <button className="" type="submit">
             Send
+          </button>
+          <button className="" type="button" onClick={verificarForm}>
+            check
           </button>
         </div>
       </form>

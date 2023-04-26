@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useAppSelector } from "../../../redux/store";
 import { listDisciplines } from "../../../service/rest/apis/disciplineRestApi";
 import { Discipline } from "../../../types/Discipline";
+import ModalDelete from "./components/ModalDelete";
+import ModalEdit from "./components/ModalEdit";
 
 export default function ListDisciplines() {
+  const user = useAppSelector(state => state.userState.user)
   const [disciplines, setDisciplines] = useState<Discipline[]>([]);
   
   useEffect(() => {
@@ -42,6 +46,7 @@ export default function ListDisciplines() {
               <th>Theme Name</th>
               <th>Teacher</th>
               <th>Activities</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -52,6 +57,14 @@ export default function ListDisciplines() {
                   <td>{discipline.theme}</td>
                   <td>{discipline.user}</td>
                   <td><button type='button'>CHECK</button></td>
+                  <td>
+                    { discipline.idUser === user?.id ? 
+                    <>
+                      <ModalEdit id={discipline.id} />
+                      <ModalDelete id={discipline.id} />
+                    </> : 
+                    <></> }
+                  </td>
                 </tr>
               ))
               :

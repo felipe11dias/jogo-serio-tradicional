@@ -1,8 +1,6 @@
 import {
   Control,
-  UseFormGetValues,
   UseFormRegister,
-  UseFormSetValue,
   useFieldArray
 } from "react-hook-form";
 import { IRegisterActivityInputs } from "./CreateActivities";
@@ -10,14 +8,10 @@ import { CreateAnswers } from "./CreateAnswers";
 
 export function CreateQuestions ({
   control,
-  register,
-  getValues,
-  setValue
+  register
 }: {
   control: Control<IRegisterActivityInputs>;
   register: UseFormRegister<IRegisterActivityInputs>;
-  getValues: UseFormGetValues<IRegisterActivityInputs>;
-  setValue: UseFormSetValue<IRegisterActivityInputs>;
 }) {
   const {
     fields,
@@ -32,7 +26,7 @@ export function CreateQuestions ({
     <>
       <button
         type="button"
-        onClick={() => append({ id: 0, question: "Description question", answers: [{id: 0, description: ""}, {id: 1, description: ""}], answerCorrect: 0 })}
+        onClick={() => append({ description: "Description question", answers: [{description: ""}, {description: ""}], idAnswerCorrect: 0 })}
       >
         append
       </button>
@@ -41,8 +35,8 @@ export function CreateQuestions ({
         return (
           <li key={item.id}>
             <div className="mb-3">
-              <label>Question {index + 1}: {item.question}</label>
-              <input type="text" placeholder="Question" {...register(`questions.${index}.question`, { required: true })} />
+              <label>Question {index + 1}:</label>
+              <input type="text" placeholder="Question" {...register(`questions.${index}.description`, { required: true })} />
 
               <CreateAnswers 
                 indexQuestion={index}
