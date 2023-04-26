@@ -43,23 +43,23 @@ export default function GameSelect() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="flex flex-col items-center justify-center bg-backgroundColorSecondary rounded-lg p-6">
                 <h3 className='mb-5 hover:text-white text-gray-400 font-semibold rounded-lg text-xl'>Jogo da Velha</h3>
-                <img className='w-full h-full object-cover rounded-lg' src={ticTacToyImg} alt="Image Tic Tac Toy" />
+                <img className='w-80 h-80 object-cover rounded-lg' src={ticTacToyImg} alt="Image Tic Tac Toy" />
                 <p className="text-gray-800 text-lg text-center">Descrição do item aqui</p>
-                <button className="w-40 my-5 py-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg" onClick={() => selectGame('jogo_da_velha')}>Select</button>
+                <button className="w-40 my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg" onClick={() => selectGame('jogo_da_velha')}>Select</button>
             </div>
 
             <div className="flex flex-col items-center justify-center bg-backgroundColorSecondary rounded-lg p-6">
               <h3 className='mb-5 hover:text-white text-gray-400 font-semibold rounded-lg text-xl'>Response Search</h3>
-              <img className='w-full h-full object-cover rounded-lg' src={responseSearchImg} alt="Image Response Search" />
+              <img className='w-80 h-80 object-cover rounded-lg' src={responseSearchImg} alt="Image Response Search" />
               <p className="text-gray-800 text-lg text-center">Descrição do item aqui</p>
-              <button className="w-40 my-5 py-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg" onClick={() => selectGame('response_select')}>Select</button>
+              <button className="w-40 my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg" onClick={() => selectGame('response_select')}>Select</button>
             </div>
 
             <div className="flex flex-col items-center justify-center bg-backgroundColorSecondary rounded-lg p-6">
               <h3 className='mb-5 hover:text-white text-gray-400 font-semibold rounded-lg text-xl'>Aimshot Response</h3>
-                <img className='w-full h-full object-cover rounded-lg' src={aimshotImg} alt="Image Aimshot Response" />
+                <img className='w-80 h-80 object-cover rounded-lg' src={aimshotImg} alt="Image Aimshot Response" />
                 <p className="text-gray-800 text-lg text-center">Descrição do item aqui</p>
-                <button className="w-40 my-5 py-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg" onClick={() => selectGame('aimshot_response')}>Select</button>
+                <button className="w-40 my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg" onClick={() => selectGame('aimshot_response')}>Select</button>
             </div>
           </div>
         </div>

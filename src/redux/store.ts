@@ -7,7 +7,6 @@ import { authApi } from "./apis/authApi";
 import { userApi } from "./apis/userApi";
 import userReducer from './slices/userSlice';
 
-
 const userPersistConfig = {
   key: 'jogosSerios',
   storage

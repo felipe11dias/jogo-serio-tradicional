@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { z } from "zod";
 import FullScreenLoader from '../../../../../components/loader/full-screen-loader/FullScreenLoader';
@@ -43,17 +43,16 @@ export default function FormLogin() {
     resolver: zodResolver(schemaLogin),
   });
 
-  const [loginUser, { isLoading, isError, error, isSuccess,  }] = useLoginUserMutation();
+  const [loginUser, { isLoading, isError, error, isSuccess }] = useLoginUserMutation();
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     if (isSuccess && user) {
       console.log(user)
       toast.success('You successfully logged in');
       if(user?.role === ROLES[ROLES.TEACHER]) {
-        navigate('/environment/teacher/collaboration-disciplines/list', { replace: true });
+        navigate('/environment/teacher/home', { replace: true });
       }else if(user?.role === ROLES[ROLES.STUDENT]) {
         navigate('/environment/student/game-select', { replace: true });
       }

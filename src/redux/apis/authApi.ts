@@ -47,7 +47,6 @@ export const authApi = createApi({
           const { data } = await queryFulfilled;
           const auth: Auth = { access_token: data.access_token, refresh_token: data.refresh_token }
           localStorage.setItem('auth', JSON.stringify(auth));
-          console.log(localStorage.getItem('auth'))
           await dispatch(userApi.endpoints.getMe.initiate(null));
         } catch (error) {}
       },
