@@ -32,11 +32,22 @@ module.exports = {
     },
     extend: {
       colors: {
+
         primary: '#101828',
         secondary: '#7F56D9',
         backgroundColorPrimary: '#101624',
         backgroundColorSecondary: '#1d2939',
         backgroundColorLogin: '#040a25',
+        buttonColor: '#3eb6a5',
+        
+
+        // Hovers
+        hoverColorHeader:'white',
+        hoverColorFooter:'#1d2939',
+        hoverColorButton: '#286a62',
+
+        // Footer && Header
+        textColorFH:'#9da3af'
 
       },
       boxShadow: {
