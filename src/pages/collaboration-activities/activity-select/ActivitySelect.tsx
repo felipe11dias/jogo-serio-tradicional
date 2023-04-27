@@ -15,11 +15,11 @@ export default function ActivitySelect() {
   return ( 
 
 <div>
-<h2 className="text-4xl text-white font-bold text-center mb-10 "> ACTIVITY SELECT </h2>
+<h2 className="text-4xl text-textColorPrimary font-bold text-center mb-10 "> ACTIVITY SELECT </h2>
 
 <div className="relative overflow-x-auto rounded ">
-<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-  <thead className="text-xs text-gray-700 uppercase bg-teal-100 dark:bg-gray-700 dark:text-gray-400 ">
+<table className="w-full text-sm text-left text-primary dark:text-gray-400 ">
+  <thead className="text-xs text-primary uppercase bg-bgContainerTable dark:bg-primary dark:text-gray-400 ">
       <tr>
           <th scope="col" className="px-6 py-3">
           Activity Name
@@ -36,8 +36,8 @@ export default function ActivitySelect() {
       </tr>
   </thead>
   <tbody>
-      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-          <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+      <tr className="bg-textColorPrimary border-b dark:bg-primary dark:border-primary">
+          <th scope="row" className="px-6 py-4 font-medium text-primary whitespace-nowrap dark:textColorPrimary">
           Programming Logic	
           </th>
           <td className="px-6 py-4">
@@ -47,11 +47,11 @@ export default function ActivitySelect() {
           Felipe Dias	
           </td>
           <td className="px-6 py-4">
-          <td className="w-full my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"><button  onClick={() => selectActivity('cf64e17b-af4f-4a8e-b9b1-28f3c1996aaf')}> SELECT </button></td>
+          <td className="w-full my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg"><button  onClick={() => selectActivity('cf64e17b-af4f-4a8e-b9b1-28f3c1996aaf')}> SELECT </button></td>
           </td>
       </tr>
-      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-          <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+      <tr className="bg-textColorPrimary border-b dark:bg-primary dark:border-primary">
+          <th scope="row" className="px-6 py-4 font-medium text-primary whitespace-nowrap dark:textColorPrimary">
           Computational Introduction	
           </th>
           <td className="px-6 py-4">
@@ -61,7 +61,7 @@ export default function ActivitySelect() {
           Felipe Dias	
           </td>
           <td className="px-6 py-4">
-          <td className="w-full my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"><button  onClick={() => selectActivity('66407ef8-87e9-4781-99d5-4d36d53753f7')}> SELECT </button></td>
+          <td className="w-full my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg"><button  onClick={() => selectActivity('66407ef8-87e9-4781-99d5-4d36d53753f7')}> SELECT </button></td>
           </td>
       </tr> 
   </tbody>

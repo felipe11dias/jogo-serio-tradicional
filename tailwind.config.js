@@ -44,6 +44,7 @@ module.exports = {
         textHintColor: '#9da3af',
         errTextColor: '#e14c3c',
        
+        bgContainerTable:"#d1faf1",
 
         // Hovers
         hoverColorHeader:'white',
