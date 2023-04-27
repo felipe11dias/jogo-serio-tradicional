@@ -26,7 +26,7 @@ export function CreateQuestions ({
     <>
       <button
         type="button"
-        onClick={() => append({ description: "Description question", answers: [{description: ""}, {description: ""}], idAnswerCorrect: 0 })}
+        onClick={() => append({ description: "Description question", answers: [{description: ""}, {description: ""}, {description: ""}, {description: ""}], idAnswerCorrect: "0" })}
       >
         append
       </button>
@@ -35,7 +35,7 @@ export function CreateQuestions ({
         return (
           <li key={item.id}>
             <div className="mb-3">
-              <label>Question {index + 1}:</label>
+              <label>Questão {index + 1}:</label>
               <input type="text" placeholder="Question" {...register(`questions.${index}.description`, { required: true })} />
 
               <CreateAnswers 
@@ -45,7 +45,7 @@ export function CreateQuestions ({
             </div>
             
             <button type="button" onClick={() => remove(index)}>
-              Delete
+              Deletar
             </button>
           </li>
         );

@@ -45,7 +45,6 @@ export default function ListDisciplines() {
               <th>Discipline Name</th>
               <th>Theme Name</th>
               <th>Teacher</th>
-              <th>Activities</th>
               <th></th>
             </tr>
           </thead>
@@ -56,7 +55,6 @@ export default function ListDisciplines() {
                   <td>{discipline.name}</td>
                   <td>{discipline.theme}</td>
                   <td>{discipline.user}</td>
-                  <td><button type='button'>CHECK</button></td>
                   <td>
                     { discipline.idUser === user?.id ? 
                     <>

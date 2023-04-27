@@ -8,6 +8,8 @@ import { Mode, Point } from './types'
 
 const FORM_MOCK: Activity = {
   id: 0,
+  idUser: 1,
+  idDiscipline: 1,
   user: '',
   discipline: '',
   name: "TESTE",

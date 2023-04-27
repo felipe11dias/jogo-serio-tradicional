@@ -1,73 +1,69 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import GameSeriusContext, { GameSeriusType } from "../../../context/GameContext/GameContext";
+import { listActivitiesByDiscipline } from "../../../service/rest/apis/activityRestApi";
+import { Activity } from "../../../types/Activity";
 
 
 export default function ActivitySelect() {
   const navigate = useNavigate();
   const { gameSerius, saveGameSerius } = useContext(GameSeriusContext) as GameSeriusType;
 
-  const selectActivity = (activitySelected: string) => {
-    saveGameSerius({gameSelected: gameSerius.gameSelected, activitySelected, disciplineSelected: gameSerius.disciplineSelected})
+  const [activities, setActivities] = useState<Activity[]>([]);
+
+  useEffect(() => {
+    listActivitiesByDiscipline(gameSerius.disciplineSelected).then( data => {
+      setActivities(data)
+    }).catch( error => {
+      toast.error('Error: ' + error?.message)
+      return null
+    })
+  }, [])
+
+  const selectActivity = (activitySelected: number) => {
+    saveGameSerius({ gameSelected: gameSerius.gameSelected, activitySelected, disciplineSelected: gameSerius.disciplineSelected })
     navigate("/environment/student/gameplay", { replace: true });
   }
 
-  return ( 
+  return (
+    <div>
+      <h2 className="text-4xl text-white font-bold text-center mb-10 "> ACTIVITY SELECT </h2>
 
-<div>
-<h2 className="text-4xl text-white font-bold text-center mb-10 "> ACTIVITY SELECT </h2>
-
-<div className="relative overflow-x-auto rounded ">
-<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-  <thead className="text-xs text-gray-700 uppercase bg-teal-100 dark:bg-gray-700 dark:text-gray-400 ">
-      <tr>
-          <th scope="col" className="px-6 py-3">
-          Activity Name
-          </th>
-          <th scope="col" className="px-6 py-3">
-          Theme Name
-          </th>
-          <th scope="col" className="px-6 py-3">
-          Teacher
-          </th>
-          <th scope="col" className="px-6 py-3">
-          SELECTION
-          </th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-          <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-          Programming Logic	
-          </th>
-          <td className="px-6 py-4">
-          Information Technology	
-          </td>
-          <td className="px-6 py-4">
-          Felipe Dias	
-          </td>
-          <td className="px-6 py-4">
-          <td className="w-full my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"><button  onClick={() => selectActivity('cf64e17b-af4f-4a8e-b9b1-28f3c1996aaf')}> SELECT </button></td>
-          </td>
-      </tr>
-      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-          <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-          Computational Introduction	
-          </th>
-          <td className="px-6 py-4">
-          Information Technology	
-          </td>
-          <td className="px-6 py-4">
-          Felipe Dias	
-          </td>
-          <td className="px-6 py-4">
-          <td className="w-full my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"><button  onClick={() => selectActivity('66407ef8-87e9-4781-99d5-4d36d53753f7')}> SELECT </button></td>
-          </td>
-      </tr> 
-  </tbody>
-</table>
-</div>
- 
-</div>
+      <div className="relative overflow-x-auto rounded ">
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
+          <thead className="text-xs text-gray-700 uppercase bg-teal-100 dark:bg-gray-700 dark:text-gray-400 ">
+            <tr>
+              <th scope="col" className="px-6 py-3">
+                Name
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Discipline
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Teacher
+              </th>
+              <th scope="col" className="px-6 py-3">
+                SELECTION
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              activities.length > 0 ? activities.map(activity => (
+                <tr key={activity.id}>
+                  <td>{activity.name}</td>
+                  <td>{activity.discipline}</td>
+                  <td>{activity.user}</td>
+                  <td className="w-full my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"><button onClick={() => selectActivity(activity?.id)}> SELECT </button></td>
+                </tr>
+              ))
+              :
+              <p> List empty </p>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
   )
 }

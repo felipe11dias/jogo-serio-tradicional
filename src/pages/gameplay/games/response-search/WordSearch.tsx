@@ -169,12 +169,12 @@ function WordSearch ({ state, setState }: WordSearchProps) {
                       onClick={ e => selectLetterAnswer(e, [rowIndex, col])}
                       title={letter.char}
                       style={ state.windowSize.width > 1400 ?
-                        { height: 30, width: 30, fontSize: 18, padding: 0, backgroundColor: 'transparent'} :
+                        { height: 30, width: 30, fontSize: 18, padding: 0, color: 'red', backgroundColor: 'transparent'} :
                         (state.windowSize.width <= 1400 && state.windowSize.width > 1200) ?
-                        { height: 24, width: 24, fontSize: 14, padding: 0, backgroundColor: 'transparent'} :
+                        { height: 24, width: 24, fontSize: 14, padding: 0, color: 'red', backgroundColor: 'transparent'} :
                         (state.windowSize.width <= 1200 && state.windowSize.width >= 992) ?
-                        { height: 14, width: 14, fontSize: 8, padding: 0, backgroundColor: 'transparent'} : 
-                        { height: 12, width: 12, fontSize: 6, padding: 0, backgroundColor: 'transparent'} }
+                        { height: 14, width: 14, fontSize: 8, padding: 0, color: 'red', backgroundColor: 'transparent'} : 
+                        { height: 12, width: 12, fontSize: 6, padding: 0, color: 'red', backgroundColor: 'transparent'} }
                       >
                       {letter.char}
                     </button>

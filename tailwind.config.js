@@ -37,7 +37,6 @@ module.exports = {
         backgroundColorPrimary: '#101624',
         backgroundColorSecondary: '#1d2939',
         backgroundColorLogin: '#040a25',
-
       },
       boxShadow: {
         1: '0px 4px 30px rgba(0, 0, 0, 0.08)',

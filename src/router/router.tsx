@@ -11,6 +11,7 @@ import Login from "../pages/access-control/login/Login";
 import CollaborationActivities from "../pages/collaboration-activities/CollaborationActivities";
 import ActivitySelect from "../pages/collaboration-activities/activity-select/ActivitySelect";
 import CreateActivities from "../pages/collaboration-activities/create-activities/CreateActivities";
+import EditActivities from "../pages/collaboration-activities/edit-activities/EditActivities";
 import ListActivities from "../pages/collaboration-activities/list-activities/ListActivities";
 import CollaborationDisciplines from "../pages/collaboration-disciplines/CollaborationDisciplines";
 import CreateDiscipline from "../pages/collaboration-disciplines/create-discipline/CreateDiscipline";
@@ -111,6 +112,10 @@ const Router = createBrowserRouter(
                 <Route
                   path="create"
                   element={<CreateActivities />}
+                />
+                <Route
+                  path="edit/:id"
+                  element={<EditActivities />}
                 />
               </Route>
             </Route>

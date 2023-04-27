@@ -88,13 +88,13 @@ export default function CreateDiscipline() {
 
         <div className="d-flex justify-content-center">
           <button type="submit">
-            Send
+            Salvar
           </button>
         </div>
 
         <div className="mt-4 d-flex justify-content-center">
           <Link className='w-full my-5 py-2 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg' to={`/environment/teacher/collaboration-disciplines/list`}>
-            Go to list discipline
+            Voltar
           </Link>
         </div>
       </form>
