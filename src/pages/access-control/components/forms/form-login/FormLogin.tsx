@@ -97,28 +97,28 @@ export default function FormLogin() {
 
       <div className='flex flex-col text-textHintColor py-2' > 
         <h3>Email:</h3>
-        <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-backgroundColorPrimary focus:outline-none' type="text" placeholder="Email*" {...register("username")} />
+        <input className='rounded-lg bg-backgroundColorPrimary mt-2 p-2  focus:bg-backgroundColorPrimary focus:outline-none' type="text" placeholder="Email*" {...register("username")} />
         <p className='text-errTextColor'>{errors.username?.message}</p>
       </div>
 
       <div className='flex flex-col text-textHintColor py-2' > 
       <h3>Password:</h3>
-        <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-backgroundColorPrimary focus:outline-none' type="text" placeholder="Password*" {...register("password")} />
+        <input className='rounded-lg bg-backgroundColorPrimary mt-2 p-2  focus:bg-backgroundColorPrimary focus:outline-none' type="text" placeholder="Password*" {...register("password")} />
         <p className='text-errTextColor'>{errors.password?.message}</p>
       </div>
  
 
       <div className='flex justify-between mx-5 mb-2'>
-        <Link className='w-full my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-white font-semibold rounded-lg' to={`/access-control/forget-password`}>
+        <Link className='w-full my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' to={`/access-control/forget-password`}>
           Forget Password
         </Link>
-        <Link  className='w-full my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-white font-semibold rounded-lg'to={`/access-control/sign-up`}>
+        <Link  className='w-full my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg'to={`/access-control/sign-up`}>
           Sing up
         </Link>
       </div>
 
       <div className="flex justify-center">
-        <button className='w-full my-5 py-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-white font-semibold rounded-lg' type="submit">
+        <button className='w-full my-5 py-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="submit">
           Send
         </button>
       </div>

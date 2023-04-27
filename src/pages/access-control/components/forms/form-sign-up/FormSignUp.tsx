@@ -62,37 +62,37 @@ export default function FormSignUp() {
   };
 
   return (
-    <form className='max-w-[400px] w-full mx-auto rounded-lg bg-gray-900 p-8 px-8' onSubmit={handleSubmit(onSubmitHandler)}>
-      <h2 className="text-4xl text-white font-bold text-center">SIGN UP</h2>
+    <form className='max-w-[400px] w-full mx-auto rounded-lg bg-backgroundColorSecondary p-8 px-8' onSubmit={handleSubmit(onSubmitHandler)}>
+      <h2 className="text-4xl text-textColorPrimary font-bold text-center">SIGN UP</h2>
 
-      <div className="className='flex flex-col text-gray-400 py-2'" >
+      <div className="className='flex flex-col text-textHintColor py-2'" >
         <h3>Email:</h3>
-        <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="text" placeholder='Email*' />
+        <input className='rounded-lg bg-backgroundColorPrimary mt-2 p-2  focus:bg-backgroundColorPrimary focus:outline-none' type="text" placeholder='Email*' />
         <div  placeholder="Enter email" {...register("email")} />
-        <p className='text-red-500'>{errors.email?.message}</p>
+        <p className='text-errTextColor'>{errors.email?.message}</p>
       </div>
 
-      <div className="className='flex flex-col text-gray-400 py-2" >
+      <div className="className='flex flex-col text-textHintColor py-2" >
         <h3>Username:</h3>
-        <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="text" placeholder='Username*' />
+        <input className='rounded-lg bg-backgroundColorPrimary mt-2 p-2  focus:bg-backgroundColorPrimary focus:outline-none' type="text" placeholder='Username*' />
         <div   placeholder="Enter Username" {...register("username")} />
-        <p className='text-red-500'>{errors.username?.message}</p>
+        <p className='text-errTextColor'>{errors.username?.message}</p>
       </div>
 
-      <div className="className='flex flex-col text-gray-400 py-2" >
+      <div className="className='flex flex-col text-textHintColor py-2" >
         <h3>Password:</h3>
-        <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="text" placeholder='Password*' />
+        <input className='rounded-lg bg-backgroundColorPrimary mt-2 p-2  focus:bg-backgroundColorPrimary focus:outline-none' type="text" placeholder='Password*' />
         <div   placeholder="Password" {...register("password")} />
-        <p className='text-red-500'>{errors.password?.message}</p>
+        <p className='text-errTextColor'>{errors.password?.message}</p>
       </div>
  
       <div className="flex justify-between ">
         
-        <button className='my-5 py-2 w-28 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg' type="submit">
+        <button className='my-5 py-2 w-28 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-white font-semibold rounded-lg' type="submit">
           Send
         </button>
 
-        <div className='flex justify-center items-center w-28 my-5 py-2 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg'>
+        <div className='flex justify-center items-center w-28 my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-white font-semibold rounded-lg'>
         <Link to={`/access-control/login`}>Login</Link>
       </div>
       </div>
