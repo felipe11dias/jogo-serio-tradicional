@@ -36,10 +36,14 @@ module.exports = {
         primary: '#101828',
         secondary: '#7F56D9',
         backgroundColorPrimary: '#101624',
-        backgroundColorSecondary: '#1d2939',
         backgroundColorLogin: '#040a25',
+        backgroundColorSecondary: '#1d2939',
         buttonColor: '#3eb6a5',
-        
+        textColorPrimary: '#FFFFFF',
+        textColorSecondary: '#000000',
+        textHintColor: '#9da3af',
+        errTextColor: '#e14c3c',
+       
 
         // Hovers
         hoverColorHeader:'white',
