@@ -157,10 +157,10 @@ export default function ResponseSearch () {
 
   return (
     <div className='my-4'>
-      <h1 className='w-100 text-center text-white font-bold'>CAÇA RESPOSTAS</h1>
+      <h1 className='w-100 text-center text-textColorSecondary font-bold'>CAÇA RESPOSTAS</h1>
       <div className='my-4'>
-      <h4 className='w-100 text-center text-white font-bold'>Instruções:</h4>
-      <p className='w-100 text-center text-white'>
+      <h4 className='w-100 text-center text-textColorSecondary font-bold'>Instruções:</h4>
+      <p className='w-100 text-center text-textColorSecondary'>
         Para cada questão existe uma resposta no caça palavras. <br/>
         Para responder uma questão selecione a questão e selecione as letras equivalentes a resposta no caça palavras. <br/>
         Você pode visualizar o conjunto de letras selecionadas de cada questão nos campos de respostas disponíveis abaixo das questões. <br/>
@@ -169,7 +169,7 @@ export default function ResponseSearch () {
       </p>
       </div>
       <div className='my-4'>
-        <label className='label w-100 text-center text-white font-bold' htmlFor='questions'>Questions:</label>
+        <label className='label w-100 text-center text-textColorSecondary font-bold' htmlFor='questions'>Questions:</label>
         <div className='w-100 d-grid'>
           {FORM_MOCK.questions.map((aq: Question, index: number) => (
             <button key={aq.id} type='button' className='m-5 p-2 rounded-md'
@@ -203,7 +203,7 @@ export default function ResponseSearch () {
         </div>
         
         <div className='my-4 d-flex justify-content-center'>
-          <button className='btn btn-primary text-white' type='submit'> Finalizar </button>
+          <button className='btn btn-primary text-textColorSecondary' type='submit'> Finalizar </button>
         </div>
         <WordSearch
           state={state}

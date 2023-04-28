@@ -83,7 +83,7 @@ function TicTacToe() {
       setResultadoV(r => r + 1);
       setVencedor({
         texto: 'Resultado: VELHA!',
-        cor: 'black'
+        cor: 'white'
       });
       setIniciado(false);
     }
@@ -126,7 +126,7 @@ function TicTacToe() {
   function DivJogo() {
     if (bts.length === 9) {
       return (
-        <div className="form-group jogo border border-slate-700 bg-gray-800  rounded-lg shadow-xl">
+        <div className="form-group jogo border border-slate-700 bg-backgroundColorSecondary rounded-lg shadow-xl">
           <div className="form-inline justify-content-center">
             <div className="form-group text-center">
               <button onClick={() => jogar(bts[0])} className="btn btn-default btn-fix-jogo" style={{ color: bts[0].cor }}>{bts[0].texto}</button>
@@ -178,11 +178,11 @@ function TicTacToe() {
       <div className='w-full h-24 rounded '>
      
         <div className="form-group ">
-          <h3 className='text-2xl text-white font-bold text-center mb-10'>Jogo da Velha</h3>
+          <h3 className='text-2xl text-hoverColorHeader font-bold text-center mb-10'>Jogo da Velha</h3>
         </div>
       </div>
       <div className="form-group justify-content-center text-center">
-        <button onClick={iniciar} className="w-full my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg" disabled={iniciado}>Iniciar</button>
+        <button onClick={iniciar} className="w-full my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-hoverColorHeader font-semibold rounded-lg" disabled={iniciado}>Iniciar</button>
       </div>
       <div className="form-group justify-content-center text-center">
         <span className="identificador" style={{ color: 'gray' }}>Jogador da Vez: {vez}</span>

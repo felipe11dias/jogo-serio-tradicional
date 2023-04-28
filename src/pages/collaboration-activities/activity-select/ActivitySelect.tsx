@@ -18,8 +18,8 @@ export default function ActivitySelect() {
 <h2 className="text-4xl text-textColorPrimary font-bold text-center mb-10 "> ACTIVITY SELECT </h2>
 
 <div className="relative overflow-x-auto rounded ">
-<table className="w-full text-sm text-left text-primary dark:text-gray-400 ">
-  <thead className="text-xs text-primary uppercase bg-bgContainerTable dark:bg-primary dark:text-gray-400 ">
+<table className="w-full text-sm text-left text-primary dark:text-textHintColor ">
+  <thead className="text-xs text-primary uppercase bg-bgContainerTable dark:bg-primary dark:text-textHintColor ">
       <tr>
           <th scope="col" className="px-6 py-3">
           Activity Name

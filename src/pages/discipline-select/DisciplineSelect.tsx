@@ -35,8 +35,8 @@ export default function DisciplineSelect() {
             </tr>
         </thead>
         <tbody>
-            <tr className="bg-bg-textColorPrimary border-b dark:bg-primary dark:border-primary">
-                <th scope="row" className="px-6 py-4 font-medium text-primary whitespace-nowrap dark:text-ColorPrimary">
+            <tr className="bg-textColorPrimary border-b dark:bg-primary dark:border-primary">
+                <th scope="row" className="px-6 py-4 font-medium text-primary whitespace-nowrap dark:textColorPrimary">
                 Programming Logic	
                 </th>
                 <td className="px-6 py-4">
@@ -46,11 +46,11 @@ export default function DisciplineSelect() {
                 Felipe Dias	
                 </td>
                 <td className="px-6 py-4">
-                <td className="w-full my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-ColorPrimary font-semibold rounded-lg"><button  onClick={() => selectDiscipline('logica_programacao')}> SELECT </button></td>
+                <td className="w-full my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg"><button  onClick={() => selectDiscipline('logica_programacao')}> SELECT </button></td>
                 </td>
             </tr>
-            <tr className="bg-bg-textColorPrimary border-b dark:bg-primary dark:border-primary">
-                <th scope="row" className="px-6 py-4 font-medium text-primary whitespace-nowrap dark:text-ColorPrimary">
+            <tr className="bg-textColorPrimary border-b dark:bg-primary dark:border-primary">
+                <th scope="row" className="px-6 py-4 font-medium text-primary whitespace-nowrap dark:textColorPrimary">
                 Computational Introduction	
                 </th>
                 <td className="px-6 py-4">
@@ -60,15 +60,13 @@ export default function DisciplineSelect() {
                 Felipe Dias	
                 </td>
                 <td className="px-6 py-4">
-                <td className="w-full my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40  text-ColorPrimary font-semibold rounded-lg"><button  onClick={() => selectDiscipline('introducao_computacional')}> SELECT </button></td>
+                <td className="w-full my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40  text-textColorPrimary font-semibold rounded-lg"><button  onClick={() => selectDiscipline('introducao_computacional')}> SELECT </button></td>
                 </td>
             </tr> 
+            
         </tbody>
     </table>
 </div>
-
-
-
     </div>
     
   )
