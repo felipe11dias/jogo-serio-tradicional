@@ -32,7 +32,7 @@ module.exports = {
     },
     extend: {
       colors: {
- 
+        #044cf4
         // Theme
         backgroundColorSecondary: '#1d2939',
         backgroundColorThird: '#040a25',
