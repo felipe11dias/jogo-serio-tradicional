@@ -10,7 +10,7 @@ export default function TemplateStudent() {
   return (
     <>
       <Header /> 
-      <div className="template-container bg-backgroundColorPrimary" style={{ minHeight: 'calc(100vh - 96px)' }}>
+      <div className="template-container bg-backgroundColorInput" style={{ minHeight: 'calc(100vh - 96px)' }}>
         <GameContextProvider>
           <Outlet />
         </GameContextProvider>

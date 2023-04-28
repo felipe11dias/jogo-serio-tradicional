@@ -67,21 +67,21 @@ export default function FormSignUp() {
 
       <div className="className='flex flex-col text-textHintColor py-2'" >
         <h3>Email:</h3>
-        <input className='rounded-lg bg-backgroundColorPrimary mt-2 p-2  focus:bg-backgroundColorPrimary focus:outline-none' type="text" placeholder='Email*' />
+        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder='Email*' />
         <div  placeholder="Enter email" {...register("email")} />
         <p className='text-errTextColor'>{errors.email?.message}</p>
       </div>
 
       <div className="className='flex flex-col text-textHintColor py-2" >
         <h3>Username:</h3>
-        <input className='rounded-lg bg-backgroundColorPrimary mt-2 p-2  focus:bg-backgroundColorPrimary focus:outline-none' type="text" placeholder='Username*' />
+        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder='Username*' />
         <div   placeholder="Enter Username" {...register("username")} />
         <p className='text-errTextColor'>{errors.username?.message}</p>
       </div>
 
       <div className="className='flex flex-col text-textHintColor py-2" >
         <h3>Password:</h3>
-        <input className='rounded-lg bg-backgroundColorPrimary mt-2 p-2  focus:bg-backgroundColorPrimary focus:outline-none' type="text" placeholder='Password*' />
+        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder='Password*' />
         <div   placeholder="Password" {...register("password")} />
         <p className='text-errTextColor'>{errors.password?.message}</p>
       </div>

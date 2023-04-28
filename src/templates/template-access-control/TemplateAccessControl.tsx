@@ -20,7 +20,7 @@ export default function TemplateAccessControl() {
         <div className='hidden sm:block'>
           <img className='w-full h-full object-cover' src={loginImg} alt="Logo project" />
         </div>
-        <div className='bg-backgroundColorLogin flex flex-col justify-center'>
+        <div className='bg-backgroundColorThird flex flex-col justify-center'>
           <Outlet />   
         </div>
       </div>

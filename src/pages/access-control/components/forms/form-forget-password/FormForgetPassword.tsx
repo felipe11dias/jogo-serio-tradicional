@@ -28,7 +28,7 @@ export default function FormForgetPassword() {
 
       <div className="flex flex-col text-textHintColor py-2" >
         <h3>email:</h3> 
-        <input className='rounded-lg bg-backgroundColorPrimary mt-2 p-2 focus:bg-backgroundColorPrimary focus:outline-none' type="text" placeholder='Email*' />
+        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2 focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder='Email*' />
         <p className='text-errTextColor'>{errors.email?.message}</p>
       </div>
  

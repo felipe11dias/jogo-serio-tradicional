@@ -32,19 +32,21 @@ module.exports = {
     },
     extend: {
       colors: {
-
-        primary: '#101828',
-        secondary: '#7F56D9',
-        backgroundColorPrimary: '#101624',
-        backgroundColorLogin: '#040a25',
+ 
+        // Theme
         backgroundColorSecondary: '#1d2939',
-        buttonColor: '#3eb6a5',
-        textColorPrimary: '#FFFFFF',
-        textColorSecondary: '#000000',
-        textHintColor: '#9da3af',
-        errTextColor: '#e14c3c',
-       
+        backgroundColorThird: '#040a25',
+        backgroundColorInput: '#101624', //
         bgContainerTable:"#d1faf1",
+
+        // Theme components
+        textColorPrimary: '#FFFFFF', // white
+        textColorSecondary: '#000000', // black
+        textHintColor: '#9da3af',  // light grey
+        buttonColor: '#3eb6a5',   // teal
+        
+        // utils
+        errTextColor: '#e14c3c',
 
         // Hovers
         hoverColorHeader:'white',
