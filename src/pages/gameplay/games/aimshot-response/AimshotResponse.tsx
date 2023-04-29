@@ -1,68 +1,171 @@
-import { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import Countdown from "react-countdown";
+import { toast } from "react-toastify";
+import GameSeriusContext, { GameSeriusType } from "../../../../context/GameContext/GameContext";
+import { getActivities } from "../../../../service/rest/apis/activityRestApi";
+import { Activity } from "../../../../types/Activity";
+import { IEditActivityInputs } from "../../../collaboration-activities/edit-activities/EditActivities";
+import './style.css';
+
+
+const FORM_MOCK: Activity = {
+  id: 0,
+  idUser: 1,
+  idDiscipline: 1,
+  user: '',
+  discipline: '',
+  name: "TESTE",
+  questions: [
+    {
+      id: 0,
+      description: "Questão 1",
+      answers: [
+        {
+          id: 0,
+          description: "Resposta 1"
+        },
+        {
+          id: 1,
+          description: "Resposta 2"
+        }
+      ],
+      idAnswerCorrect: 0
+    },
+    {
+      id: 1,
+      description: "Questão 2",
+      answers: [
+        {
+          id: 0,
+          description: "Resposta 1"
+        },
+        {
+          id: 1,
+          description: "Resposta 2"
+        }
+      ],
+      idAnswerCorrect: 0
+    },
+    {
+      id: 2,
+      description: "Questão 3",
+      answers: [
+        {
+          id: 0,
+          description: "Resposta 1"
+        },
+        {
+          id: 1,
+          description: "Resposta 2"
+        }
+      ],
+      idAnswerCorrect: 0
+    }
+  ]
+}
 
 export default function AimshotResponse() {
-  const [startGame, setStartGame] = useState<boolean>(false);
-  const [timeEl, setTimeEl] = useState<string>('00:00');
-  const [time, setTime] = useState<number>(0);
-  const [score, setScore] = useState<number>(0);
-
+  const ref = React.useRef(null);
+  const { gameSerius, saveGameSerius } = useContext(GameSeriusContext) as GameSeriusType;
   const colors = ['#1abc9c', '#4efc53', '#3498db', '#9b59b6', '#ff3f34', '#f1c40f', '#f57e33', '#48dbfb']
-  const startBtn = document.querySelector('#start')
-  const screens = document.querySelectorAll('.screen')
-  const timeList = document.querySelector('#time-list')
-  //const timeEl = document.querySelector('#time')
-  const board = document.querySelector('#board')
+  const [questionIndex, setQuestionIndex] = useState<number>(0);
+  const [startGame, setStartGame] = useState<boolean>(false);
+  const [time, setTime] = useState<number | null>(0);
+  const [score, setScore] = useState<number>(0);
+  const [activities, setActivities] = useState<IEditActivityInputs>();
 
-  function initStartGame() {
-    setInterval(decreaseTime, 1000)
-    createRandomCircles()
-    setTime(time)
-  }
+  useEffect(() => {
+    getActivities(gameSerius.activitySelected.toString()).then( data => {
+      setActivities(data)
+    }).catch( error => {
+      toast.error('Error: ' + error?.message)
+      return null
+    })
+  }, [])
 
-  function decreaseTime() {
-    if (time === 0) {
+  const ScoreFinishGame = () => <span>Você acertou {score} questões!</span>;
+
+// Renderer callback with condition
+  const renderer = ({ minutes, seconds, completed }: { minutes: number, seconds: number, completed: boolean }) => {
+    if (completed) {
+      // Render a completed state
       finishGame()
+      return <ScoreFinishGame />;
     } else {
-      let timeAux = time;
-      setTime(--timeAux)
-      let current: any = --timeAux
-      if (current < 10) {
-        current = `0${current}`
-      }
-      setTimeEl(current)
+      // Render a countdown
+      return <h3>{minutes}:{seconds}</h3>;
     }
+  };
+
+  function initStartGame(timeVar: number) {
+    setTime(timeVar)
   }
 
   function finishGame() {
-    
+    const answers = document.getElementsByClassName('answer')
+    Array.from(answers).forEach(answer => {
+      answer.remove();
+    })
+    setTime(null)
+    const board = document.getElementById('board')
+    board?.remove();
   }
 
-  function createRandomCircles() {
-    const circle = document.createElement('div')
-    let size
-    if (document.body.clientWidth <= 516) {
-      size = getRandomNumber(15, 30)
-    } else if (document.body.clientWidth <= 320) {
-      size = getRandomNumber(20, 40)
-    } else {
-      size = getRandomNumber(20, 60)
+  function checkAnswer(id: number) {
+    const answers = document.getElementsByClassName('answer')
+    Array.from(answers).forEach(answer => {
+      answer.remove();
+    })
+
+    if(activities?.questions[questionIndex].idAnswerCorrect || -1 === id) {
+      setScore(score + 1)
     }
+
+    if(activities?.questions.length === (questionIndex + 1)) {
+      finishGame()
+    }else {
+      setQuestionIndex(questionIndex + 1)
+    }
+  }
+
+  function generateAnswerRandom(id: number, description: string) {
+    const board = document.getElementById('board')
+    const answer = document.createElement('span')
+    answer.innerHTML = description;
+    answer.style.width = `fit-content`
+    answer.style.height = `fit-content`
+    
+    console.log('description: ', description)
+    const boardSize = board?.getBoundingClientRect() || new DOMRect()
+    const answerSize = answer?.getBoundingClientRect() || new DOMRect()
+    const x = getRandomNumber(0, boardSize.width - answerSize.width)
+    const y = getRandomNumber(0, boardSize.height - answerSize.height)
+
+    console.log('board:', board)
+    console.log('board:', board)
+    console.log('x:', x)
+    console.log('y:', y)
   
-    const { width, height } = board?.getBoundingClientRect() || new DOMRect()
-    const x = getRandomNumber(0, width - size)
-    const y = getRandomNumber(0, height - size)
-  
-    circle.style.top = `${x}px`
-    circle.style.left = `${y}px`
-    circle.style.width = `${size}px`
-    circle.style.height = `${size}px`
-  
-    circle.classList.add('circle')
-   // board.append(circle)
-  
-    //? colors
+    answer.style.border = '1px solid black'
+    answer.style.cursor = 'pointer'
+    answer.style.position = 'relative'
+    answer.style.top = `${y}px`
+    answer.style.left = `${x}px`
+    
+    answer.title = description
+    answer.id = `${id}`
+
+    answer.addEventListener('click', () => checkAnswer(id))
+    answer.classList.add('rounded')
+    answer.classList.add('p-2')
+    answer.classList.add('answer')
+
+    board?.append(answer)
+    
     const color = getRandomColor()
-    circle.style.backgroundColor = color
+    answer.style.backgroundColor = color
+
+    console.log('answer:', answer)
   }
   
   function getRandomNumber(min: number, max: number) {
@@ -75,8 +178,7 @@ export default function AimshotResponse() {
   }
 
   return (
-    <div className="w-full h-full flex justify-center">
-
+    <div className="w-full min-height-inherit flex justify-center flex-col">
       {
         !startGame ? 
         <>
@@ -88,39 +190,64 @@ export default function AimshotResponse() {
         :
         <>
           {
-            startGame && time === null ?
+            startGame && time === 0 ?
             <>
-              <div className="screen">
+              <div className="">
                 <h1>Choose the time</h1>
-                <ul className="time-list" id="time-list">
+                <ul className="time-list">
                   <li>
-                    <button className="time-btn" data-time="10" onClick={() => setTime(10)} >10 sec</button>
+                    <button className="" onClick={() => initStartGame(10000)} >10 sec</button>
                   </li>
                   <li>
-                    <button className="time-btn" data-time="20" onClick={() => setTime(20)} >20 sec</button>
+                    <button className="" onClick={() => initStartGame(20000)} >20 sec</button>
                   </li>
                   <li>
-                    <button className="time-btn" data-time="30" onClick={() => setTime(30)} >30 sec</button>
+                    <button className="" onClick={() => initStartGame(30000)} >30 sec</button>
                   </li>
                   <li>
-                    <button className="time-btn" data-time="60" onClick={() => setTime(60)} >1 min.</button>
+                    <button className="" onClick={() => initStartGame(60000)} >1 min.</button>
                   </li>
                   <li>
-                    <button className="time-btn" data-time="120" onClick={() => setTime(120)} >2 min.</button>
+                    <button className="" onClick={() => setTime(120000)} >2 min.</button>
                   </li>
                 </ul>
               </div>
             </>
             :
             <>
-              <div className="screen">
-                <h3><span id="time">{timeEl}</span> left</h3>
-                <div className="board" id="board"></div>
+              <div className="flex items-center justify-center flex-col min-w-full">
+              
+                <div className="my-2">
+                  { (time !== null) ? <>Tempo restante:</> : <></>} <Countdown date={Date.now() + (time || 0)} renderer={renderer} />
+                </div>
+                
+                {
+                  (time !== null) ?
+                  <div className="my-2">
+                      activities?.questions[questionIndex].description + '?'
+                  </div>
+                  :
+                  <></>
+                }
               </div>
             </>
           }
         </>
       }
+
+      <div className="w-full min-height-inherit" ref={ref} id="board">
+        {
+          startGame && (time !== null && time > 0) ? 
+          activities?.questions[questionIndex].answers.map( answer => {
+            return (
+              <>
+                { generateAnswerRandom(answer?.id, answer?.description) }
+              </>
+            )
+          }) :
+          <></>
+        }
+      </div>
     </div>
   )
 }

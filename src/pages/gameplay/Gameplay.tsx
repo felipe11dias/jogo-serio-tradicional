@@ -6,7 +6,7 @@ export default function Gameplay() {
     <div className="w-full flex flex-col items-center justify-center">
       <h2 className="text-4xl text-white font-bold text-center mb-10"> GAMEPLAY </h2>
       
-      <div className="d-flex justify-content-center mb-10">
+      <div className="w-full px-4 d-flex justify-content-center mb-10">
         <GameArea />
       </div>
 

@@ -14,7 +14,6 @@ export default function DisciplineSelect() {
   
   useEffect(() => {
     listDisciplines().then( data => {
-      console.log(data)
       setDisciplines(data)
     }).catch( error => {
       toast.error('Error: ' + error?.message)

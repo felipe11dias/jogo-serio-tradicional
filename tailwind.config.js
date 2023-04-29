@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{html,js}"],
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    minHeight: {
+      '90': '90%'
+    },
     fontFamily: {
       primary: 'Poppins',
     },

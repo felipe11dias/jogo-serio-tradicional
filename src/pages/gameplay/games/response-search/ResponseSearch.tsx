@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
+import GameSeriusContext, { GameSeriusType } from '../../../../context/GameContext/GameContext'
+import { getActivities } from '../../../../service/rest/apis/activityRestApi'
 import { Activity } from '../../../../types/Activity'
-import { Question } from '../../../../types/Question'
 import { Answer } from '../../../collaboration-activities/create-activities/CreateActivities'
+import { AnswerQuestions, IEditActivityInputs } from '../../../collaboration-activities/edit-activities/EditActivities'
 import WordSearch from './WordSearch'
 import './styles.css'
 import { Mode, Point } from './types'
@@ -63,12 +66,36 @@ const FORM_MOCK: Activity = {
 }
 
 export default function ResponseSearch () {
+  const { gameSerius, saveGameSerius } = useContext(GameSeriusContext) as GameSeriusType;
+  const [score, setScore] = useState<number>(0);
+  const [activities, setActivities] = useState<IEditActivityInputs>();
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    getActivities(gameSerius.activitySelected.toString()).then( data => {
+      setActivities(data)
+    }).catch( error => {
+      toast.error('Error: ' + error?.message)
+      return null
+    })
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowResize);
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  }, [windowSize]);
 
   const getAnswer = (): Answer[] => {
     let answers: Answer[] = [];
-    FORM_MOCK.questions.map( (aq) => {
+    activities?.questions.map( (aq) => {
       const answerFinded: Answer | null = aq.answers.find( answer => {
-        return answer.id === aq.idAnswerCorrect;
+        return answer.id === parseInt(aq.idAnswerCorrect);
       }) || null
 
       if(answerFinded === null) {
@@ -83,21 +110,16 @@ export default function ResponseSearch () {
 
   const getAnswersViews = (): AnswersViews => {
     return {
-      answers: Array(FORM_MOCK.questions.length).fill(''),
-      pointsAnswers: Array(FORM_MOCK.questions.length).fill([]),
-      pointsAnswersTable: Array(FORM_MOCK.questions.length).fill([])
+      answers: Array(activities?.questions.length).fill(''),
+      pointsAnswers: Array(activities?.questions.length).fill([]),
+      pointsAnswersTable: Array(activities?.questions.length).fill([])
     }
   }
 
   const getColors = (): string[] => {
-    return Array.from(Array(FORM_MOCK.questions.length).keys()).map( _ => '#' + Math.floor(Math.random()*16777215).toString(16))
+    return Array.from(Array(activities?.questions.length).keys()).map( _ => '#' + Math.floor(Math.random()*16777215).toString(16))
   }
-
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
-
+  
   const stateDefault: StateProps = {
     questionSelect: null,
     questionColors: getColors(),
@@ -114,8 +136,12 @@ export default function ResponseSearch () {
     debug: false,
     highlightAnswers: false
   }
-
+  
   const [ state, setState ] = useState<StateProps>(stateDefault)
+
+  useEffect(() => {
+    setState(stateDefault)
+  }, [activities])
 
   const handleWindowResize = () => {
     setWindowSize({ width: window.innerWidth, height: window.innerHeight });
@@ -124,14 +150,6 @@ export default function ResponseSearch () {
       windowSize: windowSize
     })
   };
-
-  useEffect(() => {
-    window.addEventListener('resize', handleWindowResize);
-
-    return () => {
-      window.removeEventListener('resize', handleWindowResize);
-    };
-  }, [windowSize]);
 
   const validateAnswers = () => {
     for (let index = 0; index < state.answersViews.answers.length; index++) {
@@ -150,11 +168,16 @@ export default function ResponseSearch () {
     }
   }
 
+  const getScores = () => {
+
+  }
+
   const handleSubmit = (event: any) => {
     event.preventDefault()
     
     // VERIFICA CADA LETRA SELECIONADA DE CADA RESPOSTA COM O SEU PONTO NA TABELA, OU SEJA, AS LETRAS E POINTOS SELECIONADOS NA TABELA TEM QUE ESTAR EM CONFORMIDADE
     validateAnswers()
+    console.log()
   }
 
   return (
@@ -173,15 +196,15 @@ export default function ResponseSearch () {
       <div className='my-4'>
         <label className='label w-100 text-center text-white font-bold' htmlFor='questions'>Questions:</label>
         <div className='w-100 d-grid'>
-          {FORM_MOCK.questions.map((aq: Question, index: number) => (
-            <button key={aq.id} type='button' className='m-5 p-2 rounded-md'
+          {activities?.questions.map((question: AnswerQuestions, index: number) => (
+            <button key={question.id} type='button' className='m-5 p-2 rounded-md'
               style={{ backgroundColor: state.questionColors[index], border: (state.questionSelect === index && state.questionSelect !== null) ? '3px solid black' : 0 }}
               onClick={() => setState({
                 ...state,
                 questionSelect: state.questionSelect === index ? null : index
               })}>
                 Question {index + 1}:<br/>
-                {aq.description}
+                {question.description}
               </button>
           ))}
         </div>
