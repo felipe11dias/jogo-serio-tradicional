@@ -12,7 +12,7 @@ export default function GameSelect() {
   const { gameSerius, saveGameSerius } = useContext(GameSeriusContext) as GameSeriusType;
 
   useEffect(() => {
-    saveGameSerius({ gameSelected: '', activitySelected: '', disciplineSelected: '' })
+    saveGameSerius({ gameSelected: '', activitySelected: gameSerius.activitySelected, disciplineSelected: gameSerius.disciplineSelected })
   }, [])
 
   const selectGame = (gameSelected: string) => {

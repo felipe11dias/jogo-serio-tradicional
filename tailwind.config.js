@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{html,js}"],
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    minHeight: {
+      '90': '90%'
+    },
     fontFamily: {
       primary: 'Poppins',
     },
@@ -37,7 +40,6 @@ module.exports = {
         backgroundColorPrimary: '#101624',
         backgroundColorSecondary: '#1d2939',
         backgroundColorLogin: '#040a25',
-
       },
       boxShadow: {
         1: '0px 4px 30px rgba(0, 0, 0, 0.08)',

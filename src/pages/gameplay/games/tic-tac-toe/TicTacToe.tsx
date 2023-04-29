@@ -18,7 +18,7 @@ function TicTacToe() {
     for (let i = 0; i < 9; i++) {
       const bt = {
         texto: '-',
-        cor: 'black'
+        cor: 'white'
       };
       _bts = [..._bts, bt];
     }
@@ -126,7 +126,7 @@ function TicTacToe() {
   function DivJogo() {
     if (bts.length === 9) {
       return (
-        <div className="form-group jogo">
+        <div className="form-group jogo border border-slate-700 bg-gray-800  rounded-lg shadow-xl">
           <div className="form-inline justify-content-center">
             <div className="form-group text-center">
               <button onClick={() => jogar(bts[0])} className="btn btn-default btn-fix-jogo" style={{ color: bts[0].cor }}>{bts[0].texto}</button>
@@ -175,14 +175,14 @@ function TicTacToe() {
 
   return (
     <>
-      <div className='w-full h-24 '>
+      <div className='w-full h-24 rounded '>
      
-        <div className="form-group">
-          <h3 className='text-center'>Jogo da Velha</h3>
+        <div className="form-group ">
+          <h3 className='text-2xl text-white font-bold text-center mb-10'>Jogo da Velha</h3>
         </div>
       </div>
       <div className="form-group justify-content-center text-center">
-        <button onClick={iniciar} className="btn btn-primary btn-fix" disabled={iniciado}>Iniciar</button>
+        <button onClick={iniciar} className="w-full my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg" disabled={iniciado}>Iniciar</button>
       </div>
       <div className="form-group justify-content-center text-center">
         <span className="identificador" style={{ color: 'gray' }}>Jogador da Vez: {vez}</span>
@@ -190,11 +190,15 @@ function TicTacToe() {
       <DivJogo />
       <div className="placar">
         <div className="form-inline justify-content-center">
-          <div className="text-center mt-20">
+          <div className="text-center mt-20 mb-10">
             <span className="identificador" style={{ color: 'green' }}>X: {resultadoX}</span>
+            
             <span className="separar"></span>
-            <span className="identificador" style={{ color: 'black' }}>V: {resultadoV}</span>
+            
+            <span className="identificador px-5" style={{ color: 'white' }}>V: {resultadoV}</span>
+            
             <span className="separar"></span>
+            
             <span className="identificador" style={{ color: 'blue' }}>O: {resultadoO}</span>
           </div> 
       </div>

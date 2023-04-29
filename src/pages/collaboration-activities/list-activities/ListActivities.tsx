@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useAppSelector } from "../../../redux/store";
 import { listActivities } from "../../../service/rest/apis/activityRestApi";
 import { Activity } from "../../../types/Activity";
+import ModalDelete from "./components/ModalDelete";
+import ModalViewQuestions from "./components/ModalViewQuestions";
 import './style.css';
 
 export default function ListActivities() {
+  const user = useAppSelector(state => state.userState.user)
   const [activities, setActivities] = useState<Activity[]>([]);
 
   useEffect(() => {
@@ -43,6 +47,7 @@ export default function ListActivities() {
               <th>Discipline</th>
               <th>Teacher</th>
               <th>Questions</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -52,7 +57,12 @@ export default function ListActivities() {
                   <td>{activity.name}</td>
                   <td>{activity.discipline}</td>
                   <td>{activity.user}</td>
-                  <td><button type='button'>CHECK</button></td>
+                  <td><ModalViewQuestions questions={activity.questions} /></td>
+                  { activity.idUser === user?.id ? 
+                    <>
+                      <ModalDelete id={activity.id} />
+                    </> : 
+                    <></> }
                 </tr>
               ))
               :
