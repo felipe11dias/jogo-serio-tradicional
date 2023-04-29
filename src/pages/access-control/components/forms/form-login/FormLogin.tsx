@@ -93,7 +93,7 @@ export default function FormLogin() {
 
   return (
     <form className='max-w-[400px] w-full mx-auto rounded-lg bg-backgroundColorSecondary p-8 px-8' onSubmit={handleSubmit(onSubmitHandler)}>
-      <h2 className="text-4xl text-textColorPrimary font-bold text-center">LOGIN</h2>
+      <h2 className="text-4xl text-textColorPrimary font-bold text-center">Logar</h2>
 
       <div className='flex flex-col text-textHintColor py-2' > 
         <h3>Email:</h3>
@@ -102,24 +102,24 @@ export default function FormLogin() {
       </div>
 
       <div className='flex flex-col text-textHintColor py-2' > 
-      <h3>Password:</h3>
-        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder="Password*" {...register("password")} />
+      <h3>Senha:</h3>
+        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder="Senha*" {...register("password")} />
         <p className='text-errTextColor'>{errors.password?.message}</p>
       </div>
  
 
-      <div className='flex justify-between mx-5 mb-2'>
+      <div className='flex justify-between mx-5 mb-2 p-lg'>
         <Link className='w-full my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' to={`/access-control/forget-password`}>
-          Forget Password
+          Esqueceu a senha
         </Link>
-        <Link  className='w-full my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg'to={`/access-control/sign-up`}>
-          Sing up
+        <Link  className='w-full  my-5 py-2 px-2 mx-1 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' to={`/access-control/sign-up`}>
+          Se inscrever
         </Link>
       </div>
 
       <div className="flex justify-center">
         <button className='w-full my-5 py-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="submit">
-          Send
+          Enviar
         </button>
       </div>
     </form>

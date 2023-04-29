@@ -21,16 +21,16 @@ export default function DisciplineSelect() {
         <thead className="text-xs text-primary uppercase bg-bgContainerTable dark:bg-primary dark:text-textHintColor ">
             <tr>
                 <th scope="col" className="px-6 py-3">
-                    Discipline Name
+                Nome da disciplina
                 </th>
                 <th scope="col" className="px-6 py-3">
-                Theme Name
+                Nome do Tema
                 </th>
                 <th scope="col" className="px-6 py-3">
-                Teacher
+                Professor
                 </th>
                 <th scope="col" className="px-6 py-3">
-                SELECTION
+                SELEÇÃO
                 </th>
             </tr>
         </thead>
@@ -46,7 +46,7 @@ export default function DisciplineSelect() {
                 Felipe Dias	
                 </td>
                 <td className="px-6 py-4">
-                <td className="w-full my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg"><button  onClick={() => selectDiscipline('logica_programacao')}> SELECT </button></td>
+                <td className="w-full my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg"><button  onClick={() => selectDiscipline('logica_programacao')}> Selecionar </button></td>
                 </td>
             </tr>
             <tr className="bg-textColorPrimary border-b dark:bg-primary dark:border-primary">
@@ -60,7 +60,7 @@ export default function DisciplineSelect() {
                 Felipe Dias	
                 </td>
                 <td className="px-6 py-4">
-                <td className="w-full my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40  text-textColorPrimary font-semibold rounded-lg"><button  onClick={() => selectDiscipline('introducao_computacional')}> SELECT </button></td>
+                <td className="w-full my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40  text-textColorPrimary font-semibold rounded-lg"><button  onClick={() => selectDiscipline('introducao_computacional')}> Selecionar </button></td>
                 </td>
             </tr> 
             

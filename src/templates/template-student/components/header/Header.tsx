@@ -42,7 +42,7 @@ export default function () {
   return (
     <header className='py-6  bg-backgroundColorInput'>
       <div className='container sm:flex-col md:flex-row lg:flex-row xl:flex-row mx-auto flex justify-between items-center bg-backgroundColorInput'>
-        <div><Link className='w-full my-5 py-2 px-2 hover:text-hoverColorHeader text-textColorFH font-semibold rounded-lg text-3xl' to="#home">Home</Link></div>
+        <div><Link className='w-full my-5 py-2 px-2 hover:text-hoverColorHeader text-textColorFH font-semibold rounded-lg text-3xl' to="#home">Inicio</Link></div>
         <div className='flex items-center gap-6'>
           <Link to="#features" className='w-full my-5 py-2 px-2 hover:text-hoverColorHeader text-textColorFH font-semibold rounded-lg text-xl' >Features</Link>
           <Link to="#features" className='w-full my-5 py-2 px-2 hover:text-hoverColorHeader text-textColorFH font-semibold rounded-lg text-xl' >Features</Link>
@@ -50,7 +50,7 @@ export default function () {
         </div>
         <div className='my-5 p-2 bg-buttonColor shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg'>
           <form onSubmit={handleSubmit(onSubmitHandler)}>
-            <button type='submit'>Logout</button>
+            <button type='submit'>Deslogar</button>
           </form>
         </div>
       </div>

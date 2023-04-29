@@ -63,7 +63,7 @@ export default function FormSignUp() {
 
   return (
     <form className='max-w-[400px] w-full mx-auto rounded-lg bg-backgroundColorSecondary p-8 px-8' onSubmit={handleSubmit(onSubmitHandler)}>
-      <h2 className="text-4xl text-textColorPrimary font-bold text-center">SIGN UP</h2>
+      <h2 className="text-4xl text-textColorPrimary font-bold text-center">Se inscrever</h2>
 
       <div className="className='flex flex-col text-textHintColor py-2'" >
         <h3>Email:</h3>
@@ -73,15 +73,15 @@ export default function FormSignUp() {
       </div>
 
       <div className="className='flex flex-col text-textHintColor py-2" >
-        <h3>Username:</h3>
-        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder='Username*' />
+        <h3>Usuario:</h3>
+        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder='Usuario*' />
         <div   placeholder="Enter Username" {...register("username")} />
         <p className='text-errTextColor'>{errors.username?.message}</p>
       </div>
 
       <div className="className='flex flex-col text-textHintColor py-2" >
-        <h3>Password:</h3>
-        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder='Password*' />
+        <h3>Senha:</h3>
+        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder='Senha*' />
         <div   placeholder="Password" {...register("password")} />
         <p className='text-errTextColor'>{errors.password?.message}</p>
       </div>
@@ -89,11 +89,11 @@ export default function FormSignUp() {
       <div className="flex justify-between ">
         
         <button className='my-5 py-2 w-28 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-white font-semibold rounded-lg' type="submit">
-          Send
+          Enviar
         </button>
 
         <div className='flex justify-center items-center w-28 my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-white font-semibold rounded-lg'>
-        <Link to={`/access-control/login`}>Login</Link>
+        <Link to={`/access-control/login`}>Logar</Link>
       </div>
       </div>
     </form>

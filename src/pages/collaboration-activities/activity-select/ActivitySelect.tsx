@@ -22,16 +22,16 @@ export default function ActivitySelect() {
   <thead className="text-xs text-primary uppercase bg-bgContainerTable dark:bg-primary dark:text-textHintColor ">
       <tr>
           <th scope="col" className="px-6 py-3">
-          Activity Name
+          Nome da atividade
           </th>
           <th scope="col" className="px-6 py-3">
-          Theme Name
+          Nome do Tema
           </th>
           <th scope="col" className="px-6 py-3">
-          Teacher
+          Professor
           </th>
           <th scope="col" className="px-6 py-3">
-          SELECTION
+          SELEÇÃO
           </th>
       </tr>
   </thead>
@@ -47,7 +47,7 @@ export default function ActivitySelect() {
           Felipe Dias	
           </td>
           <td className="px-6 py-4">
-          <td className="w-full my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg"><button  onClick={() => selectActivity('cf64e17b-af4f-4a8e-b9b1-28f3c1996aaf')}> SELECT </button></td>
+          <td className="w-full my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg"><button  onClick={() => selectActivity('cf64e17b-af4f-4a8e-b9b1-28f3c1996aaf')}> Selecionar </button></td>
           </td>
       </tr>
       <tr className="bg-textColorPrimary border-b dark:bg-primary dark:border-primary">
@@ -61,7 +61,7 @@ export default function ActivitySelect() {
           Felipe Dias	
           </td>
           <td className="px-6 py-4">
-          <td className="w-full my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg"><button  onClick={() => selectActivity('66407ef8-87e9-4781-99d5-4d36d53753f7')}> SELECT </button></td>
+          <td className="w-full my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg"><button  onClick={() => selectActivity('66407ef8-87e9-4781-99d5-4d36d53753f7')}> Selecionar </button></td>
           </td>
       </tr> 
   </tbody>
