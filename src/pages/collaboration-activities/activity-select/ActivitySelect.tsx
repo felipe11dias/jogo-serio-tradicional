@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import GameSeriusContext, { GameSeriusType } from "../../../context/GameContext/GameContext";
 import { listActivitiesByDiscipline } from "../../../service/rest/apis/activityRestApi";
@@ -28,23 +28,23 @@ export default function ActivitySelect() {
 
   return (
     <div>
-      <h2 className="text-4xl text-white font-bold text-center mb-10 "> ACTIVITY SELECT </h2>
+      <h2 className="text-4xl text-white font-bold text-center mb-10 "> SELECIONE UMA ATIVIDADE </h2>
 
       <div className="relative overflow-x-auto rounded ">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
           <thead className="text-xs text-gray-700 uppercase bg-teal-100 dark:bg-gray-700 dark:text-gray-400 ">
             <tr>
               <th scope="col" className="px-6 py-3">
-                Name
+                Nome
               </th>
               <th scope="col" className="px-6 py-3">
-                Discipline
+                Disciplina
               </th>
               <th scope="col" className="px-6 py-3">
-                Teacher
+                Professor
               </th>
               <th scope="col" className="px-6 py-3">
-                SELECTION
+                Selecione
               </th>
             </tr>
           </thead>
@@ -55,14 +55,19 @@ export default function ActivitySelect() {
                   <td>{activity.name}</td>
                   <td>{activity.discipline}</td>
                   <td>{activity.user}</td>
-                  <td className="w-full my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"><button onClick={() => selectActivity(activity?.id)}> SELECT </button></td>
+                  <td className="w-full my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"><button onClick={() => selectActivity(activity?.id)}> Selecionar </button></td>
                 </tr>
               ))
               :
-              <p> List empty </p>
+              <p> Nenhuma atividade cadastrada. </p>
             }
           </tbody>
         </table>
+      </div>
+      <div className="mt-4 d-flex justify-content-center">
+        <Link className='w-full my-5 py-2 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg' to={`/environment/student/discipline-select`}>
+          Voltar
+        </Link>
       </div>
     </div>
   )

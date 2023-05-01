@@ -27,7 +27,7 @@ export function EditQuestions ({
           <li key={item.id}>
             <div className="mb-3">
               <label>Questão {index + 1}:</label>
-              <input type="text" placeholder="Question" {...register(`questions.${index}.description`, { required: true })} />
+              <input type="text" placeholder="Questão*" {...register(`questions.${index}.description`, { required: true })} />
 
               <EditAnswers 
                 indexQuestion={index}

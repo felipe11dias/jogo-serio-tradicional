@@ -11,7 +11,7 @@ export default function TemplateStudent() {
     <>
       <Header />
       
-      <div className="template-container" style={{ minHeight: 'calc(100vh - 96px)' }}>
+      <div className="template-container" style={{ minHeight: 'calc(100vh - 240px)' }}>
         <GameContextProvider>
           <Outlet />
         </GameContextProvider>

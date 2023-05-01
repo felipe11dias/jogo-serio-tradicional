@@ -42,7 +42,7 @@ export default function ModalViewQuestions({ questions }: { questions: Question[
                   </tr>
                 ))
                 :
-                <p> List empty </p>
+                <p> Nenhuma questão cadastrada. </p>
               }
             </tbody>
           </table>

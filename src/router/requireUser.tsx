@@ -33,6 +33,10 @@ const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
       </>
     )
   }
+
+  if(!(token && allowedRoles.includes(user?.role as string))) {
+    toast.error("Você não tem permissão de acesso para a página requisitada")
+  }
   
   return token && allowedRoles.includes(user?.role as string) ? (
     <Outlet />

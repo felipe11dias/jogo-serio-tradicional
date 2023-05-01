@@ -83,7 +83,7 @@ export default function CreateActivities() {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      toast.success('You successfully create activity');
+      toast.success('Você cadastrou a atividade com sucesso');
       reset();
       navigate('/environment/teacher/collaboration-activities/list', { replace: true })
     }
@@ -126,7 +126,7 @@ export default function CreateActivities() {
               ))
               
               :
-              <option> Lista vazia </option>
+              <option> Nenhuma disciplina cadastrada. </option>
             }
           </select>
           <p className='text-danger'>{errors.name?.message}</p>
@@ -138,7 +138,7 @@ export default function CreateActivities() {
 
         <div className="d-flex justify-content-center">
           <button className="" type="submit">
-            Salvar
+            Cadastrar atividade
           </button>
         </div>
 

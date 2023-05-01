@@ -49,14 +49,14 @@ export default function GameSelect() {
             </div>
 
             <div className="flex flex-col items-center justify-center bg-backgroundColorSecondary rounded-lg p-6">
-              <h3 className='mb-5 hover:text-white text-gray-400 font-semibold rounded-lg text-xl'>Response Search</h3>
+              <h3 className='mb-5 hover:text-white text-gray-400 font-semibold rounded-lg text-xl'>Caça respostas</h3>
               <img className='w-80 h-80 object-cover rounded-lg' src={responseSearchImg} alt="Image Response Search" />
               <p className="text-gray-800 text-lg text-center">Descrição do item aqui</p>
               <button className="w-40 my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg" onClick={() => selectGame('response_select')}>Select</button>
             </div>
 
             <div className="flex flex-col items-center justify-center bg-backgroundColorSecondary rounded-lg p-6">
-              <h3 className='mb-5 hover:text-white text-gray-400 font-semibold rounded-lg text-xl'>Aimshot Response</h3>
+              <h3 className='mb-5 hover:text-white text-gray-400 font-semibold rounded-lg text-xl'>Mirando respostas</h3>
                 <img className='w-80 h-80 object-cover rounded-lg' src={aimshotImg} alt="Image Aimshot Response" />
                 <p className="text-gray-800 text-lg text-center">Descrição do item aqui</p>
                 <button className="w-40 my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg" onClick={() => selectGame('aimshot_response')}>Select</button>

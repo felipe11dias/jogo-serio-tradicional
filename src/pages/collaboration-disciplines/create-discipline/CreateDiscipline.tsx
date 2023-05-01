@@ -17,9 +17,9 @@ export type IRegisterDisciplineInputs = {
 
 const schemaDiscipline = z.object({
   name: z.string()
-    .min(1, "Name is required."),
+    .min(1, "Nome é obrigatório"),
   theme: z.string()
-    .min(1, "Theme is required."),
+    .min(1, "Tema é obrigatório"),
   idUser: z.number().nullable()
 });
 
@@ -49,7 +49,7 @@ export default function CreateDiscipline() {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      toast.success('You successfully create discipline');
+      toast.success('Você cadastrou a disciplina com sucesso');
       reset();
       navigate('/environment/teacher/collaboration-disciplines/list', { replace: true })
     }
@@ -75,20 +75,20 @@ export default function CreateDiscipline() {
         <h2 className="text-center">CREATE DISCIPLINE</h2>
 
         <div className="mb-3" >
-          <div>Name: </div>
+          <div>Nome: </div>
           <input type="text" placeholder="Enter name*" {...register("name")} />
           <p className='text-red-600'>{errors.name?.message}</p>
         </div>
 
         <div className="mb-3" >
-          <div>Theme: </div>
+          <div>Tema: </div>
           <input type="text" placeholder="Enter theme*" {...register("theme")} />
           <p className='text-red-600'>{errors.theme?.message}</p>
         </div>
 
         <div className="d-flex justify-content-center">
           <button type="submit">
-            Salvar
+            Cadastrar disciplina
           </button>
         </div>
 
