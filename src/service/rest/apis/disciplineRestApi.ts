@@ -5,9 +5,14 @@ import { Discipline } from "../../../types/Discipline";
 
 const PATH: string = 'disciplines';
 
-export const listDisciplines = async (): Promise<Discipline[]> => {
-  const { data } = await api.get(`${PATH}`)
-  return data.content
+export const listDisciplines = async (params: any): Promise<any> => {
+  const { data } = await api.get(`${PATH}`, { params })
+  return data
+}
+
+export const listDisciplinesSelection = async (): Promise<Discipline[]> => {
+  const { data } = await api.get(`${PATH}/selection`)
+  return data
 }
 
 export const createDisciplines = async (body: IRegisterDisciplineInputs): Promise<Discipline> => {

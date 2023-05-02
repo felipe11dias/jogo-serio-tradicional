@@ -236,7 +236,7 @@ export default function AimshotResponse() {
                 {
                   (time !== null) ?
                   <div className="my-2">
-                      activities?.questions[questionIndex].description + '?'
+                      {activity?.questions[questionIndex].description + '?'}
                   </div>
                   :
                   <></>

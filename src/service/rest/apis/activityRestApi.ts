@@ -5,14 +5,14 @@ import { Activity } from "../../../types/Activity";
 
 const PATH: string = 'activities';
 
-export const listActivities = async (): Promise<Activity[]> => {
-  const { data } = await api.get(`${PATH}`)
-  return data.content
+export const listActivities = async (params: any): Promise<any> => {
+  const { data } = await api.get(`${PATH}`, { params })
+  return data
 }
 
-export const listActivitiesByDiscipline = async (idDiscipline: number): Promise<Activity[]> => {
-  const { data } = await api.get(`${PATH}/discipline/${idDiscipline}`)
-  return data.content
+export const listActivitiesByDiscipline = async (idDiscipline: number, params: any): Promise<any> => {
+  const { data } = await api.get(`${PATH}/discipline/${idDiscipline}`, { params })
+  return data
 }
 
 export const getActivity = async (id: string): Promise<IEditActivityInputs> => {

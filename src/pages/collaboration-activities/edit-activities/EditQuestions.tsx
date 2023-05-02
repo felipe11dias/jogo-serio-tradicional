@@ -3,13 +3,15 @@ import {
   UseFormRegister,
   useFieldArray
 } from "react-hook-form";
-import { IEditActivityInputs } from "./EditActivities";
+import { AnswerQuestions, IEditActivityInputs } from "./EditActivities";
 import { EditAnswers } from "./EditAnswers";
 
 export function EditQuestions ({
+  questions,
   control,
   register
 }: {
+  questions: AnswerQuestions[];
   control: Control<IEditActivityInputs>;
   register: UseFormRegister<IEditActivityInputs>;
 }) {
@@ -30,6 +32,7 @@ export function EditQuestions ({
               <input type="text" placeholder="Questão*" {...register(`questions.${index}.description`, { required: true })} />
 
               <EditAnswers 
+                question={questions[index]}
                 indexQuestion={index}
                 {...{ control, register }}
               />

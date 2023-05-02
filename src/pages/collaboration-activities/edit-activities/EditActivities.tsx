@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { z } from "zod";
 import FullScreenLoader from '../../../components/loader/full-screen-loader/FullScreenLoader';
 import { editActivitiy, getActivity } from '../../../service/rest/apis/activityRestApi';
-import { listDisciplines } from '../../../service/rest/apis/disciplineRestApi';
+import { listDisciplinesSelection } from '../../../service/rest/apis/disciplineRestApi';
 import { Discipline } from '../../../types/Discipline';
 import { EditQuestions } from './EditQuestions';
 
@@ -60,7 +60,7 @@ export default function EditActivities() {
       navigate('/environment/teacher/collaboration-activities/list', { replace: true })
     }
 
-    listDisciplines().then( data => {
+    listDisciplinesSelection().then( data => {
       setDisciplines(data)
     }).catch( error => {
       toast.error('Erro: ' + error?.message)
@@ -121,7 +121,7 @@ export default function EditActivities() {
               disciplines.length > 0 ? 
               
               disciplines.map(discipline => (
-                <option value={discipline.id}>{discipline.name}</option>
+                <option selected={parseInt(getValues("idDiscipline")) === discipline.id} value={discipline.id}>{discipline.name}</option>
               ))
               
               :
@@ -132,6 +132,7 @@ export default function EditActivities() {
         </div>
 
         <EditQuestions
+          questions={getValues("questions")}
           {...{ control, register }}
         />
 

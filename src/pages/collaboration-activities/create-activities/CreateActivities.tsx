@@ -8,7 +8,7 @@ import FullScreenLoader from '../../../components/loader/full-screen-loader/Full
 import { useAppSelector } from '../../../redux/store';
 import { User } from '../../../redux/types/User';
 import { createActivities } from '../../../service/rest/apis/activityRestApi';
-import { listDisciplines } from '../../../service/rest/apis/disciplineRestApi';
+import { listDisciplinesSelection } from '../../../service/rest/apis/disciplineRestApi';
 import { Discipline } from '../../../types/Discipline';
 import { CreateQuestions } from './CreateQuestions';
 
@@ -49,7 +49,7 @@ export default function CreateActivities() {
   const [disciplines, setDisciplines] = useState<Discipline[]>([]);
   
   useEffect(() => {
-    listDisciplines().then( data => {
+    listDisciplinesSelection().then( data => {
       setDisciplines(data)
     }).catch( error => {
       toast.error('Error: ' + error?.message)
