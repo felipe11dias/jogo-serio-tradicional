@@ -47,7 +47,6 @@ export default function FormLogin() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(user)
     if (isSuccess && user) {
       toast.success('Você acessou sua conta com sucesso');
       if(user?.role === ROLES[ROLES.TEACHER]) {

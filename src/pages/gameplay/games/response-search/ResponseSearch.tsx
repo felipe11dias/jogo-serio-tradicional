@@ -183,8 +183,8 @@ export default function ResponseSearch () {
     // VERIFICA CADA LETRA SELECIONADA DE CADA RESPOSTA COM O SEU PONTO NA TABELA, OU SEJA, AS LETRAS E POINTOS SELECIONADOS NA TABELA TEM QUE ESTAR EM CONFORMIDADE
     validateAnswers()
     getScores()
+    setTime(null)
     setFinish(true)
-    console.log(score)
   }
 
   return (
