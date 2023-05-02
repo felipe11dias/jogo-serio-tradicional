@@ -14,7 +14,7 @@ export default function GameArea() {
         </div>
          :
         <>
-          <h2 className="text-2xl text-white font-bold text-center mb-10"> SELECT GAME AND SELECT DISCIPLINE </h2>
+          <h2 className="text-2xl text-white font-bold text-center mb-10"> Selecione novamente um jogo </h2>
         </>  
       }
     </>

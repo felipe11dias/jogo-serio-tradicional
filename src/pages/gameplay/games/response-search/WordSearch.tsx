@@ -148,49 +148,57 @@ function WordSearch ({ state, setState }: WordSearchProps) {
   }
 
   return (
-    <div className='word-search'>
-      <table>
-        <tbody>
-          {table.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              {row.map((letter, col) => (
-                <td key={col} style={styles.td}>
-                  <div
-                    style={{
-                      textAlign: 'center',
-                      textTransform: 'uppercase',
-                      border: (letter.isWord && state.highlightAnswers) ? '1px solid red' : '0',
-                      padding: state.debug ? 15 : 5
-                    }}
-                  >
-                    <button
-                      type="button"
-                      className=''
-                      onClick={ e => selectLetterAnswer(e, [rowIndex, col])}
-                      title={letter.char}
-                      style={ state.windowSize.width > 1400 ?
-                        { height: 30, width: 30, fontSize: 18, padding: 0, color: 'red', backgroundColor: 'transparent'} :
-                        (state.windowSize.width <= 1400 && state.windowSize.width > 1200) ?
-                        { height: 24, width: 24, fontSize: 14, padding: 0, color: 'red', backgroundColor: 'transparent'} :
-                        (state.windowSize.width <= 1200 && state.windowSize.width >= 992) ?
-                        { height: 14, width: 14, fontSize: 8, padding: 0, color: 'red', backgroundColor: 'transparent'} : 
-                        { height: 12, width: 12, fontSize: 6, padding: 0, color: 'red', backgroundColor: 'transparent'} }
-                      >
-                      {letter.char}
-                    </button>
-                    {state.debug && (
-                      <div style={{ fontSize: 8 }}>
-                        {rowIndex},{col}
-                      </div>
-                    )}
-                  </div>
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <>
+      {
+        state.answers.length > 0 ?
+        <>
+          <div className='word-search'>
+            <table>
+              <tbody>
+                {table.map((row, rowIndex) => (
+                  <tr key={rowIndex}>
+                    {row.map((letter, col) => (
+                      <td key={col} style={styles.td}>
+                        <div
+                          style={{
+                            textAlign: 'center',
+                            textTransform: 'uppercase',
+                            border: (letter.isWord && state.highlightAnswers) ? '1px solid red' : '0',
+                            padding: state.debug ? 15 : 5
+                          }}
+                        >
+                          <button
+                            type="button"
+                            className=''
+                            onClick={ e => selectLetterAnswer(e, [rowIndex, col])}
+                            title={letter.char}
+                            style={ state.windowSize.width > 1400 ?
+                              { height: 30, width: 30, fontSize: 18, padding: 0, color: 'red', backgroundColor: 'transparent'} :
+                              (state.windowSize.width <= 1400 && state.windowSize.width > 1200) ?
+                              { height: 24, width: 24, fontSize: 14, padding: 0, color: 'red', backgroundColor: 'transparent'} :
+                              (state.windowSize.width <= 1200 && state.windowSize.width >= 992) ?
+                              { height: 14, width: 14, fontSize: 8, padding: 0, color: 'red', backgroundColor: 'transparent'} : 
+                              { height: 12, width: 12, fontSize: 6, padding: 0, color: 'red', backgroundColor: 'transparent'} }
+                            >
+                            {letter.char}
+                          </button>
+                          {state.debug && (
+                            <div style={{ fontSize: 8 }}>
+                              {rowIndex},{col}
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </> : 
+        <></>
+      }
+    </>
   )
 }
 

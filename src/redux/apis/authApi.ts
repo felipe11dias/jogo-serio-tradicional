@@ -3,7 +3,6 @@ import { ILoginInputs } from "../../pages/access-control/components/forms/form-l
 import { BASE_URL } from "../../util/constants";
 import { logout } from "../slices/userSlice";
 import { Auth } from "../types/Auth";
-import { User } from "../types/User";
 import { userApi } from "./userApi";
 
 type UserLogin = {
@@ -22,15 +21,6 @@ export const authApi = createApi({
     baseUrl: `${BASE_URL}auth`,
   }),
   endpoints: (builder) => ({
-    registerUser: builder.mutation<User, ILoginInputs>({
-      query(data) {
-        return {
-          url: 'register',
-          method: 'POST',
-          body: data,
-        };
-      },
-    }),
     loginUser: builder.mutation<
       UserLogin,
       ILoginInputs
@@ -51,17 +41,6 @@ export const authApi = createApi({
         } catch (error) {}
       },
     }),
-      verifyEmail: builder.mutation<
-        any,
-        { verificationCode: string }
-      >({
-        query({ verificationCode }) {
-          return {
-            url: `verifyemail/${verificationCode}`,
-            method: 'GET',
-          };
-        },
-      }),
       logoutUser: builder.mutation<void, void>({
         query() {
           return {
@@ -83,7 +62,5 @@ export const authApi = createApi({
 
 export const {
   useLoginUserMutation,
-  useRegisterUserMutation,
   useLogoutUserMutation,
-  useVerifyEmailMutation,
 } = authApi;

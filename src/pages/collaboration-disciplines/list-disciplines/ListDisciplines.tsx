@@ -13,7 +13,6 @@ export default function ListDisciplines() {
   
   useEffect(() => {
     listDisciplines().then( data => {
-      console.log(data)
       setDisciplines(data)
     }).catch( error => {
       toast.error('Error: ' + error?.message)
@@ -28,23 +27,22 @@ export default function ListDisciplines() {
       <div className="mb-5 d-flex justify-content-between "> 
         <div style={{ maxWidth: '500px'}}>
           <input
-            placeholder="Discipline name"
-            aria-label="Discipline name"
+            placeholder="Buscar por nome"
           />
           <button className="" >
-            Search
+            Buscar
           </button>
         </div>
-        <Link className="btn btn-success mr-0 ml-auto" to={'/environment/teacher/collaboration-disciplines/create'} >Create discipline</Link>
+        <Link className="btn btn-success mr-0 ml-auto" to={'/environment/teacher/collaboration-disciplines/create'} >Criar disciplina</Link>
       </div>
 
       <div>
         <table align="center">
           <thead>
             <tr>
-              <th>Discipline Name</th>
-              <th>Theme Name</th>
-              <th>Teacher</th>
+              <th>Nome</th>
+              <th>Tema</th>
+              <th>Professor</th>
               <th></th>
             </tr>
           </thead>
@@ -66,7 +64,7 @@ export default function ListDisciplines() {
                 </tr>
               ))
               :
-              <p> List empty </p>
+              <p> Nenhuma disciplina cadastrada. </p>
             }
           </tbody>
         </table>

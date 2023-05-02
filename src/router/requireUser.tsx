@@ -33,11 +33,18 @@ const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
       </>
     )
   }
+
+  function notification() {
+    toast.error("Você não tem permissão de acesso para a página requisitada")
+  }
   
   return token && allowedRoles.includes(user?.role as string) ? (
     <Outlet />
   ) : (
-    <Navigate to='/access-control/login' replace />
+    <>
+      {notification()}
+      <Navigate to='/access-control/login' replace />
+    </>
   );
 };  
 

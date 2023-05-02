@@ -15,7 +15,7 @@ export const listActivitiesByDiscipline = async (idDiscipline: number): Promise<
   return data.content
 }
 
-export const getActivities = async (id: string): Promise<IEditActivityInputs> => {
+export const getActivity = async (id: string): Promise<IEditActivityInputs> => {
   const { data } = await api.get(`${PATH}/${parseInt(id)}`)
   return data
 }

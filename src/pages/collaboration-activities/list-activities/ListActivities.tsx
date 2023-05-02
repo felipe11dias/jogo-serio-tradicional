@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import { useAppSelector } from "../../../redux/store";
 import { listActivities } from "../../../service/rest/apis/activityRestApi";
 import { Activity } from "../../../types/Activity";
@@ -14,39 +13,36 @@ export default function ListActivities() {
 
   useEffect(() => {
     listActivities().then( data => {
-      console.log(data)
       setActivities(data)
     }).catch( error => {
-      toast.error('Error: ' + error?.message)
       return null
     })
   }, [])
 
   return (
     <>
-      <h2 className="mb-5">Collaborate dashboard</h2>
+      <h2 className="mb-5">Painel colaborativo</h2>
 
       <div className="mb-5 d-flex justify-content-between "> 
         <div style={{ maxWidth: '500px'}}>
           <input
-            placeholder="Activity name"
-            aria-label="Activity name"
+            placeholder="Buscar por nome"
           />
           <button className="" >
-            Search
+            Buscar
           </button>
         </div>
-        <Link className="btn btn-success mr-0 ml-auto" to={'/environment/teacher/collaboration-activities/create'} >Create activity</Link>
+        <Link className="btn btn-success mr-0 ml-auto" to={'/environment/teacher/collaboration-activities/create'} >Criar atividade</Link>
       </div>
 
       <div>
         <table>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Discipline</th>
-              <th>Teacher</th>
-              <th>Questions</th>
+              <th>Nome</th>
+              <th>Disciplina</th>
+              <th>Professor</th>
+              <th>Questões</th>
               <th></th>
             </tr>
           </thead>
@@ -66,7 +62,7 @@ export default function ListActivities() {
                 </tr>
               ))
               :
-              <p> List empty </p>
+              <p> Nenhuma atividade cadastrada. </p>
             }
           </tbody>
         </table>

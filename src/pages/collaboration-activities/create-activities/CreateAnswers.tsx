@@ -26,7 +26,7 @@ export function CreateAnswers ({
           <>
             <div style={{ marginLeft: 'auto', width: "80%" }} className="mb-3" key={index}>
               <label>Resposta {index + 1}:</label>
-              <input type="text" placeholder="Answer" {...register(`questions.${indexQuestion}.answers.${index}.description`)} />
+              <input type="text" placeholder="Resposta*" {...register(`questions.${indexQuestion}.answers.${index}.description`)} />
               <input type="radio" value={index} {...register(`questions.${indexQuestion}.idAnswerCorrect`)} />
             </div>
           </>

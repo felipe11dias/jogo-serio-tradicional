@@ -18,12 +18,12 @@ export interface ILoginInputs {
 
 const schemaLogin = z.object({
   username: z.string()
-    .min(1, 'Email address is required')
-    .email('Email Address is invalid'),
+    .min(1, 'Email é obrigatório')
+    .email('Email é inválido'),
   password: z.string()
-    .min(1, 'Password is required')
-    .min(8, 'Password must be more than 8 characters')
-    .max(32, 'Password must be less than 32 characters'),
+    .min(1, 'Senha é obrigatório')
+    .min(8, 'Senha tem que ter no mínimo 8 caracters')
+    .max(32, 'Senha tem que ter no maximo 32 caracters'),
 });
 
 export async function loader() {
@@ -42,15 +42,13 @@ export default function FormLogin() {
   } = useForm<ILoginInputs>({
     resolver: zodResolver(schemaLogin),
   });
-
   const [loginUser, { isLoading, isError, error, isSuccess }] = useLoginUserMutation();
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isSuccess && user) {
-      console.log(user)
-      toast.success('You successfully logged in');
+      toast.success('Você acessou sua conta com sucesso');
       if(user?.role === ROLES[ROLES.TEACHER]) {
         navigate('/environment/teacher/home', { replace: true });
       }else if(user?.role === ROLES[ROLES.STUDENT]) {
@@ -79,7 +77,6 @@ export default function FormLogin() {
   }, [isSubmitSuccessful]);
 
   const onSubmitHandler: SubmitHandler<ILoginInputs> = async (values) => {
-    // 👇 Executing the loginUser Mutation
     await loginUser(values);
   };
 
@@ -102,24 +99,24 @@ export default function FormLogin() {
       </div>
 
       <div className='flex flex-col text-gray-400 py-2' > 
-      <h3>Password:</h3>
-        <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="text" placeholder="Password*" {...register("password")} />
+        <h3>Senha:</h3>
+        <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="password" placeholder="Senha*" {...register("password")} />
         <p className='text-red-500'>{errors.password?.message}</p>
       </div>
  
 
       <div className='flex justify-between mx-5 mb-2'>
         <Link className='w-full my-5 py-2 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg' to={`/access-control/forget-password`}>
-          Forget Password
+          Esqueci a senha
         </Link>
         <Link  className='w-full my-5 py-2 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg'to={`/access-control/sign-up`}>
-          Sing up
+          Cadastre-se
         </Link>
       </div>
 
       <div className="flex justify-center">
         <button className='w-full my-5 py-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg' type="submit">
-          Send
+          Acessar
         </button>
       </div>
     </form>

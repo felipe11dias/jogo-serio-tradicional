@@ -45,16 +45,15 @@ export default function Header(props: HeaderProps) {
   return (
     <header className='py-6 mb-12 border-b'>
       <div className='container mx-auto flex justify-between items-center'>
-        <Link to="/environment/teacher/home"></Link>
+        <Link to="/environment/teacher/home" className='hover:text-violet-900'>Início</Link>  
         <div className='flex items-center gap-6'>
-          <Link to="/environment/teacher/home" className='hover:text-violet-900'>Home</Link>
-          <Link to="/environment/teacher/collaboration-disciplines/list" className='bg-violet-800 text-white px-4 py-3 rounded-lg transition'>Disciplines</Link>
-          <Link to="/environment/teacher/collaboration-activities/list" className='bg-violet-800 text-white px-4 py-3 rounded-lg transition'>Activities</Link>
-          <Link to="/environment/student/game-select" className='bg-violet-800 text-white px-4 py-3 rounded-lg transition'>Games</Link>
+          <Link to="/environment/teacher/collaboration-disciplines/list" className='bg-violet-800 text-white px-4 py-3 rounded-lg transition'>Disciplinas</Link>
+          <Link to="/environment/teacher/collaboration-activities/list" className='bg-violet-800 text-white px-4 py-3 rounded-lg transition'>Atividades</Link>
+          <Link to="/environment/student/game-select" className='bg-violet-800 text-white px-4 py-3 rounded-lg transition'>Jogos</Link>
         </div>
         <div className='w-auto rounded p-3 text-primary bg-white'>
           <form onSubmit={handleSubmit(onSubmitHandler)}>
-            <button type='submit'>Logout</button>
+            <button type='submit'>Encerrar sessão</button>
           </form>
         </div>
       </div>

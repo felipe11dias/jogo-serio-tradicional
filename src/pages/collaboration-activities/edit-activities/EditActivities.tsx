@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { z } from "zod";
 import FullScreenLoader from '../../../components/loader/full-screen-loader/FullScreenLoader';
-import { editActivitiy, getActivities } from '../../../service/rest/apis/activityRestApi';
+import { editActivitiy, getActivity } from '../../../service/rest/apis/activityRestApi';
 import { listDisciplines } from '../../../service/rest/apis/disciplineRestApi';
 import { Discipline } from '../../../types/Discipline';
 import { EditQuestions } from './EditQuestions';
@@ -63,7 +63,7 @@ export default function EditActivities() {
     listDisciplines().then( data => {
       setDisciplines(data)
     }).catch( error => {
-      toast.error('Error: ' + error?.message)
+      toast.error('Erro: ' + error?.message)
       return null
     })
   }, [])
@@ -77,7 +77,7 @@ export default function EditActivities() {
     formState: { isSubmitting, isSubmitSuccessful, errors },
   } = useForm<IEditActivityInputs>({
     resolver: zodResolver(schemaActivity),
-    defaultValues: async () => getActivities(id || '-1')
+    defaultValues: async () => getActivity(id || '-1')
   });
 
   useEffect(() => {
@@ -125,7 +125,7 @@ export default function EditActivities() {
               ))
               
               :
-              <option> Lista vazia </option>
+              <option> Nenhuma disciplina cadastrada. </option>
             }
           </select>
           <p className='text-danger'>{errors.name?.message}</p>
@@ -137,7 +137,7 @@ export default function EditActivities() {
 
         <div className="d-flex justify-content-center">
           <button className="" type="submit">
-            Salvar
+            Editar atividade
           </button>
         </div>
       </form>
