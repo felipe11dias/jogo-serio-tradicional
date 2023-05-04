@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Modal } from "@mui/material";
+import { Box, Modal } from "@mui/material";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -23,6 +23,19 @@ const schemaDiscipline = z.object({
     .min(1, "Theme is required."),
   idUser: z.number().nullable()
 });
+
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'rgb(18, 18, 18)',
+  border: '2px solid rgb(0, 0, 0)',
+  boxShadow: 24,
+  p: 4,
+  color: '#fff'
+};
 
 export default function ModalEdit({ id }: { id: number}) {
   const user: User | null = useAppSelector(state => state.userState.user)
@@ -83,7 +96,7 @@ export default function ModalEdit({ id }: { id: number}) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <div>
+        <Box sx={style}>
           <div>
             <button onClick={closeModal}>X</button>
           </div>
@@ -111,7 +124,7 @@ export default function ModalEdit({ id }: { id: number}) {
               </button>
             </div>
           </form>
-        </div>
+        </Box>
       </Modal>
     </div>
   );
