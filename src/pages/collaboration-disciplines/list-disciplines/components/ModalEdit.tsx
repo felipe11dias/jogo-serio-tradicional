@@ -102,25 +102,25 @@ export default function ModalEdit({ id }: { id: number}) {
           </div>
           
           <form onSubmit={handleSubmit(onSubmitHandler)}>
-            <h2>Edit Discipline</h2>
+            <h2>Editar disciplina</h2>
             <div className="mb-3" >
-              <div>Name: </div>
+              <div>Nome: </div>
               <input type="text" placeholder="Enter name*" {...register("name")} />
               <p className='text-red-600'>{errors.name?.message}</p>
             </div>
 
             <div className="mb-3" >
-              <div>Theme: </div>
+              <div>Tema: </div>
               <input type="text" placeholder="Enter theme*" {...register("theme")} />
               <p className='text-red-600'>{errors.theme?.message}</p>
             </div>
 
             <div className="d-flex justify-content-center">
               <button type="button" onClick={closeModal}>
-                Cancel
+                Cancelar
               </button>
               <button type="submit">
-                Send
+                Salvar
               </button>
             </div>
           </form>

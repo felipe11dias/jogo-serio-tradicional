@@ -80,7 +80,7 @@ export default function FormLogin() {
 
   return (
     <form className='max-w-[400px] w-full mx-auto rounded-lg bg-gray-900 p-8 px-8' onSubmit={handleSubmit(onSubmitHandler)}>
-      <h2 className="text-4xl text-white font-bold text-center">LOGIN</h2>
+      <h2 className="text-4xl text-white font-bold text-center">ACESSAR CONTA</h2>
 
       <div className='flex flex-col text-gray-400 py-2' > 
         <h3>Email:</h3>
