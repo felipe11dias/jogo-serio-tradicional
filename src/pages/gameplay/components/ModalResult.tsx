@@ -36,7 +36,7 @@ export default function ModalResult(result: ResultProps) {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      toast.success('Atividade deletada com sucesso.');
+      toast.success('Atividade deletada com sucesso!');
       navigate('/environment/teacher/collaboration-activities/list', { replace: true })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

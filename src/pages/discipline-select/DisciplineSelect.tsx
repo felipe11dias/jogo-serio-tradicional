@@ -1,7 +1,6 @@
 import { Pagination } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import GameSeriusContext, { GameSeriusType } from "../../context/GameContext/GameContext";
 import { listDisciplines } from "../../service/rest/apis/disciplineRestApi";
 import { Discipline } from "../../types/Discipline";
@@ -26,7 +25,6 @@ export default function DisciplineSelect() {
       setDisciplines(data.content)
       setCount(data.totalPages)
     }).catch( error => {
-      toast.error('Error: ' + error?.message)
       return null
     })
   }

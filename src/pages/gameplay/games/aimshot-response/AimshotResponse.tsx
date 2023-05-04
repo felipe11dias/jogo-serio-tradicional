@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import Countdown from "react-countdown";
-import { toast } from "react-toastify";
 import GameSeriusContext, { GameSeriusType } from "../../../../context/GameContext/GameContext";
 import { getActivity } from "../../../../service/rest/apis/activityRestApi";
 import { IEditActivityInputs } from "../../../collaboration-activities/edit-activities/EditActivities";
@@ -26,7 +25,6 @@ export default function AimshotResponse() {
         questions: data.questions
       })
     }).catch( error => {
-      toast.error('Error: ' + error?.message)
       return null
     })
   }, [])

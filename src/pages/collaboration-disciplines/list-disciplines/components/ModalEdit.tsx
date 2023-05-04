@@ -59,7 +59,7 @@ export default function ModalEdit({ id }: { id: number}) {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      toast.success('You successfully edit discipline');
+      toast.success('Você editou a disciplina com sucesso!');
       reset();
       navigate('/environment/teacher/collaboration-disciplines/list', { replace: true })
     }

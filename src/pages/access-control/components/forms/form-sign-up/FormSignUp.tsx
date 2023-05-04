@@ -50,7 +50,7 @@ export default function FormSignUp() {
 
   useEffect(() => {
     if (isSuccess && isSubmitSuccessful && user) {
-      toast.success('Você criou e acessou sua conta com sucesso, aproveite');
+      toast.success('Você criou e acessou sua conta com sucesso, aproveite!');
       reset();
       if(user?.role === ROLES[ROLES.TEACHER]) {
         navigate('/environment/teacher/home', { replace: true });

@@ -42,27 +42,17 @@ export default function FormLogin() {
   } = useForm<ILoginInputs>({
     resolver: zodResolver(schemaLogin),
   });
-  const [loginUser, { isLoading, isError, error, isSuccess }] = useLoginUserMutation();
+  const [loginUser, { isLoading, isSuccess }] = useLoginUserMutation();
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isSuccess && user) {
-      toast.success('Você acessou sua conta com sucesso');
+      toast.success('Você acessou sua conta com sucesso!');
       if(user?.role === ROLES[ROLES.TEACHER]) {
         navigate('/environment/teacher/home', { replace: true });
       }else if(user?.role === ROLES[ROLES.STUDENT]) {
         navigate('/environment/student/game-select', { replace: true });
-      }
-    }
-    
-    if (isError) {
-      if (Array.isArray((error as any).data.error)) {
-        (error as any).data.error.forEach((el: any) =>
-          toast.error(el.message)
-        );
-      } else {
-        toast.error((error as any).data.message);
       }
     }
     

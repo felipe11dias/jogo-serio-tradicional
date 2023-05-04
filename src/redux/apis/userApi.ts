@@ -74,7 +74,7 @@ export const userApi = createApi({
           if(error.error.status === 500 && access_token) {
             const decodedJwt = parseJwt(access_token);
             if (decodedJwt.exp * 1000 < Date.now()) {
-              toast.error('Sua sessão expirou, por favor acesse novamente sua conta para atualizar suas credenciais')
+              toast.error('Sua sessão expirou, por favor acesse novamente sua conta para atualizar suas credenciais.')
               localStorage.removeItem("persist:jogosSerios")
               localStorage.removeItem("auth")
               dispatch(logout());
