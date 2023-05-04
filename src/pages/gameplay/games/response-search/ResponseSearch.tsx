@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from 'react'
 import Countdown from 'react-countdown'
+import { SubmitHandler, useForm } from "react-hook-form"
 import GameSeriusContext, { GameSeriusType } from '../../../../context/GameContext/GameContext'
 import { getActivity } from '../../../../service/rest/apis/activityRestApi'
 import { Answer } from '../../../collaboration-activities/create-activities/CreateActivities'
 import { AnswerQuestions, IEditActivityInputs } from '../../../collaboration-activities/edit-activities/EditActivities'
+import ModalResult, { ResultProps } from '../../components/ModalResult'
 import WordSearch from './WordSearch'
 import './styles.css'
 import { Mode, Point } from './types'
@@ -55,10 +57,9 @@ export default function ResponseSearch () {
   const { gameSerius, saveGameSerius } = useContext(GameSeriusContext) as GameSeriusType;
   const [startGame, setStartGame] = useState<boolean>(false);
   const [time, setTime] = useState<number | null>(0);
-  const [score, setScore] = useState<number>(0);
-  const [finish, setFinish] = useState<boolean>(false);
   const [activity, setActivity] = useState<IEditActivityInputs | null>(null);
-  const [ state, setState ] = useState<StateProps>(stateDefaultEmpty)
+  const [state, setState ] = useState<StateProps>(stateDefaultEmpty)
+  const [result, setResult] = useState<ResultProps>({ questions: [], open: true, answers: [] });
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -67,6 +68,10 @@ export default function ResponseSearch () {
   useEffect(() => {
     getActivity(gameSerius.activitySelected.toString()).then( data => {
       setActivity(data)
+      setResult({
+        ...result,
+        questions: data.questions
+      })
     }).catch( error => {
       return null
     })
@@ -83,9 +88,8 @@ export default function ResponseSearch () {
   }, [activity])
 
   useEffect(() => {
-    console.log(state)
+    console.log(time)
   }, [state])
-
 
   useEffect(() => {
     window.addEventListener('resize', handleWindowResize);
@@ -95,19 +99,24 @@ export default function ResponseSearch () {
     };
   }, [windowSize]);
 
-  const ScoreFinishGame = () => <span>Você acertou {score} questões!</span>;
+  const ScoreFinishGame = () => (
+    <>
+      <ModalResult questions={result.questions} open={result.open} answers={result.answers} />
+      <h1>Fim de jogo!</h1>
+    </>
+  );
 
-// Renderer callback with condition
   const renderer = ({ minutes, seconds, completed }: { minutes: number, seconds: number, completed: boolean }) => {
     if (completed) {
-      // Render a completed state
-      setFinish(true)
+      finishGame()
       return <ScoreFinishGame />;
     } else {
-      // Render a countdown
+      setTime((minutes * 60000) + (seconds * 1000))
       return <h3>{minutes}:{seconds}</h3>;
     }
   };
+
+  const { register, handleSubmit, reset } = useForm();
 
   function initStartGame(timeVar: number) {
     setTime(timeVar)
@@ -156,13 +165,16 @@ export default function ResponseSearch () {
     for (let index = 0; index < state.answersViews.answers.length; index++) {
       const pointsAnswers = state.answersViews.pointsAnswers[index];
       const pointsAnswersTable = state.answersViews.pointsAnswersTable[index];
+      //console.log("pointsAnswers", pointsAnswers)
+      //console.log("pointsAnswersTable", pointsAnswersTable)
       
       for (let indexPoint = 0; indexPoint < pointsAnswers.length; indexPoint++) {
+        //console.log("indexPoint", indexPoint)
         const [r, c] = pointsAnswers[indexPoint];
         const [row, col] = pointsAnswersTable[indexPoint];
         
         if(!(r === row && c === col)) {
-          state.answersViews.answers[index] += "** INCORRECT ORDER ELEMENTES **";
+          state.answersViews.answers[index] += "** ORDEM DE ELEMENTOS INCORRETO **";
           break;
         }
       }
@@ -170,22 +182,30 @@ export default function ResponseSearch () {
   }
 
   const getScores = () => {
-    activity?.questions.map( (question, index) => {
-      if(question.answers[parseInt(question.idAnswerCorrect)].description === state.answersViews.answers[index]) {
-        setScore(score + 1)
+    activity?.questions.map( (question, indexQuestion) => {
+      question.answers.map((answer => {
+        if((answer.id === parseInt(question.idAnswerCorrect)) && (answer.description.toUpperCase() === state.answersViews.answers[indexQuestion])) {
+          result.answers.push(answer.id)
+        }
+      }))
+      if(result.answers[indexQuestion] === undefined) {
+        result.answers.push(-1)
       }
     })
+    setResult(result)
   }
 
-  const handleSubmit = (event: any) => {
-    event.preventDefault()
-    
+  const finishGame = () => {
     // VERIFICA CADA LETRA SELECIONADA DE CADA RESPOSTA COM O SEU PONTO NA TABELA, OU SEJA, AS LETRAS E POINTOS SELECIONADOS NA TABELA TEM QUE ESTAR EM CONFORMIDADE
     validateAnswers()
+    // VERIFICA SE A RESPOSTA CORRETA DA QUESTÃO ESTÁ EM CONFORMIDADE COM A RESPOSTA DO ALUNO
     getScores()
     setTime(null)
-    setFinish(true)
   }
+
+  const onSubmitHandler: SubmitHandler<any> = async (values) => {
+    finishGame()
+  };
 
   return (
     <>
@@ -208,9 +228,9 @@ export default function ResponseSearch () {
         <></>
       }
       {
-      !startGame && (activity !== null) && state.answers.length > 0 ?
+      !startGame ?
         <div>
-          <h1>Aimshot Response</h1>
+          <h1>Caça respostas</h1>
           <button type="button" onClick={() => setStartGame(true)}>Iniciar o jogo</button>
         </div> :
         <>
@@ -230,6 +250,8 @@ export default function ResponseSearch () {
                   <option value={120000}>2 min</option>
                   <option value={240000}>4 min</option>
                   <option value={300000}>5 min</option>
+                  <option value={1800000}>30 min</option>
+                  <option value={3600000}>1 hora</option>
                 </select>
               </div>
             </> :
@@ -257,7 +279,7 @@ export default function ResponseSearch () {
                         ))}
                       </div>
                     </div>
-                    <form onSubmit={ (e) => handleSubmit(e) } className='px-0'>
+                    <form onSubmit={handleSubmit(onSubmitHandler)} className='px-0'>
                       <div className='my-4'>
                           {
                             state.answers.map( (_, index) => {
@@ -279,6 +301,7 @@ export default function ResponseSearch () {
                         <button className='btn btn-primary text-white' type='submit'> Finalizar </button>
                       </div>
                       <WordSearch
+                        time={time}
                         state={state}
                         setState={setState}
                         />

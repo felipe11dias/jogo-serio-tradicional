@@ -24,8 +24,6 @@ export function EditAnswers ({
   return (
     <>
       {fields.map((item: any, index: number) => {
-        console.log("item", item)
-        console.log("`questions.${indexQuestion}.answers.${index}.id`", `questions.${indexQuestion}.answers.${index}.id`)
         return (
           <>
             <div style={{ marginLeft: 'auto', width: "80%" }} className="mb-3" key={item.id}>

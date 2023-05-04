@@ -11,7 +11,7 @@ export default function ModalDelete({ id }: { id: number}) {
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const {
     handleSubmit,
-    formState: { isSubmitting, isSubmitSuccessful, errors },
+    formState: { isSubmitting, isSubmitSuccessful },
   } = useForm<{}>({});
   
   const navigate = useNavigate();

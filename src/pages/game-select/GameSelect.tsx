@@ -5,6 +5,7 @@ import aimshotImg from '../../assets/aimshot.jpg';
 import responseSearchImg from '../../assets/response-search.jpg';
 import ticTacToyImg from '../../assets/tic-tac-toy.jpg';
 import GameSeriusContext, { GameSeriusType } from "../../context/GameContext/GameContext";
+import { GAME_AIMSHOT_SEARCH, GAME_RESPONSE_SEARCH } from "../../util/constants";
 
 export default function GameSelect() {
   const navigate = useNavigate();
@@ -45,21 +46,21 @@ export default function GameSelect() {
                 <h3 className='mb-5 hover:text-white text-gray-400 font-semibold rounded-lg text-xl'>Jogo da Velha</h3>
                 <img className='w-80 h-80 object-cover rounded-lg' src={ticTacToyImg} alt="Image Tic Tac Toy" />
                 <p className="text-gray-800 text-lg text-center">Descrição do item aqui</p>
-                <button className="w-40 my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg" onClick={() => selectGame('jogo_da_velha')}>Select</button>
+                <button className="w-40 my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg" onClick={() => selectGame('jogo_da_velha')}>Selecionar</button>
             </div>
 
             <div className="flex flex-col items-center justify-center bg-backgroundColorSecondary rounded-lg p-6">
               <h3 className='mb-5 hover:text-white text-gray-400 font-semibold rounded-lg text-xl'>Caça respostas</h3>
               <img className='w-80 h-80 object-cover rounded-lg' src={responseSearchImg} alt="Image Response Search" />
               <p className="text-gray-800 text-lg text-center">Descrição do item aqui</p>
-              <button className="w-40 my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg" onClick={() => selectGame('response_select')}>Select</button>
+              <button className="w-40 my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg" onClick={() => selectGame(GAME_RESPONSE_SEARCH)}>Selecionar</button>
             </div>
 
             <div className="flex flex-col items-center justify-center bg-backgroundColorSecondary rounded-lg p-6">
               <h3 className='mb-5 hover:text-white text-gray-400 font-semibold rounded-lg text-xl'>Mirando respostas</h3>
                 <img className='w-80 h-80 object-cover rounded-lg' src={aimshotImg} alt="Image Aimshot Response" />
                 <p className="text-gray-800 text-lg text-center">Descrição do item aqui</p>
-                <button className="w-40 my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg" onClick={() => selectGame('aimshot_response')}>Select</button>
+                <button className="w-40 my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg" onClick={() => selectGame(GAME_AIMSHOT_SEARCH)}>Selecionar</button>
             </div>
           </div>
         </div>

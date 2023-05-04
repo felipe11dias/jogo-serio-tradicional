@@ -20,11 +20,9 @@ export default function DisciplineSelect() {
   }, [page])
 
   const findAllDisciplines = async () => {
-    console.log("findAllDisciplines")
     const params = getRequestParams(searchDiscipline, page);
 
     await listDisciplines(params).then( data => {
-      console.log(data)
       setDisciplines(data.content)
       setCount(data.totalPages)
     }).catch( error => {

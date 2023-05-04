@@ -44,7 +44,7 @@ export default function FormSignUp() {
     resolver: zodResolver(schemaLogin),
   });
 
-  const [registerUser, { isLoading, isError, error, isSuccess }] = useRegisterUserMutation();
+  const [registerUser, { isLoading, isSuccess }] = useRegisterUserMutation();
   
   const navigate = useNavigate();
 
