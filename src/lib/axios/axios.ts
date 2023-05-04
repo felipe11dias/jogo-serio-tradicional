@@ -36,7 +36,7 @@ api.interceptors.response.use(
       if (decodedJwt.exp * 1000 < Date.now()) {
         localStorage.removeItem("persist:jogosSerios")
         localStorage.removeItem("auth")
-        window.location.replace("/jogos-serios-tradicionais-fe/access-control/login")
+        window.location.reload()
         return Promise.reject(new Error('Sua sessão expirou, por favor acesse novamente sua conta para atualizar suas credenciais'));
       }
     }

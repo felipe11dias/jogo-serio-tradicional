@@ -16,7 +16,28 @@ import {
 } from './types'
 import { randomChar, range, shuffleArray } from './utils'
 
-function WordSearch ({ state, setState }: WordSearchProps) {
+
+interface WordSearchProps {
+  time: number
+  state: StateProps
+  setState: Function
+}
+
+interface Letter {
+  char: string
+  isWord: boolean
+}
+
+type Table = Letter[][]
+
+const styles = {
+  td: {
+    padding: 0,
+    fontFamily: 'sans-serif'
+  }
+}
+
+function WordSearch ({ time, state, setState }: WordSearchProps) {
   const table: Table = useMemo(() => {
     const points: Point[] = []
 
@@ -44,11 +65,12 @@ function WordSearch ({ state, setState }: WordSearchProps) {
 
     shuffleArray(points)
 
-    state.answers.forEach((answer: Answer) => {
+    state.answers.forEach((answer: Answer, index: number) => {
       if (answer.description.length > 0) {
         createAnswer(
           state,
           setState,
+          index,
           answer.description.toUpperCase(),
           table,
           state.size,
@@ -202,28 +224,7 @@ function WordSearch ({ state, setState }: WordSearchProps) {
   )
 }
 
-interface WordSearchProps {
-  state: StateProps
-  setState: Function
-}
-
-interface Letter {
-  char: string
-  isWord: boolean
-}
-
-type Table = Letter[][]
-
-const styles = {
-  td: {
-    padding: 0,
-    fontFamily: 'sans-serif'
-  }
-}
-
-export default WordSearch
-
-const createAnswer = (state: any, setState: any, word: string, table: Table, size: number, points: Point[], availableDirections: Direction[]): void => {
+const createAnswer = (state: StateProps, setState: Function, indexAnswer: number, word: string, table: Table, size: number, points: Point[], availableDirections: Direction[]): void => {
   for (let pointIndex = 0; pointIndex < points.length; pointIndex += 1) {
     const [ x, y ] = points[pointIndex]
 
@@ -261,13 +262,17 @@ const createAnswer = (state: any, setState: any, word: string, table: Table, siz
       }
 
       positions.forEach(([ x, y ], index) => {
+        state.answersViews.pointsAnswersTable[indexAnswer].push([y, x])
         table[y][x] = {
           char: word[index],
           isWord: true
         }
       })
-
+      setState(state)
       return
     }
   }
 }
+
+export default WordSearch
+

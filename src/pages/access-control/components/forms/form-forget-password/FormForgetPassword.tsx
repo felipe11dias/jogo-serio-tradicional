@@ -24,7 +24,7 @@ export default function FormForgetPassword() {
     resolver: zodResolver(schemaForgetPassword),
   });
 
-  const [recoverPassword, { isLoading, isError, error, isSuccess }] = useRecoverPasswordMutation();
+  const [recoverPassword, { isLoading }] = useRecoverPasswordMutation();
 
   const onSubmitHandler: SubmitHandler<IRecoverPasswordInputs> = async (values) => {
     await recoverPassword(values);

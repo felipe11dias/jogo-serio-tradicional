@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Modal } from "@mui/material";
+import { Box, Modal } from "@mui/material";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -24,6 +24,19 @@ const schemaDiscipline = z.object({
   idUser: z.number().nullable()
 });
 
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'rgb(18, 18, 18)',
+  border: '2px solid rgb(0, 0, 0)',
+  boxShadow: 24,
+  p: 4,
+  color: '#fff'
+};
+
 export default function ModalEdit({ id }: { id: number}) {
   const user: User | null = useAppSelector(state => state.userState.user)
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
@@ -46,7 +59,7 @@ export default function ModalEdit({ id }: { id: number}) {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      toast.success('You successfully edit discipline');
+      toast.success('Você editou a disciplina com sucesso!');
       reset();
       navigate('/environment/teacher/collaboration-disciplines/list', { replace: true })
     }
@@ -83,35 +96,35 @@ export default function ModalEdit({ id }: { id: number}) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <div>
+        <Box sx={style}>
           <div>
             <button onClick={closeModal}>X</button>
           </div>
           
           <form onSubmit={handleSubmit(onSubmitHandler)}>
-            <h2>Edit Discipline</h2>
+            <h2>Editar disciplina</h2>
             <div className="mb-3" >
-              <div>Name: </div>
+              <div>Nome: </div>
               <input type="text" placeholder="Enter name*" {...register("name")} />
               <p className='text-red-600'>{errors.name?.message}</p>
             </div>
 
             <div className="mb-3" >
-              <div>Theme: </div>
+              <div>Tema: </div>
               <input type="text" placeholder="Enter theme*" {...register("theme")} />
               <p className='text-red-600'>{errors.theme?.message}</p>
             </div>
 
             <div className="d-flex justify-content-center">
               <button type="button" onClick={closeModal}>
-                Cancel
+                Cancelar
               </button>
               <button type="submit">
-                Send
+                Salvar
               </button>
             </div>
           </form>
-        </div>
+        </Box>
       </Modal>
     </div>
   );

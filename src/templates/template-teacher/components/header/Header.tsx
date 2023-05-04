@@ -16,22 +16,12 @@ export default function Header(props: HeaderProps) {
     handleSubmit,
   } = useForm<{}>({});
 
-  const [logoutUser, { isLoading, isError, error, isSuccess }] = useLogoutUserMutation();
+  const [logoutUser, { isLoading, isSuccess }] = useLogoutUserMutation();
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success('You successfully logout');
+      toast.success('Você encerrou sua sessão com sucesso!');
       window.location.reload()
-    }
-    
-    if (isError) {
-      if (Array.isArray((error as any).data.error)) {
-        (error as any).data.error.forEach((el: any) =>
-          toast.error(el.message)
-        );
-      } else {
-        toast.error((error as any).data.message);
-      }
     }
     
     // eslint-disable-next-line react-hooks/exhaustive-deps

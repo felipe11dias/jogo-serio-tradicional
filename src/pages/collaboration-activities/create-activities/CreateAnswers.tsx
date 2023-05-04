@@ -14,7 +14,7 @@ export function CreateAnswers ({
   control: Control<IRegisterActivityInputs>;
   register: UseFormRegister<IRegisterActivityInputs>;
 }) {
-  const { fields, remove, append } = useFieldArray({
+  const { fields } = useFieldArray({
     control,
     name: `questions.${indexQuestion}.answers` 
   });

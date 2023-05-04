@@ -63,7 +63,6 @@ export default function EditActivities() {
     listDisciplinesSelection().then( data => {
       setDisciplines(data)
     }).catch( error => {
-      toast.error('Erro: ' + error?.message)
       return null
     })
   }, [])
@@ -82,7 +81,7 @@ export default function EditActivities() {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      toast.success('You successfully create activity');
+      toast.success('Você criou a atividade com sucesso!');
       reset();
       navigate('/environment/teacher/collaboration-activities/list', { replace: true })
     }

@@ -49,7 +49,7 @@ export default function CreateDiscipline() {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      toast.success('Você cadastrou a disciplina com sucesso');
+      toast.success('Você cadastrou a disciplina com sucesso!');
       reset();
       navigate('/environment/teacher/collaboration-disciplines/list', { replace: true })
     }

@@ -83,7 +83,7 @@ export default function CreateActivities() {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      toast.success('Você cadastrou a atividade com sucesso');
+      toast.success('Você cadastrou a atividade com sucesso!');
       reset();
       navigate('/environment/teacher/collaboration-activities/list', { replace: true })
     }

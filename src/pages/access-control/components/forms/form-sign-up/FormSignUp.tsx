@@ -44,13 +44,13 @@ export default function FormSignUp() {
     resolver: zodResolver(schemaLogin),
   });
 
-  const [registerUser, { isLoading, isError, error, isSuccess }] = useRegisterUserMutation();
+  const [registerUser, { isLoading, isSuccess }] = useRegisterUserMutation();
   
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isSuccess && isSubmitSuccessful && user) {
-      toast.success('Você criou e acessou sua conta com sucesso, aproveite');
+      toast.success('Você criou e acessou sua conta com sucesso, aproveite!');
       reset();
       if(user?.role === ROLES[ROLES.TEACHER]) {
         navigate('/environment/teacher/home', { replace: true });

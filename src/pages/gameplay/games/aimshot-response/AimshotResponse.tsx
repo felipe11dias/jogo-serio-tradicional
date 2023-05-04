@@ -1,68 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import Countdown from "react-countdown";
-import { toast } from "react-toastify";
 import GameSeriusContext, { GameSeriusType } from "../../../../context/GameContext/GameContext";
 import { getActivity } from "../../../../service/rest/apis/activityRestApi";
-import { Activity } from "../../../../types/Activity";
 import { IEditActivityInputs } from "../../../collaboration-activities/edit-activities/EditActivities";
+import ModalResult, { ResultProps } from "../../components/ModalResult";
 import './style.css';
-
-
-const FORM_MOCK: Activity = {
-  id: 0,
-  idUser: 1,
-  idDiscipline: 1,
-  user: '',
-  discipline: '',
-  name: "TESTE",
-  questions: [
-    {
-      id: 0,
-      description: "Questão 1",
-      answers: [
-        {
-          id: 0,
-          description: "Resposta 1"
-        },
-        {
-          id: 1,
-          description: "Resposta 2"
-        }
-      ],
-      idAnswerCorrect: 0
-    },
-    {
-      id: 1,
-      description: "Questão 2",
-      answers: [
-        {
-          id: 0,
-          description: "Resposta 1"
-        },
-        {
-          id: 1,
-          description: "Resposta 2"
-        }
-      ],
-      idAnswerCorrect: 0
-    },
-    {
-      id: 2,
-      description: "Questão 3",
-      answers: [
-        {
-          id: 0,
-          description: "Resposta 1"
-        },
-        {
-          id: 1,
-          description: "Resposta 2"
-        }
-      ],
-      idAnswerCorrect: 0
-    }
-  ]
-}
 
 export default function AimshotResponse() {
   const ref = React.useRef(null);
@@ -73,17 +15,26 @@ export default function AimshotResponse() {
   const [time, setTime] = useState<number | null>(0);
   const [score, setScore] = useState<number>(0);
   const [activity, setActivity] = useState<IEditActivityInputs>();
+  const [result, setResult] = useState<ResultProps>({ questions: [], open: true, answers: [] });
 
   useEffect(() => {
     getActivity(gameSerius.activitySelected.toString()).then( data => {
       setActivity(data)
+      setResult({
+        ...result,
+        questions: data.questions
+      })
     }).catch( error => {
-      toast.error('Error: ' + error?.message)
       return null
     })
   }, [])
 
-  const ScoreFinishGame = () => <span>Você acertou {score} questões!</span>;
+  const ScoreFinishGame = () => (
+    <>
+      <ModalResult questions={result.questions} open={result.open} answers={result.answers} />
+      <h1>Fim de jogo!</h1>;
+    </>
+  )
 
 // Renderer callback with condition
   const renderer = ({ minutes, seconds, completed }: { minutes: number, seconds: number, completed: boolean }) => {
@@ -106,12 +57,23 @@ export default function AimshotResponse() {
     Array.from(answers).forEach(answer => {
       answer.remove();
     })
-    setTime(null)
+
     const board = document.getElementById('board')
     board?.remove();
+
+    // Preenche as questão não marcadas a tempo com um valor incorreto.
+    if(result.questions.length > result.answers.length) {
+      for(var i = 0; i < (result.questions.length - result.answers.length); i++) {
+        result.answers.push(-1)
+      }
+      setResult(result)
+    }
+    setTime(null)
   }
 
   function checkAnswer(id: number) {
+    result.answers.push(id)
+    setResult(result)
     const answers = document.getElementsByClassName('answer')
     Array.from(answers).forEach(answer => {
       answer.remove();
@@ -222,6 +184,8 @@ export default function AimshotResponse() {
                   <option value={120000}>2 min</option>
                   <option value={240000}>4 min</option>
                   <option value={300000}>5 min</option>
+                  <option value={1800000}>30 min</option>
+                  <option value={3600000}>1 hora</option>
                 </select>
               </div>
             </>
