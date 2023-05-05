@@ -24,7 +24,7 @@ export default function FormForgetPassword() {
 
   return (
     <form className='max-w-[400px] w-full mx-auto rounded-lg bg-backgroundColorSecondary p-8 px-8' onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="text-4xl text-textColorPrimary font-bold text-center">ESQUECEU A SENHA?</h2>
+      <h2 className="text-4xl text-textColorThird font-bold text-center">ESQUECEU A SENHA?</h2>
 
       <div className="flex flex-col text-textHintColor py-2" >
         <h3>email:</h3> 
@@ -33,17 +33,17 @@ export default function FormForgetPassword() {
       </div>
  
 
-      <div className='flex justify-around mb-2'>
+      <div className='flex justify-between'>
         <Link to={`/access-control/login`}>
-         <div className='w-full my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg'> Logar</div>
+         <div className='text-center w-full my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg'> Logar</div>
           </Link>
         <Link to={`/access-control/sign-up`}>
-        <div className='w-full my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg'> Se inscrever</div>  
+        <div className='text-center w-full my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg'> Se inscrever</div>  
           </Link>
       </div>
 
       <div className="flex justify-center">
-        <button className='w-full my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="submit">
+        <button className='text-center w-full my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="submit">
           Enviar
         </button>
       </div>

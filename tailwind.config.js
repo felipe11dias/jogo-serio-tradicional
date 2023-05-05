@@ -34,16 +34,18 @@ module.exports = {
       colors: {
         //'#044cf4'
         // Theme
-        backgroundColorSecondary: '#1d2939',
+        backgroundColorPrimary: '#f4f4f5',
+        backgroundColorSecondary: '#FFFFFF',
         backgroundColorThird: '#040a25',
-        backgroundColorInput: '#101624', //
+        backgroundColorInput: '#f4f4f5', //
         bgContainerTable:"#d1faf1",
 
         // Theme components
         textColorPrimary: '#FFFFFF', // white
         textColorSecondary: '#000000', // black
-        textHintColor: '#9da3af',  // light grey
-        buttonColor: '#3eb6a5',   // teal
+        textColorThird: '#112868', // white
+        textHintColor: '#112868',  // light grey
+        buttonColor: '#112868',   // teal
         
         // utils
         errTextColor: '#e14c3c',
