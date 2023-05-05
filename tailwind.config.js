@@ -43,9 +43,9 @@ module.exports = {
         // Theme components
         textColorPrimary: '#FFFFFF', // white
         textColorSecondary: '#000000', // black
-        textColorThird: '#112868', // white
-        textHintColor: '#112868',  // light grey
-        buttonColor: '#112868',   // teal
+        textColorThird: '#3349f1', // white
+        textHintColor: '#3349f1',  // light grey
+        buttonColor: '#3349f1',   // teal
         
         // utils
         errTextColor: '#e14c3c',
@@ -53,9 +53,11 @@ module.exports = {
         // Hovers
         hoverColorHeader:'white',
         hoverColorFooter:'#1d2939',
-        hoverColorButton: '#286a62',
+        hoverColorButton: '#3349f1',
 
         // Footer && Header
+        backgroundColorHeaderPrimary: '#3349f1',
+        backgroundColorFooterPrimary: '#3349f1',
         textColorFH:'#9da3af'
 
       },
