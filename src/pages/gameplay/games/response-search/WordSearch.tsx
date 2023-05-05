@@ -18,7 +18,6 @@ import { randomChar, range, shuffleArray } from './utils'
 
 
 interface WordSearchProps {
-  time: number
   state: StateProps
   setState: Function
 }
@@ -37,7 +36,7 @@ const styles = {
   }
 }
 
-function WordSearch ({ time, state, setState }: WordSearchProps) {
+function WordSearch ({ state, setState }: WordSearchProps) {
   const table: Table = useMemo(() => {
     const points: Point[] = []
 
@@ -71,7 +70,7 @@ function WordSearch ({ time, state, setState }: WordSearchProps) {
           state,
           setState,
           index,
-          answer.description.toUpperCase(),
+          answer.description.toUpperCase().replaceAll(' ', ''),
           table,
           state.size,
           shuffleArray(points),
@@ -87,7 +86,6 @@ function WordSearch ({ time, state, setState }: WordSearchProps) {
     if(state.questionSelect != null) {
       const colorHex = state.questionColors[state.questionSelect]
       const buttonBg = rgbToHexString(event.target.style.backgroundColor)
-
 
       // VERIFICA SE AS CORES DOS BOTÕES IGUAIS
       if(buttonBg === colorHex) {

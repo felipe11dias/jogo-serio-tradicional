@@ -7,9 +7,23 @@ import FullScreenLoader from "../../../components/loader/full-screen-loader/Full
 import { AnswerQuestions } from "../../collaboration-activities/create-activities/CreateActivities";
 
 export type ResultProps = {
+  game: string
+  time: string
+  fullTime: string
   open: boolean
   questions: AnswerQuestions[]
   answers: number[]
+  idActivity: number
+  idUser: number
+}
+
+export type IRegisterOrEditRanking = {
+  game: string
+  time: string
+  fullTime: string
+  questionsHit: number
+  idActivity: number
+  idUser: number
 }
 
 const style = {
@@ -43,7 +57,7 @@ export default function ModalResult(result: ResultProps) {
   }, [isSubmitSuccessful]);
 
   const onSubmitHandler: SubmitHandler<{}> = async () => {
-   
+   // await createOrEditRatings();
   };
 
   if(isSubmitting) {
