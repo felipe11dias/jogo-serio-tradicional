@@ -1,12 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import Countdown from "react-countdown";
 import GameSeriusContext, { GameSeriusType } from "../../../../context/GameContext/GameContext";
+import { useAppSelector } from "../../../../redux/store";
+import { User } from "../../../../redux/types/User";
 import { getActivity } from "../../../../service/rest/apis/activityRestApi";
 import { IEditActivityInputs } from "../../../collaboration-activities/edit-activities/EditActivities";
 import ModalResult, { ResultProps } from "../../components/ModalResult";
 import './style.css';
 
 export default function AimshotResponse() {
+  const user: User | null = useAppSelector(state => state.userState.user)
+
   const ref = React.useRef(null);
   const { gameSerius, saveGameSerius } = useContext(GameSeriusContext) as GameSeriusType;
   const colors = ['#1abc9c', '#4efc53', '#3498db', '#9b59b6', '#ff3f34', '#f1c40f', '#f57e33', '#48dbfb']
@@ -15,14 +19,15 @@ export default function AimshotResponse() {
   const [time, setTime] = useState<number | null>(0);
   const [score, setScore] = useState<number>(0);
   const [activity, setActivity] = useState<IEditActivityInputs>();
-  const [result, setResult] = useState<ResultProps>({ questions: [], open: true, answers: [] });
+  const [result, setResult] = useState<ResultProps>({ idUser: user?.id || -1, idActivity: -1, time: '', fullTime: '', game: 'Mirando respostas', questions: [], open: true, answers: [] });
 
   useEffect(() => {
     getActivity(gameSerius.activitySelected.toString()).then( data => {
       setActivity(data)
       setResult({
         ...result,
-        questions: data.questions
+        questions: data.questions,
+        idActivity: data.id
       })
     }).catch( error => {
       return null
@@ -31,7 +36,7 @@ export default function AimshotResponse() {
 
   const ScoreFinishGame = () => (
     <>
-      <ModalResult questions={result.questions} open={result.open} answers={result.answers} />
+      <ModalResult game={result.game} idUser={result.idUser} idActivity={result.idActivity} time={result.time} fullTime={result.fullTime} questions={result.questions} open={result.open} answers={result.answers} />
       <h1>Fim de jogo!</h1>;
     </>
   )
@@ -48,11 +53,29 @@ export default function AimshotResponse() {
     }
   };
 
+  function msToTimeString(s: number) {
+    var ms = s % 1000;
+    s = (s - ms) / 1000;
+    var secs = s % 60;
+    s = (s - secs) / 60;
+    var mins = s % 60;
+  
+    return mins + ':' + secs;
+  }
+
   function initStartGame(timeVar: number) {
+    setResult({
+      ...result,
+      fullTime: msToTimeString(timeVar)
+    })
     setTime(timeVar)
   }
 
   function finishGame() {
+    setResult({
+      ...result,
+      time: msToTimeString(time || 0)
+    })
     const answers = document.getElementsByClassName('answer')
     Array.from(answers).forEach(answer => {
       answer.remove();
@@ -175,17 +198,17 @@ export default function AimshotResponse() {
                 <h1>Selecione o tempo de jogo</h1>
                 <select onChange={(event) => initStartGame(parseInt(event.target.value))}>
                   <option>Selecione</option>
-                  <option value={10000}>10 sec</option>
-                  <option value={20000}>20 sec</option>
-                  <option value={30000}>30 sec</option>
-                  <option value={40000}>40 sec</option>
-                  <option value={50000}>50 sec</option>
-                  <option value={60000}>1 min</option>
-                  <option value={120000}>2 min</option>
-                  <option value={240000}>4 min</option>
-                  <option value={300000}>5 min</option>
-                  <option value={1800000}>30 min</option>
-                  <option value={3600000}>1 hora</option>
+                  <option value={10000}>10 segundos</option>
+                  <option value={20000}>20 segundos</option>
+                  <option value={30000}>30 segundos</option>
+                  <option value={40000}>40 segundos</option>
+                  <option value={50000}>50 segundos</option>
+                  <option value={60000}>1 minutos</option>
+                  <option value={120000}>2 minutos</option>
+                  <option value={240000}>4 minutos</option>
+                  <option value={300000}>5 minutos</option>
+                  <option value={1800000}>30 minutos</option>
+                  <option value={5900000}>1 hora</option>
                 </select>
               </div>
             </>
@@ -194,7 +217,7 @@ export default function AimshotResponse() {
               <div className="flex items-center justify-center flex-col min-w-full">
               
                 <div className="my-2">
-                  { (time !== null) ? <>Tempo restante:</> : <></>} <Countdown date={Date.now() + (time || 0)} renderer={renderer} />
+                  { (time !== null) ? <>Tempo restante:</> : <></>} <Countdown date={Date.now() + (time || 0)} onTick={(t) => setTime(t.total)} renderer={renderer} />
                 </div>
                 
                 {

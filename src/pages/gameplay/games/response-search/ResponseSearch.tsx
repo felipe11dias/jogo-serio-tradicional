@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from 'react'
 import Countdown from 'react-countdown'
 import { SubmitHandler, useForm } from "react-hook-form"
 import GameSeriusContext, { GameSeriusType } from '../../../../context/GameContext/GameContext'
+import { useAppSelector } from '../../../../redux/store'
+import { User } from '../../../../redux/types/User'
 import { getActivity } from '../../../../service/rest/apis/activityRestApi'
 import { Answer } from '../../../collaboration-activities/create-activities/CreateActivities'
 import { AnswerQuestions, IEditActivityInputs } from '../../../collaboration-activities/edit-activities/EditActivities'
@@ -54,12 +56,14 @@ const stateDefaultEmpty: StateProps = {
 }
 
 export default function ResponseSearch () {
+  const user: User | null = useAppSelector(state => state.userState.user)
+  
   const { gameSerius, saveGameSerius } = useContext(GameSeriusContext) as GameSeriusType;
   const [startGame, setStartGame] = useState<boolean>(false);
   const [time, setTime] = useState<number | null>(0);
   const [activity, setActivity] = useState<IEditActivityInputs | null>(null);
   const [state, setState ] = useState<StateProps>(stateDefaultEmpty)
-  const [result, setResult] = useState<ResultProps>({ questions: [], open: true, answers: [] });
+  const [result, setResult] = useState<ResultProps>({ idUser: user?.id || -1, idActivity: -1, time: '', fullTime: '', game: 'Caça respostas', questions: [], open: true, answers: [] });
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -70,7 +74,8 @@ export default function ResponseSearch () {
       setActivity(data)
       setResult({
         ...result,
-        questions: data.questions
+        questions: data.questions,
+        idActivity: data.id
       })
     }).catch( error => {
       return null
@@ -88,10 +93,6 @@ export default function ResponseSearch () {
   }, [activity])
 
   useEffect(() => {
-    console.log(time)
-  }, [state])
-
-  useEffect(() => {
     window.addEventListener('resize', handleWindowResize);
 
     return () => {
@@ -101,7 +102,7 @@ export default function ResponseSearch () {
 
   const ScoreFinishGame = () => (
     <>
-      <ModalResult questions={result.questions} open={result.open} answers={result.answers} />
+      <ModalResult game={result.game} idUser={result.idUser} idActivity={result.idActivity} time={result.time} fullTime={result.fullTime} questions={result.questions} open={result.open} answers={result.answers} />
       <h1>Fim de jogo!</h1>
     </>
   );
@@ -111,14 +112,27 @@ export default function ResponseSearch () {
       finishGame()
       return <ScoreFinishGame />;
     } else {
-      setTime((minutes * 60000) + (seconds * 1000))
       return <h3>{minutes}:{seconds}</h3>;
     }
   };
 
   const { register, handleSubmit, reset } = useForm();
 
+  function msToTimeString(s: number) {
+    var ms = s % 1000;
+    s = (s - ms) / 1000;
+    var secs = s % 60;
+    s = (s - secs) / 60;
+    var mins = s % 60;
+  
+    return mins + ':' + secs;
+  }
+
   function initStartGame(timeVar: number) {
+    setResult({
+      ...result,
+      fullTime: msToTimeString(timeVar)
+    })
     setTime(timeVar)
   }
 
@@ -165,11 +179,8 @@ export default function ResponseSearch () {
     for (let index = 0; index < state.answersViews.answers.length; index++) {
       const pointsAnswers = state.answersViews.pointsAnswers[index];
       const pointsAnswersTable = state.answersViews.pointsAnswersTable[index];
-      //console.log("pointsAnswers", pointsAnswers)
-      //console.log("pointsAnswersTable", pointsAnswersTable)
       
       for (let indexPoint = 0; indexPoint < pointsAnswers.length; indexPoint++) {
-        //console.log("indexPoint", indexPoint)
         const [r, c] = pointsAnswers[indexPoint];
         const [row, col] = pointsAnswersTable[indexPoint];
         
@@ -184,7 +195,7 @@ export default function ResponseSearch () {
   const getScores = () => {
     activity?.questions.map( (question, indexQuestion) => {
       question.answers.map((answer => {
-        if((answer.id === parseInt(question.idAnswerCorrect)) && (answer.description.toUpperCase() === state.answersViews.answers[indexQuestion])) {
+        if((answer.id === parseInt(question.idAnswerCorrect)) && (answer.description.toUpperCase().replaceAll(' ', '') === state.answersViews.answers[indexQuestion])) {
           result.answers.push(answer.id)
         }
       }))
@@ -196,6 +207,10 @@ export default function ResponseSearch () {
   }
 
   const finishGame = () => {
+    setResult({
+      ...result,
+      time: msToTimeString(time || 0)
+    })
     // VERIFICA CADA LETRA SELECIONADA DE CADA RESPOSTA COM O SEU PONTO NA TABELA, OU SEJA, AS LETRAS E POINTOS SELECIONADOS NA TABELA TEM QUE ESTAR EM CONFORMIDADE
     validateAnswers()
     // VERIFICA SE A RESPOSTA CORRETA DA QUESTÃO ESTÁ EM CONFORMIDADE COM A RESPOSTA DO ALUNO
@@ -241,24 +256,24 @@ export default function ResponseSearch () {
                 <h1>Selecione o tempo de jogo</h1>
                 <select onChange={(event) => initStartGame(parseInt(event.target.value))}>
                   <option>Selecione</option>
-                  <option value={10000}>10 sec</option>
-                  <option value={20000}>20 sec</option>
-                  <option value={30000}>30 sec</option>
-                  <option value={40000}>40 sec</option>
-                  <option value={50000}>50 sec</option>
-                  <option value={60000}>1 min</option>
-                  <option value={120000}>2 min</option>
-                  <option value={240000}>4 min</option>
-                  <option value={300000}>5 min</option>
-                  <option value={1800000}>30 min</option>
-                  <option value={3600000}>1 hora</option>
+                  <option value={10000}>10 segundos</option>
+                  <option value={20000}>20 segundos</option>
+                  <option value={30000}>30 segundos</option>
+                  <option value={40000}>40 segundos</option>
+                  <option value={50000}>50 segundos</option>
+                  <option value={60000}>1 minutos</option>
+                  <option value={120000}>2 minutos</option>
+                  <option value={240000}>4 minutos</option>
+                  <option value={300000}>5 minutos</option>
+                  <option value={1800000}>30 minutos</option>
+                  <option value={5900000}>1 hora</option>
                 </select>
               </div>
             </> :
             <>
               <div className='my-4'>
                 <div className="my-2">
-                  { (time !== null) ? <>Tempo restante:</> : <></>} <Countdown date={Date.now() + (time || 0)} renderer={renderer} />
+                  { (time !== null) ? <>Tempo restante:</> : <></>} <Countdown date={Date.now() + (time || 0)} onTick={(t) => setTime(t.total)} renderer={renderer} />
                 </div>
                 {
                 (time !== null) ?
@@ -301,7 +316,6 @@ export default function ResponseSearch () {
                         <button className='btn btn-primary text-white' type='submit'> Finalizar </button>
                       </div>
                       <WordSearch
-                        time={time}
                         state={state}
                         setState={setState}
                         />

@@ -20,6 +20,7 @@ import DisciplineSelect from "../pages/discipline-select/DisciplineSelect";
 import GameSelect from "../pages/game-select/GameSelect";
 import Gameplay from "../pages/gameplay/Gameplay";
 import HomeTeacher from "../pages/home/teacher/Home";
+import Ranking from "../pages/ranking/Ranking";
 import TemplateAccessControl from "../templates/template-access-control/TemplateAccessControl";
 import TemplateEnvironment from "../templates/template-environment/TemplateEnvironment";
 import TemplateStudent from "../templates/template-student/TemplateStudent";
@@ -72,6 +73,10 @@ const Router = createBrowserRouter(
               <Route
                 path="gameplay"
                 element={<Gameplay />}
+              />
+              <Route
+                path="ranking"
+                element={<Ranking />}
               />
             </Route>
           </Route>
