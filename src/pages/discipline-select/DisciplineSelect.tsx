@@ -1,73 +1,137 @@
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Pagination } from "@mui/material";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import GameSeriusContext, { GameSeriusType } from "../../context/GameContext/GameContext";
+import { listDisciplines } from "../../service/rest/apis/disciplineRestApi";
+import { Discipline } from "../../types/Discipline";
 
 
 export default function DisciplineSelect() {
   const navigate = useNavigate();
   const { gameSerius, saveGameSerius } = useContext(GameSeriusContext) as GameSeriusType;
+  const [disciplines, setDisciplines] = useState<Discipline[]>([]);
+  const [searchDiscipline, setSearchDiscipline] = useState("");
+  const [page, setPage] = useState<number>(1);
+  const [count, setCount] = useState<number>(0);
+  
+  useEffect(() => {
+    findAllDisciplines()
+  }, [page])
 
-  const selectDiscipline = (disciplineSelected: string) => {
+  const findAllDisciplines = async () => {
+    const params = getRequestParams(searchDiscipline, page);
+
+    await listDisciplines(params).then( data => {
+      setDisciplines(data.content)
+      setCount(data.totalPages)
+    }).catch( error => {
+      return null
+    })
+  }
+
+  const onChangeSearchDiscipline = (e: any) => {
+    const searchDiscipline = e.target.value;
+    setSearchDiscipline(searchDiscipline);
+  };
+
+  const getRequestParams = (searchDiscipline: string, page: number) => {
+    let params: any = {};
+
+    if (searchDiscipline) {
+      params["discipline"] = searchDiscipline;
+    }
+
+    if (page) {
+      params["page"] = page - 1;
+    }
+
+    return params;
+  };
+
+  const findByDiscipline = () => {
+    setPage(1);
+    findAllDisciplines();
+  };
+
+  const handlePageChange = (event: any, value: number) => {
+    setPage(value);
+  };
+
+  const selectDiscipline = (disciplineSelected: number) => {
     saveGameSerius({gameSelected: gameSerius.gameSelected, activitySelected: gameSerius.activitySelected, disciplineSelected})
     navigate("/environment/student/activity-select", { replace: true });
   }
 
   return (
-    <div>
-      <h2 className="text-4xl text-textColorPrimary font-bold text-center mb-10 "> DISCIPLINE SELECT </h2>
+    <div className="flex justify-center items-center flex-col">
+      <h2 className="text-4xl text-textColorPrimary font-bold text-center mb-10 "> SELECIONE UMA DISCIPLINA </h2>
+
+      <div className="mb-5 d-flex justify-content-between "> 
+        <div style={{ maxWidth: '500px'}}>
+          <input
+            type="text"
+            placeholder="Buscar por nome"
+            value={searchDiscipline}
+            onChange={onChangeSearchDiscipline}
+          />
+          <button className="" onClick={findByDiscipline}>
+            Buscar
+          </button>
+        </div>
+      </div>
       
-    <div className="relative overflow-x-auto rounded ">
-    <table className="w-full text-sm text-left text-primary dark:text-textHintColor ">
-        <thead className="text-xs text-primary uppercase bg-bgContainerTable dark:bg-primary dark:text-textHintColor ">
+      <div className="relative overflow-x-auto rounded ">
+        <table className="w-full text-sm text-left text-primary dark:text-textHintColor ">
+          <thead className="text-xs text-primary uppercase bg-bgContainerTable dark:bg-primary dark:text-textHintColor ">
             <tr>
-                <th scope="col" className="px-6 py-3">
-                Nome da disciplina
-                </th>
-                <th scope="col" className="px-6 py-3">
-                Nome do Tema
-                </th>
-                <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
+                Nome
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Tema
+              </th>
+              <th scope="col" className="px-6 py-3">
                 Professor
-                </th>
-                <th scope="col" className="px-6 py-3">
-                SELEÇÃO
-                </th>
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Selecione
+              </th>
             </tr>
-        </thead>
-        <tbody>
-            <tr className="bg-textColorPrimary border-b dark:bg-primary dark:border-primary">
-                <th scope="row" className="px-6 py-4 font-medium text-primary whitespace-nowrap dark:textColorPrimary">
-                Programming Logic	
-                </th>
-                <td className="px-6 py-4">
-                Information Technology	
-                </td>
-                <td className="px-6 py-4">
-                Felipe Dias	
-                </td>
-                <td className="px-6 py-4">
-                <td className="w-full my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg"><button  onClick={() => selectDiscipline('logica_programacao')}> Selecionar </button></td>
-                </td>
-            </tr>
-            <tr className="bg-textColorPrimary border-b dark:bg-primary dark:border-primary">
-                <th scope="row" className="px-6 py-4 font-medium text-primary whitespace-nowrap dark:textColorPrimary">
-                Computational Introduction	
-                </th>
-                <td className="px-6 py-4">
-                Information Technology	
-                </td>
-                <td className="px-6 py-4">
-                Felipe Dias	
-                </td>
-                <td className="px-6 py-4">
-                <td className="w-full my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40  text-textColorPrimary font-semibold rounded-lg"><button  onClick={() => selectDiscipline('introducao_computacional')}> Selecionar </button></td>
-                </td>
-            </tr> 
-            
-        </tbody>
-    </table>
-</div>
+          </thead>
+          <tbody>
+            {
+              disciplines.length > 0 ? disciplines.map(discipline => (
+                <tr key={discipline.id}>
+                  <td>{discipline.name}</td>
+                  <td>{discipline.theme}</td>
+                  <td>{discipline.user}</td>
+                  <td className="w-full my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg">
+                    <button onClick={() => selectDiscipline(discipline?.id)}> Selecionar </button>
+                  </td>
+                </tr>
+              ))
+              :
+              <p> Nenhuma disciplina cadastrada. </p>
+            }
+          </tbody>
+        </table>
+
+        <Pagination
+          color="primary"
+          className="my-3"
+          count={count}
+          page={page}
+          siblingCount={1}
+          boundaryCount={1}
+          variant="outlined"
+          onChange={handlePageChange}
+        />
+      </div>
+      <div className="mt-4 d-flex justify-content-center">
+        <Link className='w-full my-5 py-2 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg' to={`/environment/student/game-select`}>
+          Voltar
+        </Link>
+      </div>
     </div>
-    
   )
 }

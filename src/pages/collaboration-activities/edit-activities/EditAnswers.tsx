@@ -3,16 +3,18 @@ import {
   useFieldArray,
   UseFormRegister
 } from "react-hook-form";
-import { IRegisterActivityInputs } from "./CreateActivities";
+import { AnswerQuestions, IEditActivityInputs } from "./EditActivities";
 
-export function CreateAnswers ({
+export function EditAnswers ({
+  question,
   indexQuestion,
   control,
   register
 }: {
-  indexQuestion: number,
-  control: Control<IRegisterActivityInputs>;
-  register: UseFormRegister<IRegisterActivityInputs>;
+  question: AnswerQuestions;
+  indexQuestion: number;
+  control: Control<IEditActivityInputs>;
+  register: UseFormRegister<IEditActivityInputs>;
 }) {
   const { fields } = useFieldArray({
     control,
@@ -24,10 +26,10 @@ export function CreateAnswers ({
       {fields.map((item: any, index: number) => {
         return (
           <>
-            <div style={{ marginLeft: 'auto', width: "80%" }} className="mb-3" key={index}>
+            <div style={{ marginLeft: 'auto', width: "80%" }} className="mb-3" key={item.id}>
               <label>Resposta {index + 1}:</label>
               <input type="text" placeholder="Resposta*" {...register(`questions.${indexQuestion}.answers.${index}.description`)} />
-              <input type="radio" value={index} {...register(`questions.${indexQuestion}.idAnswerCorrect`)} />
+              <input type="radio" checked={question.answers[index].id === parseInt(question.idAnswerCorrect)} value={question.answers[index].id} {...register(`questions.${indexQuestion}.idAnswerCorrect`)} />
             </div>
           </>
         )

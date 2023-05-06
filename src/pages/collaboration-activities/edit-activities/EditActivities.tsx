@@ -1,18 +1,17 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { z } from "zod";
 import FullScreenLoader from '../../../components/loader/full-screen-loader/FullScreenLoader';
-import { useAppSelector } from '../../../redux/store';
-import { User } from '../../../redux/types/User';
-import { createActivities } from '../../../service/rest/apis/activityRestApi';
+import { editActivitiy, getActivity } from '../../../service/rest/apis/activityRestApi';
 import { listDisciplinesSelection } from '../../../service/rest/apis/disciplineRestApi';
 import { Discipline } from '../../../types/Discipline';
-import { CreateQuestions } from './CreateQuestions';
+import { EditQuestions } from './EditQuestions';
 
-export type IRegisterActivityInputs = {
+export type IEditActivityInputs = {
+  id: number,
   name: string,
   idUser: number,
   idDiscipline: string,
@@ -20,12 +19,14 @@ export type IRegisterActivityInputs = {
 }
 
 export type AnswerQuestions = {
+  id: number,
   description: string,
   answers: Answer[],
   idAnswerCorrect: string
 }
 
 export type Answer = {
+  id: number,
   description: string
 }
 
@@ -35,8 +36,10 @@ const schemaActivity = z.object({
   idDiscipline: z.string({ required_error: "Discipline is required" }),
   questions: z.array(
     z.object({
+      id: z.number(),
       description: z.string().min(1, "Description is required."),
       answers: z.array(z.object({
+        id: z.number(),
         description: z.string().min(1, "Description is required."),
       })),
       idAnswerCorrect: z.string(),
@@ -44,55 +47,50 @@ const schemaActivity = z.object({
   ),
 });
 
-export default function CreateActivities() {
-  const user: User | null = useAppSelector(state => state.userState.user)
+export default function EditActivities() {
   const [disciplines, setDisciplines] = useState<Discipline[]>([]);
+
+  const navigate = useNavigate();
+
+  const { id } = useParams();
   
   useEffect(() => {
+    if(id === undefined) {
+      toast.error("Não foi possivel encontrar a atividade.");
+      navigate('/environment/teacher/collaboration-activities/list', { replace: true })
+    }
+
     listDisciplinesSelection().then( data => {
       setDisciplines(data)
     }).catch( error => {
-      toast.error('Error: ' + error?.message)
       return null
     })
   }, [])
-
-  const defaultQuestion: AnswerQuestions = {
-    description: "",
-    answers: [
-      {description: ""}, {description: ""}, {description: ""}, {description: ""}
-    ],
-    idAnswerCorrect: "0"
-  }
 
   const {
     register,
     control,
     reset,
+    getValues,
     handleSubmit,
     formState: { isSubmitting, isSubmitSuccessful, errors },
-  } = useForm<IRegisterActivityInputs>({
+  } = useForm<IEditActivityInputs>({
     resolver: zodResolver(schemaActivity),
-    defaultValues: {
-      idUser: user?.id,
-      questions: [defaultQuestion, defaultQuestion, defaultQuestion, defaultQuestion, defaultQuestion]
-    }
+    defaultValues: async () => getActivity(id || '-1')
   });
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      toast.success('Você cadastrou a atividade com sucesso!');
+      toast.success('Você criou a atividade com sucesso!');
       reset();
       navigate('/environment/teacher/collaboration-activities/list', { replace: true })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitSuccessful]);
 
-  const onSubmitHandler: SubmitHandler<IRegisterActivityInputs> = async (values) => {
+  const onSubmitHandler: SubmitHandler<IEditActivityInputs> = async (values) => {
     console.log(values)
-    await createActivities(values);
+    await editActivitiy(id || '-1', values);
   };
 
   if(isSubmitting) {
@@ -106,11 +104,11 @@ export default function CreateActivities() {
   return (
     <>
       <form className='w-100 my-4' onSubmit={handleSubmit(onSubmitHandler)} >
-        <h2 className="text-center">Criar atividade</h2>
+        <h2 className="text-center">Editar atividade</h2>
 
         <div className="mb-3">
           <label>Nome:</label>
-          <input type="text" placeholder="Enter name activity" {...register("name")} />
+          <input type="text" placeholder="Adicione o nome da atividade" {...register("name")} />
           <p className='text-danger'>{errors.name?.message}</p>
         </div>
 
@@ -122,7 +120,7 @@ export default function CreateActivities() {
               disciplines.length > 0 ? 
               
               disciplines.map(discipline => (
-                <option value={discipline.id}>{discipline.name}</option>
+                <option selected={parseInt(getValues("idDiscipline")) === discipline.id} value={discipline.id}>{discipline.name}</option>
               ))
               
               :
@@ -132,20 +130,15 @@ export default function CreateActivities() {
           <p className='text-danger'>{errors.name?.message}</p>
         </div>
 
-        <CreateQuestions
+        <EditQuestions
+          questions={getValues("questions")}
           {...{ control, register }}
         />
 
         <div className="d-flex justify-content-center">
           <button className="" type="submit">
-            Cadastrar atividade
+            Editar atividade
           </button>
-        </div>
-
-        <div className="mt-4 d-flex justify-content-center">
-          <Link className='w-full my-5 py-2 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg' to={`/environment/teacher/collaboration-activities/list`}>
-            Voltar
-          </Link>
         </div>
       </form>
     </>

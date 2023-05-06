@@ -18,12 +18,12 @@ export interface ILoginInputs {
 
 const schemaLogin = z.object({
   username: z.string()
-    .min(1, 'Email address is required')
-    .email('Email Address is invalid'),
+    .min(1, 'Email é obrigatório')
+    .email('Email é inválido'),
   password: z.string()
-    .min(1, 'Password is required')
-    .min(8, 'Password must be more than 8 characters')
-    .max(32, 'Password must be less than 32 characters'),
+    .min(1, 'Senha é obrigatório')
+    .min(8, 'Senha tem que ter no mínimo 8 caracters')
+    .max(32, 'Senha tem que ter no maximo 32 caracters'),
 });
 
 export async function loader() {
@@ -42,29 +42,17 @@ export default function FormLogin() {
   } = useForm<ILoginInputs>({
     resolver: zodResolver(schemaLogin),
   });
-
-  const [loginUser, { isLoading, isError, error, isSuccess }] = useLoginUserMutation();
+  const [loginUser, { isLoading, isSuccess }] = useLoginUserMutation();
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isSuccess && user) {
-      console.log(user)
-      toast.success('You successfully logged in');
+      toast.success('Você acessou sua conta com sucesso!');
       if(user?.role === ROLES[ROLES.TEACHER]) {
         navigate('/environment/teacher/home', { replace: true });
       }else if(user?.role === ROLES[ROLES.STUDENT]) {
         navigate('/environment/student/game-select', { replace: true });
-      }
-    }
-    
-    if (isError) {
-      if (Array.isArray((error as any).data.error)) {
-        (error as any).data.error.forEach((el: any) =>
-          toast.error(el.message)
-        );
-      } else {
-        toast.error((error as any).data.message);
       }
     }
     
@@ -79,7 +67,6 @@ export default function FormLogin() {
   }, [isSubmitSuccessful]);
 
   const onSubmitHandler: SubmitHandler<ILoginInputs> = async (values) => {
-    // 👇 Executing the loginUser Mutation
     await loginUser(values);
   };
 
@@ -93,7 +80,7 @@ export default function FormLogin() {
 
   return (
     <form className='max-w-[400px] w-full mx-auto rounded-lg bg-backgroundColorSecondary p-8 px-8' onSubmit={handleSubmit(onSubmitHandler)}>
-      <h2 className="text-4xl text-textColorThird font-bold text-center">Logar</h2>
+      <h2 className="text-4xl text-textColorThird font-bold text-center">ACESSAR CONTA</h2>
 
       <div className='flex flex-col text-textHintColor py-2' > 
         <h3>Email:</h3>
@@ -102,24 +89,24 @@ export default function FormLogin() {
       </div>
 
       <div className='flex flex-col text-textHintColor py-2' > 
-      <h3>Senha:</h3>
-        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder="Senha*" {...register("password")} />
+        <h3>Senha:</h3>
+        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="password" placeholder="Senha*" {...register("password")} />
         <p className='text-errTextColor'>{errors.password?.message}</p>
       </div>
  
 
       <div className='flex justify-between'>
         <Link className='text-center w-full my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' to={`/access-control/forget-password`}>
-          Esqueceu a senha
+          Esqueci a senha
         </Link>
-        <Link  className='text-center w-full my-5 py-2 px-2 mx-1 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' to={`/access-control/sign-up`}>
-          Se inscrever
+        <Link  className='text-center w-full my-5 py-2 px-2 mx-1 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg'to={`/access-control/sign-up`}>
+          Cadastre-se
         </Link>
       </div>
 
       <div className="flex justify-center">
         <button className='text-center w-full my-5 py-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="submit">
-          Enviar
+          Acessar
         </button>
       </div>
     </form>

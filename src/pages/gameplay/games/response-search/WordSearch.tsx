@@ -16,7 +16,28 @@ import {
 } from './types'
 import { randomChar, range, shuffleArray } from './utils'
 
-function WordSearch ({ state, setState }: WordSearchProps) {
+
+interface WordSearchProps {
+  time: number
+  state: StateProps
+  setState: Function
+}
+
+interface Letter {
+  char: string
+  isWord: boolean
+}
+
+type Table = Letter[][]
+
+const styles = {
+  td: {
+    padding: 0,
+    fontFamily: 'sans-serif'
+  }
+}
+
+function WordSearch ({ time, state, setState }: WordSearchProps) {
   const table: Table = useMemo(() => {
     const points: Point[] = []
 
@@ -44,11 +65,12 @@ function WordSearch ({ state, setState }: WordSearchProps) {
 
     shuffleArray(points)
 
-    state.answers.forEach((answer: Answer) => {
+    state.answers.forEach((answer: Answer, index: number) => {
       if (answer.description.length > 0) {
         createAnswer(
           state,
           setState,
+          index,
           answer.description.toUpperCase(),
           table,
           state.size,
@@ -148,74 +170,61 @@ function WordSearch ({ state, setState }: WordSearchProps) {
   }
 
   return (
-    <div className='word-search'>
-      <table>
-        <tbody>
-          {table.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              {row.map((letter, col) => (
-                <td key={col} style={styles.td}>
-                  <div
-                    style={{
-                      textAlign: 'center',
-                      textTransform: 'uppercase',
-                      border: (letter.isWord && state.highlightAnswers) ? '1px solid red' : '0',
-                      padding: state.debug ? 15 : 5
-                    }}
-                  >
-                    <button
-                      type="button"
-                      className=''
-                      onClick={ e => selectLetterAnswer(e, [rowIndex, col])}
-                      title={letter.char}
-                      style={ state.windowSize.width > 1400 ?
-                        { height: 30, width: 30, fontSize: 18, padding: 0, backgroundColor: 'transparent'} :
-                        (state.windowSize.width <= 1400 && state.windowSize.width > 1200) ?
-                        { height: 24, width: 24, fontSize: 14, padding: 0, backgroundColor: 'transparent'} :
-                        (state.windowSize.width <= 1200 && state.windowSize.width >= 992) ?
-                        { height: 14, width: 14, fontSize: 8, padding: 0, backgroundColor: 'transparent'} : 
-                        { height: 12, width: 12, fontSize: 6, padding: 0, backgroundColor: 'transparent'} }
-                      >
-                      {letter.char}
-                    </button>
-                    {state.debug && (
-                      <div style={{ fontSize: 8 }}>
-                        {rowIndex},{col}
-                      </div>
-                    )}
-                  </div>
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <>
+      {
+        state.answers.length > 0 ?
+        <>
+          <div className='word-search'>
+            <table>
+              <tbody>
+                {table.map((row, rowIndex) => (
+                  <tr key={rowIndex}>
+                    {row.map((letter, col) => (
+                      <td key={col} style={styles.td}>
+                        <div
+                          style={{
+                            textAlign: 'center',
+                            textTransform: 'uppercase',
+                            border: (letter.isWord && state.highlightAnswers) ? '1px solid red' : '0',
+                            padding: state.debug ? 15 : 5
+                          }}
+                        >
+                          <button
+                            type="button"
+                            className=''
+                            onClick={ e => selectLetterAnswer(e, [rowIndex, col])}
+                            title={letter.char}
+                            style={ state.windowSize.width > 1400 ?
+                              { height: 30, width: 30, fontSize: 18, padding: 0, color: 'red', backgroundColor: 'transparent'} :
+                              (state.windowSize.width <= 1400 && state.windowSize.width > 1200) ?
+                              { height: 24, width: 24, fontSize: 14, padding: 0, color: 'red', backgroundColor: 'transparent'} :
+                              (state.windowSize.width <= 1200 && state.windowSize.width >= 992) ?
+                              { height: 14, width: 14, fontSize: 8, padding: 0, color: 'red', backgroundColor: 'transparent'} : 
+                              { height: 12, width: 12, fontSize: 6, padding: 0, color: 'red', backgroundColor: 'transparent'} }
+                            >
+                            {letter.char}
+                          </button>
+                          {state.debug && (
+                            <div style={{ fontSize: 8 }}>
+                              {rowIndex},{col}
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </> : 
+        <></>
+      }
+    </>
   )
 }
 
-interface WordSearchProps {
-  state: StateProps
-  setState: Function
-}
-
-interface Letter {
-  char: string
-  isWord: boolean
-}
-
-type Table = Letter[][]
-
-const styles = {
-  td: {
-    padding: 0,
-    fontFamily: 'sans-serif'
-  }
-}
-
-export default WordSearch
-
-const createAnswer = (state: any, setState: any, word: string, table: Table, size: number, points: Point[], availableDirections: Direction[]): void => {
+const createAnswer = (state: StateProps, setState: Function, indexAnswer: number, word: string, table: Table, size: number, points: Point[], availableDirections: Direction[]): void => {
   for (let pointIndex = 0; pointIndex < points.length; pointIndex += 1) {
     const [ x, y ] = points[pointIndex]
 
@@ -253,13 +262,17 @@ const createAnswer = (state: any, setState: any, word: string, table: Table, siz
       }
 
       positions.forEach(([ x, y ], index) => {
+        state.answersViews.pointsAnswersTable[indexAnswer].push([y, x])
         table[y][x] = {
           char: word[index],
           isWord: true
         }
       })
-
+      setState(state)
       return
     }
   }
 }
+
+export default WordSearch
+

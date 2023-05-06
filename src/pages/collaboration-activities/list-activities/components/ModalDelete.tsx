@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import FullScreenLoader from "../../../../components/loader/full-screen-loader/FullScreenLoader";
 import { deleteDisciplines } from "../../../../service/rest/apis/disciplineRestApi";
 
-
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -32,8 +31,8 @@ export default function ModalDelete({ id }: { id: number}) {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      toast.success('You successfully delete discipline');
-      navigate('/environment/teacher/collaboration-disciplines/list', { replace: true })
+      toast.success('Atividade deletada com sucesso!');
+      navigate('/environment/teacher/collaboration-activities/list', { replace: true })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitSuccessful]);
@@ -60,7 +59,7 @@ export default function ModalDelete({ id }: { id: number}) {
 
   return (
     <div>
-      <button className="" type="button" onClick={openModal}>Delete</button>
+      <button className="" type="button" onClick={openModal}>Deletar</button>
       <Modal
         open={modalIsOpen}
         onClose={closeModal}
@@ -69,11 +68,11 @@ export default function ModalDelete({ id }: { id: number}) {
       >
         <Box sx={style}>
           <button onClick={closeModal}>X</button>
-          <h2>Delete Discipline</h2>
-          <p>Are you sure you want to delete?</p>
+          <h2>Deletar atividade </h2>
+          <p>Você tem certeza que deseja deletar essa atividade?</p>
           <form onSubmit={handleSubmit(onSubmitHandler)}>
-            <button className="" type="button" onClick={closeModal}>Cancel</button>
-            <button className="" type="submit">Delete</button>
+            <button className="" type="button" onClick={closeModal}>Cancelar</button>
+            <button className="" type="submit">Deletar</button>
           </form>
         </Box>
       </Modal>

@@ -8,14 +8,13 @@ export default function GameArea() {
   return (
     <>
       { 
-        gameSerius.gameSelected !== '' && gameSerius.disciplineSelected !== '' ?
+        gameSerius.gameSelected !== '' && gameSerius.disciplineSelected !== -1 && gameSerius.activitySelected !== -1 ?
         <div className="w-100 px-5 border rounded-md bg-textHintColor" style={{ minWidth: '300px', minHeight: 'calc(100vh - 230px)' }}>
           <Game  />
         </div>
          :
         <>
-          <h2 className="text-2xl text-white font-bold text-center mb-10">      SELECT GAME AND SELECT DISCIPLINE </h2>
-   
+          <h2 className="text-2xl text-white font-bold text-center mb-10"> Selecione novamente um jogo </h2>
         </>  
       }
     </>

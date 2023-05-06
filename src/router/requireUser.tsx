@@ -10,21 +10,9 @@ import { getToken } from "../service/authService";
 const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
   const token = getToken();
   
-  const { data: user, isLoading, isError, error } = useGetMeQuery(null, {
+  const { data: user, isLoading } = useGetMeQuery(null, {
     skip: !token
   });
-  
-  if (isError) {
-    if(Array.isArray((error as any).data)) {
-      if (Array.isArray((error as any).data.error)) {
-        (error as any).data.error.forEach((el: any) =>
-        toast.error(el.message)
-        );
-      } else {
-        toast.error((error as any).data.message);
-      }
-    }
-  }
   
   if(isLoading && !user) {
     return (
@@ -33,11 +21,18 @@ const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
       </>
     )
   }
+
+  function notification() {
+    toast.error("Você não tem permissão de acesso para a página requisitada!")
+  }
   
   return token && allowedRoles.includes(user?.role as string) ? (
     <Outlet />
   ) : (
-    <Navigate to='/access-control/login' replace />
+    <>
+      {notification()}
+      <Navigate to='/access-control/login' replace />
+    </>
   );
 };  
 

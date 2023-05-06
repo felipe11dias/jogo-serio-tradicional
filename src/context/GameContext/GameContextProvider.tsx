@@ -3,14 +3,14 @@ import GameContext from './GameContext';
 
 export interface GameSerius {
   gameSelected: string
-  activitySelected: string
-  disciplineSelected: string
+  activitySelected: number
+  disciplineSelected: number
 };
 
 export const gameSeriusDefault: GameSerius = {
   gameSelected: "",
-  activitySelected: "",
-  disciplineSelected: ""
+  activitySelected: -1,
+  disciplineSelected: -1
 }
 
 export default function GameContextProvider(props: any) {
