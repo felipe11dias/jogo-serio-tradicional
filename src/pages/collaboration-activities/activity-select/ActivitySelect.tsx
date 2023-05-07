@@ -63,26 +63,27 @@ export default function ActivitySelect() {
   }
 
   return (
-    <div>
-      <h2 className="text-4xl text-white font-bold text-center mb-10 "> SELECIONE UMA ATIVIDADE </h2>
-
-      <div className="mb-5 d-flex justify-content-between "> 
-        <div style={{ maxWidth: '500px'}}>
+    <div  className="flex justify-center items-center flex-col">
+      <h2 className="text-4xl text-textColorThird font-bold text-center mb-10 "> SELECIONE UMA ATIVIDADE </h2>
+       
+          <div className="w-full flex justify-center items-center flex-row m-2 ">
           <input
+           className="w-full px-1 py-2 rounded-lg"
             type="text"
             placeholder="Buscar por nome"
             value={searchActivity}
             onChange={onChangeSearchActivity}
           />
-          <button className="" onClick={findByActivity}>
+          <div >
+          <button className="text-center w-full m-2 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg " onClick={findByActivity}>
             Buscar
           </button>
-        </div>
-      </div>
-
-      <div className="relative overflow-x-auto rounded ">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
-          <thead className="text-xs text-gray-700 uppercase bg-teal-100 dark:bg-gray-700 dark:text-gray-400 ">
+          </div>
+          </div>
+          
+      <div className="w-full ">
+        <table className="w-full text-sm text-center text-primary dark:text-textHintColor ">
+          <thead className="text-xs text-primary uppercase bg-bgTableHeaderColor dark:bg-primary dark:text-textHintColor ">
             <tr>
               <th scope="col" className="px-6 py-3">
                 Nome
@@ -105,14 +106,18 @@ export default function ActivitySelect() {
                   <td>{activity.name}</td>
                   <td>{activity.discipline}</td>
                   <td>{activity.user}</td>
-                  <td className="w-full my-5 p-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"><button onClick={() => selectActivity(activity?.id)}> Selecionar </button></td>
+                  <td className="text-center my-5 py-2 px-2 mx-1 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg "><button onClick={() => selectActivity(activity?.id)}> Selecionar </button></td>
                 </tr>
               ))
               :
-              <p> Nenhuma atividade cadastrada. </p>
+              <div className="  flex justify-center items-center text-center w-full">
+              Nenhuma atvidade cadastrada. 
+            </div>
             }
           </tbody>
         </table>
+        <div className="flex justify-center items-center text-center w-full">
+
 
         <Pagination
           color="primary"
@@ -123,10 +128,12 @@ export default function ActivitySelect() {
           boundaryCount={1}
           variant="outlined"
           onChange={handlePageChange}
-        />
+          />
+
+          </div>
       </div>
       <div className="mt-4 d-flex justify-content-center">
-        <Link className='w-full my-5 py-2 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg' to={`/environment/student/discipline-select`}>
+        <Link className='text-center w-full my-5 py-2 px-2 mx-1 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' to={`/environment/student/discipline-select`}>
           Voltar
         </Link>
       </div>

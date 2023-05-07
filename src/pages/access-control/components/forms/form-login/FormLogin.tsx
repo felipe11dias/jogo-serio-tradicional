@@ -79,33 +79,33 @@ export default function FormLogin() {
   }
 
   return (
-    <form className='max-w-[400px] w-full mx-auto rounded-lg bg-gray-900 p-8 px-8' onSubmit={handleSubmit(onSubmitHandler)}>
-      <h2 className="text-4xl text-white font-bold text-center">ACESSAR CONTA</h2>
+    <form className='max-w-[400px] w-full mx-auto rounded-lg bg-backgroundColorSecondary p-8 px-8' onSubmit={handleSubmit(onSubmitHandler)}>
+      <h2 className="text-4xl text-textColorThird font-bold text-center">ACESSAR CONTA</h2>
 
-      <div className='flex flex-col text-gray-400 py-2' > 
+      <div className='flex flex-col text-textHintColor py-2' > 
         <h3>Email:</h3>
-        <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="text" placeholder="Email*" {...register("username")} />
-        <p className='text-red-500'>{errors.username?.message}</p>
+        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder="Email*" {...register("username")} />
+        <p className='text-errTextColor'>{errors.username?.message}</p>
       </div>
 
-      <div className='flex flex-col text-gray-400 py-2' > 
+      <div className='flex flex-col text-textHintColor py-2' > 
         <h3>Senha:</h3>
-        <input className='rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none' type="password" placeholder="Senha*" {...register("password")} />
-        <p className='text-red-500'>{errors.password?.message}</p>
+        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="password" placeholder="Senha*" {...register("password")} />
+        <p className='text-errTextColor'>{errors.password?.message}</p>
       </div>
  
 
-      <div className='flex justify-between mx-5 mb-2'>
-        <Link className='w-full my-5 py-2 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg' to={`/access-control/forget-password`}>
+      <div className='flex justify-between'>
+        <Link className='text-center w-full my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' to={`/access-control/forget-password`}>
           Esqueci a senha
         </Link>
-        <Link  className='w-full my-5 py-2 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg'to={`/access-control/sign-up`}>
+        <Link  className='text-center w-full my-5 py-2 px-2 mx-1 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg'to={`/access-control/sign-up`}>
           Cadastre-se
         </Link>
       </div>
 
       <div className="flex justify-center">
-        <button className='w-full my-5 py-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg' type="submit">
+        <button className='text-center w-full my-5 py-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="submit">
           Acessar
         </button>
       </div>

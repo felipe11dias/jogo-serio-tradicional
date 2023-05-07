@@ -53,7 +53,7 @@ const Router = createBrowserRouter(
         </Route>
 
         <Route path="environment" element={<TemplateEnvironment />}>
-          <Route element={<RequireUser allowedRoles={[ROLES[ROLES.STUDENT], ROLES[ROLES.TEACHER]]} />}>
+          <Route element={<RequireUser allowedRoles={[ROLES[ROLES.STUDENT], ROLES[ROLES.TEACHER]]} />}> 
             <Route
               path="student"
               element={<TemplateStudent />}

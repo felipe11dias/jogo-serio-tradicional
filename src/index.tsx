@@ -14,7 +14,7 @@ ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 ).render(
   <React.StrictMode>
-    <div className='max-w-[1440px] mx-auto bg-backgroundColorPrimary' >
+    <div className='mx-auto bg-backgroundColorPrimary' >
       <ToastContainer
         position="top-center"
         autoClose={5000}

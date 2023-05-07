@@ -35,11 +35,35 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: '#101828',
-        secondary: '#7F56D9',
-        backgroundColorPrimary: '#101624',
-        backgroundColorSecondary: '#1d2939',
-        backgroundColorLogin: '#040a25',
+        //'#044cf4'
+        // Theme
+        backgroundColorPrimary: '#f4f4f5',
+        backgroundColorSecondary: '#FFFFFF',
+        backgroundColorThird: '#040a25',
+        backgroundColorInput: '#f4f4f5', //
+        bgContainerTable:"#d1faf1",
+        bgTableHeaderColor: "#b7e7fb",
+
+        // Theme components
+        textColorPrimary: '#FFFFFF', // white
+        textColorSecondary: '#000000', // black
+        textColorThird: '#3349f1', // blue
+        textHintColor: '#3349f1',  // light grey
+        buttonColor: '#3349f1',   // teal
+        
+        // utils
+        errTextColor: '#e14c3c',
+
+        // Hovers
+        hoverColorHeader:'white',
+        hoverColorFooter:'#1d2939',
+        hoverColorButton: '#3349f1',
+
+        // Footer && Header
+        backgroundColorHeaderPrimary: '#3349f1',
+        backgroundColorFooterPrimary: '#3349f1',
+        textColorFH:'#9da3af'
+
       },
       boxShadow: {
         1: '0px 4px 30px rgba(0, 0, 0, 0.08)',

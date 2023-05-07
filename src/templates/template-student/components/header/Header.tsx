@@ -25,7 +25,6 @@ export default function () {
       window.location.reload()
     }
     
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   const onSubmitHandler: SubmitHandler<{}> = async () => {
@@ -33,26 +32,26 @@ export default function () {
   };
 
   return (
-    <header className='py-6 mb-12  bg-backgroundColorPrimary'>
-      <div className='container sm:flex-col md:flex-row lg:flex-row xl:flex-row mx-auto flex justify-between items-center bg-backgroundColorPrimary'>
+    <header className='py-6  bg-backgroundColorHeaderPrimary'>
+      <div className='container sm:flex-col md:flex-row lg:flex-row xl:flex-row mx-auto flex justify-between items-center bg-backgroundColorHeaderPrimary'>
         {
           user?.role === ROLES[ROLES.TEACHER] ?
           <>
-            <Link to="/environment/teacher/home" className='hover:text-violet-900'>Início</Link>
+            <Link to="/environment/teacher/home" className='w-full my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-3xl'>Início</Link>
             <div className='flex items-center gap-6'>
-              <Link to="/environment/teacher/collaboration-disciplines/list" className='bg-violet-800 text-white px-4 py-3 rounded-lg transition'>Disciplinas</Link>
-              <Link to="/environment/teacher/collaboration-activities/list" className='bg-violet-800 text-white px-4 py-3 rounded-lg transition'>Atividades</Link>
-              <Link to="/environment/student/game-select" className='bg-violet-800 text-white px-4 py-3 rounded-lg transition'>Jogos</Link>
+              <Link to="/environment/teacher/collaboration-disciplines/list" className='w-full my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl'>Disciplinas</Link>
+              <Link to="/environment/teacher/collaboration-activities/list" className='w-full my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl'>Atividades</Link>
+              <Link to="/environment/student/game-select" className='w-full my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl'>Jogos</Link>
             </div>
           </> :
           <div>
-            <Link className='w-full my-5 py-2 px-2 hover:text-white text-gray-400 font-semibold rounded-lg text-3xl' to="/environment/student/game-select" replace={true}>
+            <Link className='w-full my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-3xl' to="/environment/student/game-select" replace={true}>
               Início
             </Link>
           </div>
         }
         
-        <div className='w-auto rounded p-3 text-primary bg-white'>
+        <div className='my-5 p-2 bg-buttonColor   text-textColorPrimary font-semibold rounded-lg'>
           <form onSubmit={handleSubmit(onSubmitHandler)}>
             <button type='submit'>Encerrar sessão</button>
           </form>
