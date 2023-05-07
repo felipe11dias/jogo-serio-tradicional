@@ -48,6 +48,7 @@ module.exports = {
         textColorPrimary: '#FFFFFF', // white
         textColorSecondary: '#000000', // black
         textColorThird: '#3349f1', // blue
+        textColorFoured: '#00bfe9', // blue light
         textHintColor: '#3349f1',  // light grey
         buttonColor: '#3349f1',   // teal
         
