@@ -42,6 +42,7 @@ module.exports = {
         backgroundColorThird: '#040a25',
         backgroundColorInput: '#f4f4f5', //
         bgContainerTable:"#d1faf1",
+        bgTableHeaderColor: "#b7e7fb",
 
         // Theme components
         textColorPrimary: '#FFFFFF', // white
