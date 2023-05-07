@@ -4,7 +4,7 @@ import GameArea from "./components/GameArea";
 export default function Gameplay() {
   return (
     <div className="w-full flex flex-col items-center justify-center">
-      <h2 className="text-4xl text-textColorPrimary font-bold text-center mb-10"> GAMEPLAY </h2>
+      <h2 className="text-4xl text-textColorThird font-bold text-center mb-10"> GAMEPLAY </h2>
       
       <div className="w-full px-4 d-flex justify-content-center mb-10">
         <GameArea />

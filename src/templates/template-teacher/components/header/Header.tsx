@@ -36,22 +36,18 @@ export default function Header(props: HeaderProps) {
     <header className='py-6  bg-backgroundColorHeaderPrimary'>
       <div className='container sm:flex-col md:flex-row lg:flex-row xl:flex-row mx-auto flex justify-between items-center bg-backgroundColorHeaderPrimary'>
         <Link to="/environment/teacher/home" className='w-full my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-3xl'>Início</Link>  
-        <div className='flex items-center gap-6'>
+        <div className='flex items-center gap-6 px-10'>
           <Link to="/environment/teacher/collaboration-disciplines/list" className='w-full my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl'>Disciplinas</Link>
           <Link to="/environment/teacher/collaboration-activities/list" className='w-full my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl'>Atividades</Link>
           <Link to="/environment/student/game-select" className='w-full my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl'>Jogos</Link>
         </div>
-        <div className='w-auto rounded p-3 text-primary bg-white'>
+        <div className='bg-buttonColor text-textColorPrimary font-semibold rounded-lg'>
           <form onSubmit={handleSubmit(onSubmitHandler)}>
             <button type='submit'>Encerrar sessão</button>
           </form>
         </div>
       </div>
-      <div className='my-5 p-2 bg-buttonColor text-textColorPrimary font-semibold rounded-lg'>
-        <form onSubmit={handleSubmit(onSubmitHandler)}>
-          <button type='submit'>Encerrar sessão</button>
-        </form>
-      </div>
+      
   </header>
   )
 }

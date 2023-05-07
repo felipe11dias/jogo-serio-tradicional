@@ -14,19 +14,21 @@ export default function HomeTeacher() {
       <main>
         <section className="grid grid-cols-2 items-start mx-auto relative overflow-hidden ">
           <div className="w-full">
-            <h2 className="text-textColorPrimary font-bold text-6xl mb-10">Bem vindo professor {user?.name}!</h2>
-            <p className="text-textHintColor text-3xl font-semibold">
-              Crie disciplinas e atividades para os jogos do sistema. Primeiro crie sua disciplina, depois associe a
-               disciplina criada a uma nova atividade ou a uma atividade já existente. Sua nova disciplina e atividade ficam a disposição para serem aplicadas durante os jogos.
-            </p>
+            <h2 className="text-textColorThird font-bold text-6xl mb-10">Bem vindo professor {user?.name}!</h2>
+         
           </div>
           <div className="w-10 h-10">
             <BackgroundAnimation />
           </div>
         </section>
 
+        <p className="text-textHintColor text-3xl font-semibold">
+              Crie disciplinas e atividades para os jogos do sistema. Primeiro crie sua disciplina, depois associe a
+               disciplina criada a uma nova atividade ou a uma atividade já existente. Sua nova disciplina e atividade ficam a disposição para serem aplicadas durante os jogos.
+            </p>
+            
         <section className="mt-10">
-          <h2 className="text-textColorPrimary font-bold text-5xl mb-10">Funcionalidades:</h2>
+          <h2 className="text-textColorThird font-bold text-5xl mb-10">Funcionalidades:</h2>
 
           <div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

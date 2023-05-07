@@ -33,7 +33,7 @@ export default function () {
 
   return (
     <header className='py-6  bg-backgroundColorHeaderPrimary'>
-      <div className='  container sm:flex-col md:flex-row lg:flex-row xl:flex-row mx-auto flex justify-between items-center bg-backgroundColorHeaderPrimary'>
+      <div className='container sm:flex-col md:flex-row lg:flex-row xl:flex-row mx-auto flex justify-between items-center bg-backgroundColorHeaderPrimary'>
         {
           user?.role === ROLES[ROLES.TEACHER] ?
           <>

@@ -47,7 +47,7 @@ module.exports = {
         // Theme components
         textColorPrimary: '#FFFFFF', // white
         textColorSecondary: '#000000', // black
-        textColorThird: '#3349f1', // white
+        textColorThird: '#3349f1', // blue
         textHintColor: '#3349f1',  // light grey
         buttonColor: '#3349f1',   // teal
         

@@ -31,17 +31,19 @@ export default function GameSelect() {
       <section className="grid grid-cols-2 items-start mx-auto relative overflow-hidden ">
         <div className="w-full py-2">
           <h2 className="text-textHintColor text-3xl font-semibold py-5 text-6xl		">Bem vindo {user?.role === ROLES[ROLES.STUDENT] ? 'estudante' : 'professor'} {user?.name}!</h2>
-          <p className="text-textHintColor text-3xl font-semibold text-3xl		">
-            Jogue e estude. Selecione o jogo e se divirta estudando.
-             Após selecionar o jogo você deve selecionar a disciplina e atividade que serão aplicadas durante a jogatina.
-             Supere seus colegas e veja seu nome no topo do ranking.
-          </p>
+       
         </div>
+      
         <div className="w-10 h-10">
           <BackgroundAnimation />
         </div>
       </section>
-
+      <p className="text-textHintColor text-3xl font-semibold text-3xl">
+            Jogue e estude. Selecione o jogo e se divirta estudando.
+             Após selecionar o jogo você deve selecionar a disciplina e atividade que serão aplicadas durante a jogatina.
+             Supere seus colegas e veja seu nome no topo do ranking.
+          </p>
+          
       <section className="mt-10">
         <h2 className="text-textColorThird font-bold text-5xl mb-10">Jogos:</h2>
 
