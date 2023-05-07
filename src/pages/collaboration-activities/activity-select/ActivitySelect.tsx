@@ -64,6 +64,7 @@ export default function ActivitySelect() {
 
   return (
     <div  className="flex justify-center items-center flex-col">
+      
       <h2 className="text-4xl text-textColorThird font-bold text-center mb-10 "> SELECIONE UMA ATIVIDADE </h2>
        
           <div className="w-full flex justify-center items-center flex-row m-2 ">
