@@ -58,6 +58,7 @@ module.exports = {
         hoverColorHeader:'white',
         hoverColorFooter:'#1d2939',
         hoverColorButton: '#3349f1',
+        hoverColorButtonSecondary: '#f4f4f5',
 
         // Footer && Header
         backgroundColorHeaderPrimary: '#3349f1',
