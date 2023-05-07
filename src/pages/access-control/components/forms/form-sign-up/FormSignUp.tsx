@@ -70,7 +70,6 @@ export default function FormSignUp() {
   }
 
   const onSubmitHandler: SubmitHandler<ISignUpInputs> = async (values) => {
-    console.log(values);
     await registerUser(values);
   };
 

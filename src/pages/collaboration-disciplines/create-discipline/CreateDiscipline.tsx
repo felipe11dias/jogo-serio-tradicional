@@ -57,7 +57,6 @@ export default function CreateDiscipline() {
   }, [isSubmitSuccessful]);
 
   const onSubmitHandler: SubmitHandler<IRegisterDisciplineInputs> = async (values) => {
-    console.log(values)
     await createDisciplines(values)
   };
 
