@@ -51,7 +51,7 @@ export default function () {
           </div>
         }
         
-        <div className='my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton-500/50 hover:shadow-hoverColorButton-500/40 text-textColorPrimary font-semibold rounded-lg'>
+        <div className='my-5 p-2 bg-buttonColor   text-textColorPrimary font-semibold rounded-lg'>
           <form onSubmit={handleSubmit(onSubmitHandler)}>
             <button type='submit'>Encerrar sessão</button>
           </form>
