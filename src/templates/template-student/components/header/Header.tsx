@@ -25,7 +25,6 @@ export default function () {
       window.location.reload()
     }
     
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   const onSubmitHandler: SubmitHandler<{}> = async () => {
@@ -34,7 +33,7 @@ export default function () {
 
   return (
     <header className='py-6  bg-backgroundColorHeaderPrimary'>
-      <div className='container sm:flex-col md:flex-row lg:flex-row xl:flex-row mx-auto flex justify-between items-center bg-backgroundColorHeaderPrimary'>
+      <div className='  container sm:flex-col md:flex-row lg:flex-row xl:flex-row mx-auto flex justify-between items-center bg-backgroundColorHeaderPrimary'>
         {
           user?.role === ROLES[ROLES.TEACHER] ?
           <>
@@ -46,13 +45,13 @@ export default function () {
             </div>
           </> :
           <div>
-            <Link className='w-full my-5 py-2 px-2 hover:text-white text-gray-400 font-semibold rounded-lg text-3xl' to="/environment/student/game-select" replace={true}>
+            <Link className='w-full my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-3xl' to="/environment/student/game-select" replace={true}>
               Início
             </Link>
           </div>
         }
         
-        <div className='my-5 p-2  text-white font-semibold rounded-lg'>
+        <div className='my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton-500/50 hover:shadow-hoverColorButton-500/40 text-textColorPrimary font-semibold rounded-lg'>
           <form onSubmit={handleSubmit(onSubmitHandler)}>
             <button type='submit'>Encerrar sessão</button>
           </form>

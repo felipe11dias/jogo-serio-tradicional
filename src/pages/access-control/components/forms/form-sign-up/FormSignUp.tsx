@@ -78,9 +78,9 @@ export default function FormSignUp() {
     <form className='max-w-[400px] w-full mx-auto rounded-lg bg-backgroundColorSecondary p-8 px-8' onSubmit={handleSubmit(onSubmitHandler)}>
       <h2 className="text-4xl text-textColorThird font-bold text-center">REGISTRE-SE</h2>
 
-      <div className="className='flex flex-col text-gray-400 py-2'" >
+      <div className="flex flex-col text-textHintColor py-2 rounded-lg" >
         <h3>Perfil:</h3>
-        <select className='mt-2 p-2' {...register("role")}>
+        <select className='mt-2 p-2 bg-backgroundColorInput' {...register("role")}>
           <option value="">Selecione</option>
           <option value="STUDENT">Aluno</option>
           <option value="TEACHER">Professor</option>
@@ -94,20 +94,18 @@ export default function FormSignUp() {
         <p className='text-errTextColor'>{errors.email?.message}</p>
       </div>
 
-      <div className="className='flex flex-col text-gray-400 py-2" >
+      <div className="className='flex flex-col text-textHintColor py-2" >
         <h3>Nome:</h3>
         <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder='Nome*' {...register("name")} />
         <p className='text-errTextColor'>{errors.name?.message}</p>
       </div>
 
-      <div className="className='flex flex-col text-gray-400 py-2" >
+      <div className="className='flex flex-col text-textHintColor py-2" >
         <h3>Senha:</h3>
         <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="password" placeholder='Senha*' {...register("password")} />
         <p className='text-errTextColor'>{errors.password?.message}</p>
       </div>
- 
-      <div className="flex justify-between ">
-        
+       <div className="flex justify-between ">        
         <button className='text-center my-5 py-2 w-28 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-white font-semibold rounded-lg' type="submit">
           Cadastrar
         </button>
