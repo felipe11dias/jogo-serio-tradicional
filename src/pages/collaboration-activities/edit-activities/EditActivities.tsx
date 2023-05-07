@@ -89,7 +89,6 @@ export default function EditActivities() {
   }, [isSubmitSuccessful]);
 
   const onSubmitHandler: SubmitHandler<IEditActivityInputs> = async (values) => {
-    console.log(values)
     await editActivitiy(id || '-1', values);
   };
 
