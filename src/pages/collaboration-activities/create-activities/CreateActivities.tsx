@@ -91,7 +91,6 @@ export default function CreateActivities() {
   }, [isSubmitSuccessful]);
 
   const onSubmitHandler: SubmitHandler<IRegisterActivityInputs> = async (values) => {
-    console.log(values)
     await createActivities(values);
   };
 
