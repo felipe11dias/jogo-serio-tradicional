@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import { Tooltip } from "@mui/material";
+import { useContext, useMemo, useState } from "react";
 import Countdown from "react-countdown";
 import GameSeriusContext, { GameSeriusType } from "../../../../context/GameContext/GameContext";
 import { useAppSelector } from "../../../../redux/store";
@@ -8,20 +9,24 @@ import { IEditActivityInputs } from "../../../collaboration-activities/edit-acti
 import ModalResult, { ResultProps } from "../../components/ModalResult";
 import './style.css';
 
-export default function AimshotResponse() {
+export default function GuitarQuestions() {
   const user: User | null = useAppSelector(state => state.userState.user)
-
-  const ref = React.useRef(null);
+  
+  const colors = ['#1b9b1e', '#991213', '#a3960d', '#0a4c99']
   const { gameSerius, saveGameSerius } = useContext(GameSeriusContext) as GameSeriusType;
-  const colors = ['#1abc9c', '#4efc53', '#3498db', '#9b59b6', '#ff3f34', '#f1c40f', '#f57e33', '#48dbfb']
   const [questionIndex, setQuestionIndex] = useState<number>(0);
   const [startGame, setStartGame] = useState<boolean>(false);
+  const [fullTime, setFullTime] = useState<number>(0);
   const [time, setTime] = useState<number | null>(0);
+  const [timeQuestions, setTimeQuestions] = useState<number>(0);
+  const [timePadding, setTimePadding] = useState<number>(0.5);
+  const [topAtt, setTopAtt] = useState<number>(0);
+  const [leftAtt, setLeftAtt] = useState<string[]>(['16.5%', '35%', '54.5%', '74%']);
   const [score, setScore] = useState<number>(0);
   const [activity, setActivity] = useState<IEditActivityInputs>();
   const [result, setResult] = useState<ResultProps>({ idUser: user?.id || -1, idActivity: -1, time: '', fullTime: '', game: 'Mirando respostas', questions: [], open: true, answers: [] });
 
-  useEffect(() => {
+  useMemo(() => {
     getActivity(gameSerius.activitySelected.toString()).then( data => {
       setActivity(data)
       setResult({
@@ -37,7 +42,7 @@ export default function AimshotResponse() {
   const ScoreFinishGame = () => (
     <>
       <ModalResult game={result.game} idUser={result.idUser} idActivity={result.idActivity} time={result.time} fullTime={result.fullTime} questions={result.questions} open={result.open} answers={result.answers} />
-      <h1>Fim de jogo!</h1>;
+      <h1>Fim de jogo!</h1>
     </>
   )
 
@@ -45,10 +50,10 @@ export default function AimshotResponse() {
     if (completed) {
       finishGame()
       return <ScoreFinishGame />;
-    } else {
-      return(
+    }else {
+      return (
         <div className='mt-2 p-2 w-full flex justify-center'>
-          <h1 className='text-2xl'>{(time !== null) ? <>Tempo restante:</> : <></>} {minutes}:{seconds}</h1>
+          <h1 className='text-2xl text-white'>{(time !== null) ? <>Tempo restante:</> : <></>} {minutes}:{seconds}</h1>
         </div>
       )
     }
@@ -68,102 +73,70 @@ export default function AimshotResponse() {
     result.fullTime = msToTimeString(timeVar)
     setResult(result)
     setTime(timeVar)
+    setFullTime(timeVar)
+    setTopAtt(topAtt + (100/(timeVar/1000)))
+    setTimeQuestions(timeVar / (activity?.questions.length || 1))
   }
 
   function finishGame() {
     result.time = msToTimeString(time || 0)
-    const answers = document.getElementsByClassName('answer')
-    Array.from(answers).forEach(answer => {
-      answer.remove();
-    })
-
-    const board = document.getElementById('board')
-    board?.remove();
-
     // Preenche as questão não marcadas a tempo com um valor incorreto.
     if(result.questions.length > result.answers.length) {
       for(var i = 0; i < (result.questions.length - result.answers.length); i++) {
         result.answers.push(-1)
       }
     }
+    
     setResult(result)
     setTime(null)
   }
 
-  function checkAnswer(id: number) {
+  const getColors = (size: number): string[] => {
+    return Array.from(Array(size).keys()).map( _ => '#' + (Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0'))
+  }
+
+  function selectionAnswer(id: number) {
     result.answers.push(id)
     setResult(result)
-    const answers = document.getElementsByClassName('answer')
-    Array.from(answers).forEach(answer => {
-      answer.remove();
-    })
-
-    if(activity?.questions[questionIndex].idAnswerCorrect || -1 === id) {
-      setScore(score + 1)
-    }
-
     if(activity?.questions.length === (questionIndex + 1)) {
       finishGame()
     }else {
+      setTimePadding(0.5)
+      setTimeQuestions((time || 1) / (activity?.questions.length || 1))
       setQuestionIndex(questionIndex + 1)
     }
   }
 
-  function generateAnswerRandom(id: number, description: string) {
-    const board = document.getElementById('board')
-    const answer = document.createElement('span')
-    answer.innerHTML = description;
-    answer.style.width = `fit-content`
-    answer.style.height = `fit-content`
-    
-    console.log('description: ', description)
-    const boardSize = board?.getBoundingClientRect() || new DOMRect()
-    const answerSize = answer?.getBoundingClientRect() || new DOMRect()
-    const x = getRandomNumber(0, boardSize.width - answerSize.width)
-    const y = getRandomNumber(0, boardSize.height - answerSize.height)
-
-    console.log('board:', board)
-    console.log('board:', board)
-    console.log('x:', x)
-    console.log('y:', y)
-  
-    answer.style.border = '1px solid black'
-    answer.style.cursor = 'pointer'
-    answer.style.position = 'relative'
-    answer.style.top = `${y}px`
-    answer.style.left = `${x}px`
-    
-    answer.title = description
-    answer.id = `${id}`
-
-    answer.addEventListener('click', () => checkAnswer(id))
-    answer.classList.add('rounded')
-    answer.classList.add('p-2')
-    answer.classList.add('answer')
-
-    board?.append(answer)
-    
-    const color = getRandomColor()
-    answer.style.backgroundColor = color
-
-    console.log('answer:', answer)
-  }
-  
-  function getRandomNumber(min: number, max: number) {
-    return Math.round(Math.random() * (max - min) + min)
-  }
-  
-  //? colors
-  function getRandomColor() {
-    return colors[Math.floor(Math.random() * colors.length)]
+  function handleTick(t: any) {
+    if(timeQuestions === 0) {
+      if(activity?.questions.length === (questionIndex + 1)) {
+        finishGame()
+      }else {
+        setQuestionIndex(questionIndex + 1)
+        setTimeQuestions((time || 1) / (activity?.questions.length || 1))
+      }
+    }else {
+      if(topAtt < 50) {
+        setTimePadding(0.5)
+      }else if(topAtt >= 50 && topAtt < 80) {
+        setLeftAtt(['15.5%', '35%', '54.5%', '74%'])
+        setTimePadding(0.8)
+      }else {
+        setLeftAtt(['15%', '34.5%', '54%', '73.5%'])
+        setTimePadding(1.2)
+      }
+      setTimeQuestions(timeQuestions - 1000)
+    }
+    setTopAtt(topAtt + (100/(fullTime/1000)))
+    setTime(t.total)
   }
 
-  return (
+  return(
     <div className="w-full min-height-inherit flex justify-center flex-col">
       {
         (time !== null) ?
         <>
-          <h1 className='mt-2 w-100 text-center text-textColorSecondary font-bold'>MIRANDO RESPOSTAS</h1>
+          <h1 className='mt-2 w-100 text-center text-textColorSecondary font-bold'>GUITARRA DAS QUESTÕES</h1>
           <div className='my-4'>
             <h2 className='mb-4 w-100 text-textColorSecondary font-bold'>Instruções:</h2>
             <p className='w-100 text-start text-textColorSecondary'>
@@ -206,42 +179,50 @@ export default function AimshotResponse() {
                   <option value={3599999}>1 hora</option>
                 </select>
               </div>
-            </>
-            :
+            </> :
             <>
-              <div className="flex items-center justify-center flex-col min-w-full">
-              
-                <div className="my-2">
-                  <Countdown date={Date.now() + (time || 0)} onTick={(t) => setTime(t.total)} renderer={renderer} />
-                </div>
-                
-                {
-                  (time !== null) ?
-                  <div className="my-2">
-                      {activity?.questions[questionIndex].description + '?'}
-                  </div>
-                  :
-                  <></>
-                }
+            <div className="flex items-center justify-center flex-col min-w-full rounded mb-3" id="board-guitar">
+              <div className={"my-2 " + time === null ? 'flex justify-center h-full w-full text-center' : ''}>
+                <Countdown date={Date.now() + (time || 0)} onTick={(t) => handleTick(t)} renderer={renderer} />
               </div>
-            </>
+
+              {
+                (time !== null) ?
+                <div className="my-2 text-white">
+                  {activity?.questions[questionIndex].description + '?'}
+                </div>
+                :
+                <></>
+              }
+
+              <div className="px-4 pb-2 flex h-full w-full min-height-inherit relative ">
+                <div className="line-left" />
+                <div className="px-8 h-full w-full flex bg-backgroundColorSecondary opacity-80 rounded">
+                  <div className="line-straight" id="answer1" />
+                  <div className="line-straight" id="answer2" />
+                  {
+                    activity?.questions[questionIndex].answers.map( (answer, index) => {
+                      return(
+                        <>
+                          <Tooltip className=" rounded absolute" style={{ padding: `${timePadding}em`, left: `${leftAtt[index]}`, backgroundColor: colors[index], top: `${topAtt}%`}} title={answer.description}>
+                            <button type="button" className="" onClick={() => selectionAnswer(answer.id)}>Resposta {index + 1}</button>
+                          </Tooltip>
+                        </>
+                      )
+                    })
+                  }
+                  <div className="line-straight" id="answer3" />
+                  <div className="line-straight" id="answer4" />
+                </div>
+                <div className="line-right" />
+              </div>
+            </div>
+          </>
           }
         </>
       }
 
-      <div className="w-full min-height-inherit" ref={ref} id="board">
-        {
-          startGame && (time !== null && time > 0) ? 
-          activity?.questions[questionIndex].answers.map( answer => {
-            return (
-              <>
-                { generateAnswerRandom(answer?.id, answer?.description) }
-              </>
-            )
-          }) :
-          <></>
-        }
-      </div>
     </div>
   )
+
 }

@@ -11,12 +11,13 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'rgb(18, 18, 18)',
-  border: '2px solid rgb(0, 0, 0)',
+  width: 600,
+  bgcolor: '#fff',
+  borderRadius: '0.5rem',
+  border: '2px solid #3349f1',
   boxShadow: 24,
   p: 4,
-  color: '#fff'
+  color: '#000'
 };
 
 
@@ -59,7 +60,7 @@ export default function ModalDelete({ id }: { id: number}) {
 
   return (
     <div>
-      <button className="" type="button" onClick={openModal}>Deletar</button>
+      <button className="w-16 rounded p-2 bg-errTextColor text-white hover:scale-125 hover:bg-hoverColorFooter hover:cursor-pointer" type="button" onClick={openModal}>Deletar</button>
       <Modal
         open={modalIsOpen}
         onClose={closeModal}
@@ -67,12 +68,12 @@ export default function ModalDelete({ id }: { id: number}) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <button onClick={closeModal}>X</button>
-          <h2>Deletar atividade </h2>
-          <p>Você tem certeza que deseja deletar essa atividade?</p>
-          <form onSubmit={handleSubmit(onSubmitHandler)}>
-            <button className="" type="button" onClick={closeModal}>Cancelar</button>
-            <button className="" type="submit">Deletar</button>
+          <button className="float-right" onClick={closeModal}>X</button>
+          <h1 className="mb-4 w-full text-center">Deletar atividade </h1>
+          <p className="text-center">Você tem certeza que deseja deletar essa atividade?</p>
+          <form className="mt-5 flex justify-end" onSubmit={handleSubmit(onSubmitHandler)}>
+            <button className="w-24 rounded mx-6 p-2 bg-errTextColor text-white hover:scale-125 hover:bg-hoverColorFooter hover:cursor-pointer" type="button" onClick={closeModal}>Cancelar</button>
+            <button className="w-24 rounded p-2 bg-backgroundColorFooterPrimary text-white hover:scale-125 hover:bg-hoverColorFooter hover:cursor-pointer" type="submit">Deletar</button>
           </form>
         </Box>
       </Modal>

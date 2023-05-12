@@ -7,12 +7,13 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'rgb(18, 18, 18)',
-  border: '2px solid rgb(0, 0, 0)',
+  width: 600,
+  bgcolor: '#fff',
+  borderRadius: '0.5rem',
+  border: '2px solid #3349f1',
   boxShadow: 24,
   p: 4,
-  color: '#fff'
+  color: '#000'
 };
 
 
@@ -37,19 +38,19 @@ export default function ModalViewQuestions({ questions }: { questions: Question[
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <button onClick={closeModal}>X</button>
-          <h2>Questões da atividade</h2>
-          <table>
-            <thead>
+          <button className="float-right" onClick={closeModal}>X</button>
+          <h1 className="mb-4 w-full text-center">Questões da atividade</h1>
+          <table className="border-2 border-solid border-textColorThird mb-4 w-full text-sm text-center text-primary dark:text-textHintColor ">
+            <thead className="text-xs text-primary uppercase bg-bgTableHeaderColor dark:bg-primary dark:text-textHintColor ">
               <tr>
-                <th>Número</th>
-                <th>Descrição</th>
+                <th scope="col" className="px-6 py-3">Número</th>
+                <th scope="col" className="px-6 py-3">Descrição</th>
               </tr>
             </thead>
             <tbody>
               {
                 questions.length > 0 ? questions.map((question, index) => (
-                  <tr key={question.id}>
+                  <tr className="text-textColorSecondary" key={question.id}>
                     <td>{index}</td>
                     <td>{question.description}</td>
                   </tr>

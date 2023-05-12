@@ -29,15 +29,16 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'rgb(18, 18, 18)',
-  border: '2px solid rgb(0, 0, 0)',
+  width: 600,
+  bgcolor: '#fff',
+  borderRadius: '0.5rem',
+  border: '2px solid #3349f1',
   boxShadow: 24,
   p: 4,
-  color: '#fff'
+  color: '#000'
 };
 
-export default function ModalEdit({ id }: { id: number}) {
+export default function ModalEdit({ id, name, theme }: { id: number, name: string, theme: string }) {
   const user: User | null = useAppSelector(state => state.userState.user)
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
 
@@ -49,8 +50,8 @@ export default function ModalEdit({ id }: { id: number}) {
   } = useForm<IEditDisciplineInputs>({
     resolver: zodResolver(schemaDiscipline),
     defaultValues: {
-      name: '',
-      theme: '',
+      name,
+      theme,
       idUser: user?.id
     }
   });
@@ -89,7 +90,7 @@ export default function ModalEdit({ id }: { id: number}) {
 
   return (
     <div>
-      <button className="" type="button" onClick={openModal}>Edit</button>
+      <button className="w-16 rounded p-2 bg-yellow-400 text-white hover:scale-125 hover:bg-hoverColorFooter hover:cursor-pointer" type="button" onClick={openModal}>Editar</button>
       <Modal
         open={modalIsOpen}
         onClose={closeModal}
@@ -97,29 +98,27 @@ export default function ModalEdit({ id }: { id: number}) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <div>
-            <button onClick={closeModal}>X</button>
-          </div>
+          <button className="float-right" onClick={closeModal}>X</button>
           
           <form onSubmit={handleSubmit(onSubmitHandler)}>
-            <h2>Editar disciplina</h2>
+            <h1 className="mb-4 w-full text-center">Editar disciplina</h1>
             <div className="mb-3" >
               <div>Nome: </div>
-              <input type="text" placeholder="Enter name*" {...register("name")} />
+              <input className='rounded-lg bg-backgroundColorInput mt-2 p-2 focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder="Nome*" {...register("name")} />
               <p className='text-red-600'>{errors.name?.message}</p>
             </div>
 
             <div className="mb-3" >
               <div>Tema: </div>
-              <input type="text" placeholder="Enter theme*" {...register("theme")} />
+              <input className='rounded-lg bg-backgroundColorInput mt-2 p-2 focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder="Tema*" {...register("theme")} />
               <p className='text-red-600'>{errors.theme?.message}</p>
             </div>
 
-            <div className="d-flex justify-content-center">
-              <button type="button" onClick={closeModal}>
+            <div className="mt-9 flex justify-end">
+              <button className="w-24 rounded mx-6 p-2 bg-errTextColor text-white hover:scale-125 hover:bg-hoverColorFooter hover:cursor-pointer" type="button" onClick={closeModal}>
                 Cancelar
               </button>
-              <button type="submit">
+              <button className="w-24 rounded p-2 bg-backgroundColorFooterPrimary text-white hover:scale-125 hover:bg-hoverColorFooter hover:cursor-pointer" type="submit">
                 Salvar
               </button>
             </div>

@@ -1,0 +1,26 @@
+.line-right {
+  height: 600px;
+  width: 50px;
+  transform: rotate(175deg);
+  border-right: 2px solid black;
+  margin-right: 20px;
+}
+
+.line-left {
+  height: 600px;
+  width: 50px;
+  transform: rotate(5deg);
+  border-right: 2px solid black;
+  margin-left: 20px;
+}
+
+.line-straight {
+  height: 600px;
+  border-right: 1px solid black;
+  margin: 0 auto;
+}
+
+#board-guitar {
+  background: url('../../../../assets/violao.jpg');
+  background-size: cover !important;
+}

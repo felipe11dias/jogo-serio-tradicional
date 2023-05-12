@@ -36,12 +36,13 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'rgb(18, 18, 18)',
-  border: '2px solid rgb(0, 0, 0)',
+  width: 600,
+  bgcolor: '#fff',
+  borderRadius: '0.5rem',
+  border: '2px solid #3349f1',
   boxShadow: 24,
   p: 4,
-  color: '#fff'
+  color: '#000'
 };
 
 const schemaRanking = z.object({
@@ -100,7 +101,10 @@ export default function ModalResult(result: ResultProps) {
 
   const onSubmitHandler: SubmitHandler<IRegisterOrEditRanking> = async (values) => {
     console.log(values)
-    await createOrEditRatings(values);
+    await createOrEditRatings(values).then( response => {
+      toast.success("Resultado salvo.")
+    });
+    closeModal()
   };
 
   if(isSubmitting) {
@@ -125,29 +129,32 @@ export default function ModalResult(result: ResultProps) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <button onClick={closeModal}>X</button>
-          <h2>Resultado do jogo </h2>
-          <table>
-            <thead>
-              <tr>Questão</tr>
-              <tr>Resultado</tr>
+          <button className="float-right" onClick={closeModal}>X</button>
+          <h1 className="mb-4 w-full text-center">Resultado do jogo</h1>
+          <table className="border-2 border-solid border-textColorThird mb-4 w-full text-sm text-center text-primary dark:text-textHintColor ">
+            <thead className="text-xs text-primary uppercase bg-bgTableHeaderColor dark:bg-primary dark:text-textHintColor ">
+              <tr>
+                <th scope="col" className="px-6 py-3">Questão</th>
+                <th scope="col" className="px-6 py-3">Resultado</th>
+              </tr>
             </thead>
             <tbody>
               {
                 result.questions.map( (question, index) => {
                   return (
-                    <>
+                    <tr className="text-textColorSecondary">
                       <td>{question.description} ?</td>
                       <td>{parseInt(question.idAnswerCorrect) === result.answers[index] ? "Resposta correta" : "Resposta incorreta"}</td>
-                    </>
+                    </tr>
                   )
                 })
               }
             </tbody>
           </table>
-          <form>
-            <button className="" type="button" onClick={closeModal}>Cancelar</button>
-            <button type="button" onClick={handleSubmit(onSubmitHandler)}>Salvar</button>
+          <form className="mt-9 flex justify-end" onSubmit={handleSubmit(onSubmitHandler)}>
+            <input type="submit" hidden />
+            <button className="w-24 rounded mx-6 p-2 bg-errTextColor text-white hover:scale-125 hover:bg-hoverColorFooter hover:cursor-pointer" type="button" onClick={closeModal}>Cancelar</button>
+            <button className="w-24 rounded p-2 bg-backgroundColorFooterPrimary text-white hover:scale-125 hover:bg-hoverColorFooter hover:cursor-pointer" type="submit">Salvar</button>
           </form>
         </Box>
       </Modal>
