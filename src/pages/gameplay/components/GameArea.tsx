@@ -9,13 +9,13 @@ export default function GameArea() {
     <>
       { 
         gameSerius.gameSelected !== '' && gameSerius.disciplineSelected !== -1 && gameSerius.activitySelected !== -1 ?
-        <div className="w-100 px-5 border rounded-md bg-textHintColor" style={{ minWidth: '300px', minHeight: 'calc(100vh - 230px)' }}>
-          <Game  />
+        <div className="w-100 px-5 border rounded-md bg-backgroundColorSecondary" style={{ minWidth: '300px', minHeight: 'calc(100vh - 230px)' }}>
+          <Game />
         </div>
          :
         <>
           <h2 className="text-2xl text-textColorThird font-bold text-center mb-10"> Selecione novamente um jogo </h2>
-        </>  
+        </>
       }
     </>
   )

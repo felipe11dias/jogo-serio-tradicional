@@ -101,10 +101,10 @@ export default function ResponseSearch () {
   }, [windowSize]);
 
   const ScoreFinishGame = () => (
-    <>
+    <div className='h-full w-full flex justify-center'>
       <ModalResult game={result.game} idUser={result.idUser} idActivity={result.idActivity} time={result.time} fullTime={result.fullTime} questions={result.questions} open={result.open} answers={result.answers} />
-      <h1>Fim de jogo!</h1>
-    </>
+      <h1 className='h-full w-full text-center text-4xl'>Fim de jogo!</h1>
+    </div>
   );
 
   const renderer = ({ minutes, seconds, completed }: { minutes: number, seconds: number, completed: boolean }) => {
@@ -112,7 +112,11 @@ export default function ResponseSearch () {
       finishGame()
       return <ScoreFinishGame />;
     } else {
-      return <h3>{minutes}:{seconds}</h3>;
+      return (
+      <div className='mt-2 p-2 w-full flex justify-center'>
+         <h1 className='text-2xl'>{(time !== null) ? <>Tempo restante:</> : <></>} {minutes}:{seconds}</h1>
+      </div>
+      );
     }
   };
 
@@ -226,11 +230,11 @@ export default function ResponseSearch () {
     <>
       {
       (time !== null) ?
-        <>
-          <h1 className='w-100 text-center text-textColorSecondary font-bold'>CAÇA RESPOSTAS</h1>
+        <div className='my-4'>
+          <h1 className='mt-2 w-100 text-center text-textColorSecondary font-bold'>CAÇA RESPOSTAS</h1>
           <div className='my-4'>
-            <h4 className='w-100 text-center text-textColorSecondary font-bold'>Instruções:</h4>
-            <p className='w-100 text-center text-textColorSecondary'>
+            <h2 className='mb-4 w-100 text-textColorSecondary font-bold'>Instruções:</h2>
+            <p className='w-100 text-start text-textColorSecondary'>
               Para cada questão existe uma resposta no 'caça respostas'. <br/>
               Para responder uma questão selecione a questão e selecione as letras equivalentes a resposta no caça palavras. <br/>
               Você pode visualizar o conjunto de letras selecionadas de cada questão nos campos de respostas disponíveis abaixo das questões. <br/>
@@ -238,15 +242,14 @@ export default function ResponseSearch () {
               <b>Observação: Certifique-se de que a ordem das letras selecionadas seja equivalentes as posições corretas na tabela do caça palavras. Caso contrário será invalidado a resposta.</b>
             </p>
           </div> 
-        </>
+        </div>
         :
         <></>
       }
       {
       !startGame ?
-        <div>
-          <h1>Caça respostas</h1>
-          <button type="button" onClick={() => setStartGame(true)}>Iniciar o jogo</button>
+        <div className='flex w-full justify-center'>
+          <button className='mt-2 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="button" onClick={() => setStartGame(true)}>Iniciar o jogo</button>
         </div> :
         <>
           {
@@ -254,7 +257,7 @@ export default function ResponseSearch () {
             <>
               <div className="">
                 <h1>Selecione o tempo de jogo</h1>
-                <select onChange={(event) => initStartGame(parseInt(event.target.value))}>
+                <select className='mt-2 p-2 bg-backgroundColorInput' onChange={(event) => initStartGame(parseInt(event.target.value))}>
                   <option>Selecione</option>
                   <option value={10000}>10 segundos</option>
                   <option value={20000}>20 segundos</option>
@@ -266,14 +269,14 @@ export default function ResponseSearch () {
                   <option value={240000}>4 minutos</option>
                   <option value={300000}>5 minutos</option>
                   <option value={1800000}>30 minutos</option>
-                  <option value={5900000}>1 hora</option>
+                  <option value={3599999}>1 hora</option>
                 </select>
               </div>
             </> :
             <>
-              <div className='my-4'>
-                <div className="my-2">
-                  { (time !== null) ? <>Tempo restante:</> : <></>} <Countdown date={Date.now() + (time || 0)} onTick={(t) => setTime(t.total)} renderer={renderer} />
+              <div className={'my-4 ' + time === null ? 'h-full w-full text-center' : ''}>
+                <div className={"my-2 " + time === null ? 'flex justify-center h-full w-full text-center' : ''} >
+                  <Countdown date={Date.now() + (time || 0)} onTick={(t) => setTime(t.total)} renderer={renderer} />
                 </div>
                 {
                 (time !== null) ?
@@ -302,6 +305,7 @@ export default function ResponseSearch () {
                                 <div className='my-4' key={index}>
                                   <label htmlFor={'answerView' + index} style={{color: state.questionColors[index]}}>Answer {index}:</label>
                                   <input
+                                  className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none'
                                     type='text'
                                     value={state.answersViews.answers[index]}
                                     readOnly={true}
@@ -312,8 +316,8 @@ export default function ResponseSearch () {
                           }
                       </div>
                       
-                      <div className='my-4 d-flex justify-content-center'>
-                        <button className='btn btn-primary text-textColorSecondary' type='submit'> Finalizar </button>
+                      <div className='my-4 w-full flex justify-center'>
+                        <button className='mt-2 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type='submit'> Finalizar </button>
                       </div>
                       <WordSearch
                         state={state}

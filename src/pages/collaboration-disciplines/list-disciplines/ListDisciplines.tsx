@@ -96,7 +96,7 @@ export default function ListDisciplines() {
                   <td>
                     { discipline.idUser === user?.id ? 
                     <>
-                      <ModalEdit id={discipline.id} />
+                      <ModalEdit id={discipline.id} name={discipline.name} theme={discipline.theme} />
                       <ModalDelete id={discipline.id} />
                     </> : 
                     <></> }
