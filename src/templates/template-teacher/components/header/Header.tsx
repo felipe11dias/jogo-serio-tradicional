@@ -35,13 +35,13 @@ export default function Header(props: HeaderProps) {
   return (
     <header className='py-6  bg-backgroundColorHeaderPrimary'>
       <div className='container sm:flex-col md:flex-row lg:flex-row xl:flex-row mx-auto flex justify-between items-center bg-backgroundColorHeaderPrimary'>
-        <Link to="/environment/teacher/home" className='w-full my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-3xl'>Início</Link>  
+        <Link to="/environment/teacher/home" className='my-5 py-2 px-2 text-textColorPrimary hover:text-hoverColorButtonSecondary font-semibold rounded-lg text-3xl'>Início</Link>  
         <div className='flex items-center gap-6 px-10'>
-          <Link to="/environment/teacher/collaboration-disciplines/list" className='w-full my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl'>Disciplinas</Link>
-          <Link to="/environment/teacher/collaboration-activities/list" className='w-full my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl'>Atividades</Link>
-          <Link to="/environment/student/game-select" className='w-full my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl'>Jogos</Link>
+          <Link to="/environment/teacher/collaboration-disciplines/list" className='w-full hover:text-hoverColorButtonSecondary my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl'>Disciplinas</Link>
+          <Link to="/environment/teacher/collaboration-activities/list" className='w-full hover:text-hoverColorButtonSecondary my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl'>Atividades</Link>
+          <Link to="/environment/student/game-select" className='w-full hover:text-hoverColorButtonSecondary my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl'>Jogos</Link>
         </div>
-        <div className='bg-buttonColor text-textColorPrimary font-semibold rounded-lg'>
+        <div className='bg-buttonColor p-2 hover:text-hoverColorButtonSecondary hover:bg-errTextColor text-textColorPrimary font-semibold rounded-lg'>
           <form onSubmit={handleSubmit(onSubmitHandler)}>
             <button type='submit'>Encerrar sessão</button>
           </form>

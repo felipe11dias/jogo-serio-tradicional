@@ -75,7 +75,7 @@ export default function FormSignUp() {
 
   return (
     <form className='max-w-[400px] w-full mx-auto rounded-lg bg-backgroundColorSecondary p-8 px-8' onSubmit={handleSubmit(onSubmitHandler)}>
-      <h2 className="text-4xl text-textColorThird font-bold text-center">REGISTRE-SE</h2>
+      <h2 className="text-4xl text-textColorThird font-bold text-center my-10">REGISTRE-SE</h2>
 
       <div className="flex flex-col text-textHintColor py-2 rounded-lg" >
         <h3>Perfil:</h3>
@@ -104,15 +104,26 @@ export default function FormSignUp() {
         <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="password" placeholder='Senha*' {...register("password")} />
         <p className='text-errTextColor'>{errors.password?.message}</p>
       </div>
-       <div className="flex justify-between ">        
-        <button className='text-center my-5 py-2 w-28 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-white font-semibold rounded-lg' type="submit">
-          Cadastrar
-        </button>
 
-        <div className='text-center flex justify-center items-center w-28 my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-white font-semibold rounded-lg'>
-        <Link to={`/access-control/login`}>Acessar conta</Link>
-      </div>
-      </div>
+    <div className="flex justify-between items-start">
+      
+    <div className='text-center flex justify-center items-center w-36 my-5 py-2 px-2 hover:text-textColorThird   hover:shadow-hoverColorButton/40 text-textColorFoured font-semibold rounded-lg'>
+      <Link to={`/access-control/forget-password`}>Esqueci a senha</Link>
+    </div>
+
+      <div className="flex-col justify-center items-center">      
+      <div className='text-center flex justify-center items-center w-32 my-5 py-2 px-2  hover:text-textColorThird  hover:shadow-hoverColorButton/40 text-textColorFoured font-semibold rounded-lg'>
+      <Link to={`/access-control/login`}>Acessar conta</Link>
+    </div>
+    <div className="flex  justify-center ">
+    <button className='text-center my-5 py-2 w-28 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="submit">
+        Cadastrar
+      </button>
+    </div>
+ 
+    </div>
+    </div>
+
     </form>
   )
 }

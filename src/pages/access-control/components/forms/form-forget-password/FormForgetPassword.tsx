@@ -47,7 +47,7 @@ export default function FormForgetPassword() {
 
   return (
     <form className='max-w-[400px] w-full mx-auto rounded-lg bg-backgroundColorSecondary p-8 px-8' onSubmit={handleSubmit(onSubmitHandler)}>
-      <h2 className="text-4xl text-textColorThird font-bold text-centerr">ESQUECI A SENHA</h2>
+      <h2 className="text-4xl text-textColorThird font-bold text-center my-10 ">ESQUECI A SENHA</h2>
 
       <div className="flex flex-col text-textHintColor py-2" >
         <h3>Email:</h3> 
@@ -58,10 +58,10 @@ export default function FormForgetPassword() {
 
       <div className='flex justify-between'>
         <Link to={`/access-control/login`}>
-         <div className='text-center w-full my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg'>Acessar conta</div>
+         <div className='text-center w-full my-5 py-2 px-2  text-textColorFoured hover:text-textColorThird shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 font-semibold rounded-lg'>Acessar conta</div>
           </Link>
         <Link to={`/access-control/sign-up`}>
-        <div className='text-center w-full my-5 py-2 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg'>Cadastre-se</div>  
+        <div className='text-center w-full my-5 py-2 px-2  text-textColorFoured hover:text-textColorThird shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 font-semibold rounded-lg'>Cadastre-se</div>  
           </Link>
       </div>
 

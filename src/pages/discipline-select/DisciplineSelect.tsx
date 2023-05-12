@@ -106,8 +106,8 @@ export default function DisciplineSelect() {
                   <td className="px-4 py-2">{discipline.name}</td>
                   <td className="px-4 py-2">{discipline.theme}</td>
                   <td className="px-4 py-2">{discipline.user}</td>
-                  <td className="text-center my-5 py-2 px-2 mx-1 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg ">
-                    <button onClick={() => selectDiscipline(discipline?.id)}> Selecionar </button>
+                  <td>
+                    <button className="text-center my-2 py-2 px-2 mx-1 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg" onClick={() => selectDiscipline(discipline?.id)}> Selecionar </button>
                   </td>
                 </tr>
               ))
