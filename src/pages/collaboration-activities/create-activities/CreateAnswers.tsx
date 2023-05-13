@@ -24,9 +24,9 @@ export function CreateAnswers ({
       {fields.map((item: any, index: number) => {
         return (
           <>
-            <div style={{ marginLeft: 'auto', width: "80%" }} className="mb-3" key={index}>
-              <label>Resposta {index + 1}:</label>
-              <input type="text" placeholder="Resposta*" {...register(`questions.${indexQuestion}.answers.${index}.description`)} />
+            <div style={{ marginLeft: 'auto', width: "80%" }} className='flex flex-col text-textHintColor py-2' key={index}>
+              <h3>Resposta {index + 1}:</h3>
+              <input className='text-textColorSecondary rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder="Resposta*" {...register(`questions.${indexQuestion}.answers.${index}.description`)} />
               <input type="radio" value={index} {...register(`questions.${indexQuestion}.idAnswerCorrect`)} />
             </div>
           </>

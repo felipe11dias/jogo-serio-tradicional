@@ -21,7 +21,7 @@ export default function GuitarQuestions() {
   const [timeQuestions, setTimeQuestions] = useState<number>(0);
   const [timePadding, setTimePadding] = useState<number>(0.5);
   const [topAtt, setTopAtt] = useState<number>(0);
-  const [leftAtt, setLeftAtt] = useState<string[]>(['16.5%', '35%', '54.5%', '74%']);
+  const [leftAtt, setLeftAtt] = useState<string[]>(['16%', '35%', '54.5%', '74%']);
   const [score, setScore] = useState<number>(0);
   const [activity, setActivity] = useState<IEditActivityInputs>();
   const [result, setResult] = useState<ResultProps>({ idUser: user?.id || -1, idActivity: -1, time: '', fullTime: '', game: 'Mirando respostas', questions: [], open: true, answers: [] });
@@ -181,7 +181,7 @@ export default function GuitarQuestions() {
               </div>
             </> :
             <>
-            <div className="flex items-center justify-center flex-col min-w-full rounded mb-3" id="board-guitar">
+            <div className="flex items-center justify-center flex-col min-w-full rounded mb-3" id={time !== null ? "board-guitar" : ""}>
               <div className={"my-2 " + time === null ? 'flex justify-center h-full w-full text-center' : ''}>
                 <Countdown date={Date.now() + (time || 0)} onTick={(t) => handleTick(t)} renderer={renderer} />
               </div>
@@ -195,27 +195,32 @@ export default function GuitarQuestions() {
                 <></>
               }
 
-              <div className="px-4 pb-2 flex h-full w-full min-height-inherit relative ">
-                <div className="line-left" />
-                <div className="px-8 h-full w-full flex bg-backgroundColorSecondary opacity-80 rounded">
-                  <div className="line-straight" id="answer1" />
-                  <div className="line-straight" id="answer2" />
-                  {
-                    activity?.questions[questionIndex].answers.map( (answer, index) => {
-                      return(
-                        <>
-                          <Tooltip className=" rounded absolute" style={{ padding: `${timePadding}em`, left: `${leftAtt[index]}`, backgroundColor: colors[index], top: `${topAtt}%`}} title={answer.description}>
-                            <button type="button" className="" onClick={() => selectionAnswer(answer.id)}>Resposta {index + 1}</button>
-                          </Tooltip>
-                        </>
-                      )
-                    })
-                  }
-                  <div className="line-straight" id="answer3" />
-                  <div className="line-straight" id="answer4" />
-                </div>
-                <div className="line-right" />
-              </div>
+              {
+                (time !== null) ?
+                  <div className="px-4 pb-2 flex h-full w-full min-height-inherit relative ">
+                    <div className="line-left" />
+                    <div className="px-8 h-full w-full flex bg-backgroundColorSecondary opacity-80 rounded">
+                      <div className="line-straight" id="answer1" />
+                      <div className="line-straight" id="answer2" />
+                      {
+                        activity?.questions[questionIndex].answers.map( (answer, index) => {
+                          return(
+                            <>
+                              <Tooltip className=" rounded absolute" style={{ padding: `${timePadding}em`, left: `${leftAtt[index]}`, backgroundColor: colors[index], top: `${topAtt}%`}} title={answer.description}>
+                                <button type="button" className="" onClick={() => selectionAnswer(answer.id)}>Resposta {index + 1}</button>
+                              </Tooltip>
+                            </>
+                          )
+                        })
+                      }
+                      <div className="line-straight" id="answer3" />
+                      <div className="line-straight" id="answer4" />
+                    </div>
+                    <div className="line-right" />
+                  </div>
+                :
+                <></>
+              }
             </div>
           </>
           }

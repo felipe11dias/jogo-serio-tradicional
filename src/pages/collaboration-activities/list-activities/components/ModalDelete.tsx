@@ -21,13 +21,13 @@ const style = {
 };
 
 
-export default function ModalDelete({ id }: { id: number}) {
+export default function ModalDelete({ id }: { id: number }) {
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const {
     handleSubmit,
     formState: { isSubmitting, isSubmitSuccessful },
   } = useForm<{}>({});
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,10 +42,10 @@ export default function ModalDelete({ id }: { id: number}) {
     await deleteDisciplines(id)
   };
 
-  if(isSubmitting) {
+  if (isSubmitting) {
     return (
       <>
-        <FullScreenLoader/>
+        <FullScreenLoader />
       </>
     )
   }
@@ -59,24 +59,26 @@ export default function ModalDelete({ id }: { id: number}) {
   }
 
   return (
-    <div>
-      <button className="w-16 rounded p-2 bg-errTextColor text-white hover:scale-125 hover:bg-hoverColorFooter hover:cursor-pointer" type="button" onClick={openModal}>Deletar</button>
-      <Modal
-        open={modalIsOpen}
-        onClose={closeModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <button className="float-right" onClick={closeModal}>X</button>
-          <h1 className="mb-4 w-full text-center">Deletar atividade </h1>
-          <p className="text-center">Você tem certeza que deseja deletar essa atividade?</p>
-          <form className="mt-5 flex justify-end" onSubmit={handleSubmit(onSubmitHandler)}>
-            <button className="w-24 rounded mx-6 p-2 bg-errTextColor text-white hover:scale-125 hover:bg-hoverColorFooter hover:cursor-pointer" type="button" onClick={closeModal}>Cancelar</button>
-            <button className="w-24 rounded p-2 bg-backgroundColorFooterPrimary text-white hover:scale-125 hover:bg-hoverColorFooter hover:cursor-pointer" type="submit">Deletar</button>
-          </form>
-        </Box>
-      </Modal>
-    </div>
+    <>
+      <button className="w-16 mx-2 my-auto rounded p-2 bg-errTextColor text-white hover:scale-125 hover:cursor-pointer" type="button" onClick={openModal}>Deletar</button>
+      <div>
+        <Modal
+          open={modalIsOpen}
+          onClose={closeModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <button className="float-right" onClick={closeModal}>X</button>
+            <h1 className="mb-4 w-full text-center">Deletar atividade </h1>
+            <p className="text-center">Você tem certeza que deseja deletar essa atividade?</p>
+            <form className="mt-5 flex justify-end" onSubmit={handleSubmit(onSubmitHandler)}>
+              <button className="w-24 rounded mx-6 p-2 bg-errTextColor text-white hover:scale-125 hover:cursor-pointer" type="button" onClick={closeModal}>Cancelar</button>
+              <button className="w-24 rounded p-2 bg-backgroundColorFooterPrimary text-white hover:scale-125 hover:cursor-pointer" type="submit">Deletar</button>
+            </form>
+          </Box>
+        </Modal>
+      </div>
+    </>
   );
 }

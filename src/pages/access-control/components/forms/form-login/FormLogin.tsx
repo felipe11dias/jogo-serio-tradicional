@@ -33,7 +33,7 @@ export async function loader() {
 
 export default function FormLogin() {
   const user: User | null = useAppSelector(state => state.userState.user)
-  
+
   const {
     register,
     reset,
@@ -49,13 +49,13 @@ export default function FormLogin() {
   useEffect(() => {
     if (isSuccess && user) {
       toast.success('Você acessou sua conta com sucesso!');
-      if(user?.role === ROLES[ROLES.TEACHER]) {
+      if (user?.role === ROLES[ROLES.TEACHER]) {
         navigate('/environment/teacher/home', { replace: true });
-      }else if(user?.role === ROLES[ROLES.STUDENT]) {
+      } else if (user?.role === ROLES[ROLES.STUDENT]) {
         navigate('/environment/student/game-select', { replace: true });
       }
     }
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, user]);
 
@@ -70,10 +70,10 @@ export default function FormLogin() {
     await loginUser(values);
   };
 
-  if(isLoading) {
+  if (isLoading) {
     return (
       <>
-        <FullScreenLoader/>
+        <FullScreenLoader />
       </>
     )
   }
@@ -82,24 +82,24 @@ export default function FormLogin() {
     <form className='max-w-[400px] w-full mx-auto rounded-lg bg-backgroundColorSecondary p-8 px-8' onSubmit={handleSubmit(onSubmitHandler)}>
       <h2 className="text-4xl text-textColorThird font-bold text-center my-10">ACESSAR CONTA</h2>
 
-      <div className='flex flex-col text-textHintColor py-2' > 
+      <div className='flex flex-col text-textHintColor py-2' >
         <h3>Email:</h3>
         <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder="Email*" {...register("username")} />
         <p className='text-errTextColor'>{errors.username?.message}</p>
       </div>
 
-      <div className='flex flex-col text-textHintColor py-2' > 
+      <div className='flex flex-col text-textHintColor py-2' >
         <h3>Senha:</h3>
         <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="password" placeholder="Senha*" {...register("password")} />
         <p className='text-errTextColor'>{errors.password?.message}</p>
       </div>
- 
+
 
       <div className='flex justify-between'>
         <Link className='text-center w-full my-5 py-2 px-2  shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorFoured hover:text-textColorThird font-semibold rounded-lg' to={`/access-control/forget-password`}>
           Esqueci a senha
         </Link>
-        <Link  className='text-center w-full my-5 py-2 px-2 mx-1  shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorFoured hover:text-textColorThird font-semibold rounded-lg'to={`/access-control/sign-up`}>
+        <Link className='text-center w-full my-5 py-2 px-2 mx-1  shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorFoured hover:text-textColorThird font-semibold rounded-lg' to={`/access-control/sign-up`}>
           Cadastre-se
         </Link>
       </div>

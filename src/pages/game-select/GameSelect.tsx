@@ -14,7 +14,7 @@ export default function GameSelect() {
   const user: User | null = useAppSelector(state => state.userState.user)
 
   const navigate = useNavigate();
-  
+
   const { gameSerius, saveGameSerius } = useContext(GameSeriusContext) as GameSeriusType;
 
   useEffect(() => {
@@ -27,33 +27,32 @@ export default function GameSelect() {
   }
 
   return (
-    <main >
+    <main>
       <section className="grid grid-cols-2 items-start mx-auto relative overflow-hidden ">
         <div className="w-full py-2">
-          <h2 className="text-textHintColor text-3xl font-semibold py-5 text-6xl		">Bem vindo {user?.role === ROLES[ROLES.STUDENT] ? 'estudante' : 'professor'} {user?.name}!</h2>
-       
+          <h2 className="text-textHintColor font-semibold py-5 text-6xl">Bem vindo {user?.role === ROLES[ROLES.STUDENT] ? 'estudante' : 'professor'} {user?.name}!</h2>
         </div>
-      
+
         <div className="w-10 h-10">
           <BackgroundAnimation />
         </div>
       </section>
-      <p className="text-textColorSecondary text-3xl font-semibold text-3xl">
+      <p className="text-textColorSecondary font-semibold text-3xl">
         Jogue e estude. Selecione o jogo e se divirta estudando.
-         Após selecionar o jogo você deve selecionar a disciplina e atividade que serão aplicadas durante a jogatina.
-         Supere seus colegas e veja seu nome no topo do ranking.
+        Após selecionar o jogo você deve selecionar a disciplina e atividade que serão aplicadas durante a jogatina.
+        Supere seus colegas e veja seu nome no topo do ranking.
       </p>
-          
+
       <section className="mt-10">
         <h2 className="text-textColorThird font-bold text-5xl mb-10">Jogos:</h2>
 
         <div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
+
             <div className="flex flex-col items-center justify-between bg-backgroundColorSecondary rounded-lg p-6">
               <h3 className='mb-5  text-textColorSecondary font-semibold rounded-lg text-xl'>Guitarra das questões</h3>
               <img className='w-80 h-80 object-cover rounded-lg' src={guitarQuestionsImg} alt="Image Guitar Questions" />
-              <p className="text-textColorSecondary text-lg text-center">O jogo da velha lorem is pun e tc ete udhaiuwhd awhdo aihwodih aowi hdaw.</p>
+              <p className="text-textColorSecondary text-lg text-center">Algumas semelhanças com o guitar hero do playstation 2, mas você deve selecionar as respostas corretas antes que cheguem ao final das cordas. Responda as respostas corretas em um tempo hábil.</p>
               <button className="w-40 my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg" onClick={() => selectGame(GAME_GUITAR_QUESTIONS)}>Selecionar</button>
             </div>
 
@@ -66,9 +65,9 @@ export default function GameSelect() {
 
             <div className="flex flex-col items-center justify-between bg-backgroundColorSecondary rounded-lg p-6">
               <h3 className='mb-5  text-textColorSecondary font-semibold rounded-lg text-xl'>Mirando respostas</h3>
-                <img className='w-80 h-80 object-cover rounded-lg' src={aimshotImg} alt="Image Aimshot Response" />
-                <p className="text-textColorSecondary text-lg text-center">Encontre as respostas corretas com uma única tentativa por questão. Selecione as respostas corretas no menor tempo e acertividade possivel.</p>
-                <button className="w-40 my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg" onClick={() => selectGame(GAME_AIMSHOT_SEARCH)}>Selecionar</button>
+              <img className='w-80 h-80 object-cover rounded-lg' src={aimshotImg} alt="Image Aimshot Response" />
+              <p className="text-textColorSecondary text-lg text-center">Encontre as respostas corretas com uma única tentativa por questão. Selecione as respostas corretas no menor tempo e acertividade possivel.</p>
+              <button className="w-40 my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg" onClick={() => selectGame(GAME_AIMSHOT_SEARCH)}>Selecionar</button>
             </div>
 
           </div>

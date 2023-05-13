@@ -26,9 +26,9 @@ export function EditAnswers ({
       {fields.map((item: any, index: number) => {
         return (
           <>
-            <div style={{ marginLeft: 'auto', width: "80%" }} className="mb-3" key={item.id}>
-              <label>Resposta {index + 1}:</label>
-              <input type="text" placeholder="Resposta*" {...register(`questions.${indexQuestion}.answers.${index}.description`)} />
+            <div style={{ marginLeft: 'auto', width: "80%" }} className='flex flex-col text-textHintColor py-2' key={item.id}>
+              <h3>Resposta {index + 1}:</h3>
+              <input className='text-textColorSecondary rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder="Resposta*" {...register(`questions.${indexQuestion}.answers.${index}.description`)} />
               <input type="radio" checked={question.answers[index].id === parseInt(question.idAnswerCorrect)} value={question.answers[index].id} {...register(`questions.${indexQuestion}.idAnswerCorrect`)} />
             </div>
           </>

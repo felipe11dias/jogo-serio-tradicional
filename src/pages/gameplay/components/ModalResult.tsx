@@ -134,8 +134,8 @@ export default function ModalResult(result: ResultProps) {
           <table className="border-2 border-solid border-textColorThird mb-4 w-full text-sm text-center text-primary dark:text-textHintColor ">
             <thead className="text-xs text-primary uppercase bg-bgTableHeaderColor dark:bg-primary dark:text-textHintColor ">
               <tr>
-                <th scope="col" className="px-6 py-3">Questão</th>
-                <th scope="col" className="px-6 py-3">Resultado</th>
+                <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Questão</th>
+                <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Resultado</th>
               </tr>
             </thead>
             <tbody>
@@ -143,8 +143,8 @@ export default function ModalResult(result: ResultProps) {
                 result.questions.map( (question, index) => {
                   return (
                     <tr className="text-textColorSecondary">
-                      <td>{question.description} ?</td>
-                      <td>{parseInt(question.idAnswerCorrect) === result.answers[index] ? "Resposta correta" : "Resposta incorreta"}</td>
+                      <td className="border-2 border-solid border-textColorThird">{question.description} ?</td>
+                      <td className="border-2 border-solid border-textColorThird">{parseInt(question.idAnswerCorrect) === result.answers[index] ? "Resposta correta" : "Resposta incorreta"}</td>
                     </tr>
                   )
                 })
@@ -153,8 +153,8 @@ export default function ModalResult(result: ResultProps) {
           </table>
           <form className="mt-9 flex justify-end" onSubmit={handleSubmit(onSubmitHandler)}>
             <input type="submit" hidden />
-            <button className="w-24 rounded mx-6 p-2 bg-errTextColor text-white hover:scale-125 hover:bg-hoverColorFooter hover:cursor-pointer" type="button" onClick={closeModal}>Cancelar</button>
-            <button className="w-24 rounded p-2 bg-backgroundColorFooterPrimary text-white hover:scale-125 hover:bg-hoverColorFooter hover:cursor-pointer" type="submit">Salvar</button>
+            <button className="w-24 rounded mx-6 p-2 bg-errTextColor text-white hover:scale-125 hover:cursor-pointer" type="button" onClick={closeModal}>Cancelar</button>
+            <button className="w-24 rounded p-2 bg-backgroundColorFooterPrimary text-white hover:scale-125 hover:cursor-pointer" type="submit">Salvar</button>
           </form>
         </Box>
       </Modal>

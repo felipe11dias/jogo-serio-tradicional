@@ -25,18 +25,19 @@ export function CreateQuestions ({
   return (
     <>
       <button
+        className='text-center my-5 py-2 px-2 mx-1 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg'
         type="button"
         onClick={() => append({ description: "Description question", answers: [{description: ""}, {description: ""}, {description: ""}, {description: ""}], idAnswerCorrect: "0" })}
       >
-        Adicionar
+        Adicionar questão
       </button>
 
       {fields.map((item, index: number) => {
         return (
-          <li key={item.id}>
-            <div className="mb-3">
-              <label>Questão {index + 1}:</label>
-              <input type="text" placeholder="Questão*" {...register(`questions.${index}.description`, { required: true })} />
+          <li className="list-none" key={item.id}>
+            <div className='flex flex-col text-textHintColor py-2'>
+              <h3>Questão {index + 1}:</h3>
+              <input className='text-textColorSecondary rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder="Questão*" {...register(`questions.${index}.description`, { required: true })} />
 
               <CreateAnswers 
                 indexQuestion={index}
@@ -44,8 +45,8 @@ export function CreateQuestions ({
               />
             </div>
             
-            <button type="button" onClick={() => remove(index)}>
-              Remover
+            <button className="my-5 rounded p-2 bg-errTextColor text-white" type="button" onClick={() => remove(index)}>
+              Remover questão {index + 1}
             </button>
           </li>
         );

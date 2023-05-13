@@ -30,7 +30,7 @@ export default function ModalViewQuestions({ questions }: { questions: Question[
 
   return (
     <div>
-      <button className="" type="button" onClick={openModal}>Ver questões</button>
+      <button className="text-center w-fit p-2 my-auto bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg" type="button" onClick={openModal}>Ver questões</button>
       <Modal
         open={modalIsOpen}
         onClose={closeModal}
@@ -51,7 +51,7 @@ export default function ModalViewQuestions({ questions }: { questions: Question[
               {
                 questions.length > 0 ? questions.map((question, index) => (
                   <tr className="text-textColorSecondary" key={question.id}>
-                    <td>{index}</td>
+                    <td>{index + 1}</td>
                     <td>{question.description}</td>
                   </tr>
                 ))
@@ -60,6 +60,9 @@ export default function ModalViewQuestions({ questions }: { questions: Question[
               }
             </tbody>
           </table>
+          <div className="mt-4 w-full flex justify-center">
+            <button className="w-24 rounded mx-6 p-2 bg-backgroundColorHeaderPrimary text-white hover:scale-125 hover:cursor-pointer" type="button" onClick={closeModal}>Fechar</button>
+          </div>
         </Box>
       </Modal>
     </div>

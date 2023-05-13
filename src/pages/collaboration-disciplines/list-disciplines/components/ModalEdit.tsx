@@ -90,7 +90,7 @@ export default function ModalEdit({ id, name, theme }: { id: number, name: strin
 
   return (
     <div>
-      <button className="w-16 rounded p-2 bg-yellow-400 text-white hover:scale-125 hover:bg-hoverColorFooter hover:cursor-pointer" type="button" onClick={openModal}>Editar</button>
+      <button className="w-16 mx-2 my-auto rounded p-2 bg-yellow-400 text-white hover:scale-125 hover:cursor-pointer" type="button" onClick={openModal}>Editar</button>
       <Modal
         open={modalIsOpen}
         onClose={closeModal}
@@ -115,10 +115,10 @@ export default function ModalEdit({ id, name, theme }: { id: number, name: strin
             </div>
 
             <div className="mt-9 flex justify-end">
-              <button className="w-24 rounded mx-6 p-2 bg-errTextColor text-white hover:scale-125 hover:bg-hoverColorFooter hover:cursor-pointer" type="button" onClick={closeModal}>
+              <button className="w-24 rounded mx-6 p-2 bg-errTextColor text-white hover:scale-125 hover:cursor-pointer" type="button" onClick={closeModal}>
                 Cancelar
               </button>
-              <button className="w-24 rounded p-2 bg-backgroundColorFooterPrimary text-white hover:scale-125 hover:bg-hoverColorFooter hover:cursor-pointer" type="submit">
+              <button className="w-24 rounded p-2 bg-backgroundColorFooterPrimary text-white hover:scale-125 hover:cursor-pointer" type="submit">
                 Salvar
               </button>
             </div>

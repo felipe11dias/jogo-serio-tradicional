@@ -13,7 +13,7 @@ export default function ListDisciplines() {
   const [searchDiscipline, setSearchDiscipline] = useState("");
   const [page, setPage] = useState<number>(1);
   const [count, setCount] = useState<number>(0);
-  
+
   useEffect(() => {
     findAllDisciplines()
   }, [page])
@@ -21,10 +21,10 @@ export default function ListDisciplines() {
   const findAllDisciplines = () => {
     const params = getRequestParams(searchDiscipline, page);
 
-    listDisciplines(params).then( data => {
+    listDisciplines(params).then(data => {
       setDisciplines(data.content)
       setCount(data.totalPages)
-    }).catch( error => {
+    }).catch(error => {
       return null
     })
   }
@@ -59,67 +59,74 @@ export default function ListDisciplines() {
 
   return (
     <>
-      <h2 className="mb-5">Collaborate dashboard</h2>
+      <div className="flex justify-center items-center flex-col">
+        <h2 className="text-4xl text-textColorThird font-bold text-center mb-10">DISCIPLINAS</h2>
 
-      <div className="mb-5 d-flex justify-content-between "> 
-        <div style={{ maxWidth: '500px'}}>
-          <input
-            type="text"
-            placeholder="Buscar por nome"
-            value={searchDiscipline}
-            onChange={onChangeSearchDiscipline}
-          />
-          <button className="" onClick={findByDiscipline}>
-            Buscar
-          </button>
+        <div className="w-full flex justify-around flex-row m-2 ">
+          <div className="flex">
+            <input
+              className="h-fit w-96 px-1 my-2 py-2 rounded-lg "
+              type="text"
+              placeholder="Buscar por nome"
+              value={searchDiscipline}
+              onChange={onChangeSearchDiscipline}
+            />
+            <div>
+              <button className="h-fit w-fit text-center m-2 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg " onClick={findByDiscipline}>
+                Buscar
+              </button>
+            </div>
+          </div>
+          <Link className="h-fit text-center w-38 ml-auto mr-0 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg" to={'/environment/teacher/collaboration-disciplines/create'} >Criar disciplina</Link>
         </div>
-        <Link className="btn btn-success mr-0 ml-auto" to={'/environment/teacher/collaboration-disciplines/create'} >Criar disciplina</Link>
-      </div>
 
-      <div>
-        <table align="center">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Tema</th>
-              <th>Professor</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              disciplines.length > 0 ? disciplines.map(discipline => (
-                <tr key={discipline.id}>
-                  <td>{discipline.name}</td>
-                  <td>{discipline.theme}</td>
-                  <td>{discipline.user}</td>
-                  <td>
-                    { discipline.idUser === user?.id ? 
-                    <>
-                      <ModalEdit id={discipline.id} name={discipline.name} theme={discipline.theme} />
-                      <ModalDelete id={discipline.id} />
-                    </> : 
-                    <></> }
-                  </td>
-                </tr>
-              ))
-              :
-              <p> Nenhuma disciplina cadastrada. </p>
-            }
-          </tbody>
-        </table>
+        <div className="w-full">
+          <table className="border-2 border-solid border-textColorThird w-full text-sm text-center text-primary dark:text-textHintColor ">
+            <thead className="text-xs text-primary uppercase bg-bgTableHeaderColor dark:bg-primary dark:text-textHintColor ">
+              <tr>
+                <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Nome</th>
+                <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Tema</th>
+                <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Professor</th>
+                <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                disciplines.length > 0 ? disciplines.map((discipline, index) => (
+                  <tr className="text-textColorSecondary" key={discipline.id}>
+                    <td className="border-2 border-solid border-textColorThird px-4 py-2">{discipline.name}</td>
+                    <td className="border-2 border-solid border-textColorThird px-4 py-2">{discipline.theme}</td>
+                    <td className="border-2 border-solid border-textColorThird px-4 py-2">{discipline.user}</td>
+                    <td className="flex justify-center px-4 py-2" style={(index + 1) < disciplines.length ? { borderBottom: '2px solid rgb(51 73 241 / var(--tw-border-opacity))' } : {} }>
+                      {discipline.idUser === user?.id ?
+                        <>
+                          <ModalEdit id={discipline.id} name={discipline.name} theme={discipline.theme} />
+                          <ModalDelete id={discipline.id} />
+                        </> :
+                        <>Nenhuma ação disponível</>
+                      }
+                    </td>
+                  </tr>
+                ))
+                  :
+                  <p className="flex justify-center items-center text-center w-full"> Nenhuma disciplina cadastrada. </p>
+              }
+            </tbody>
+          </table>
 
-        <Pagination
-          color="primary"
-          className="my-3"
-          count={count}
-          page={page}
-          siblingCount={1}
-          boundaryCount={1}
-          variant="outlined"
-          onChange={handlePageChange}
-        />
-
+          <div className="flex justify-center items-center text-center w-full">
+            <Pagination
+              color="primary"
+              className="my-3"
+              count={count}
+              page={page}
+              siblingCount={1}
+              boundaryCount={1}
+              variant="outlined"
+              onChange={handlePageChange}
+            />
+          </div>
+        </div>
       </div>
     </>
   )

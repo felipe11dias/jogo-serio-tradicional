@@ -22,7 +22,7 @@ const schemaLogin = z.object({
   name: z.string()
     .min(1, 'Senha é obrigatório'),
   role: z.string()
-        .min(1, "Perfil é obrigatório"),
+    .min(1, "Perfil é obrigatório"),
   email: z.string()
     .min(1, 'Email é obrigatório')
     .email('Email inválido'),
@@ -45,26 +45,26 @@ export default function FormSignUp() {
   });
 
   const [registerUser, { isLoading, isSuccess }] = useRegisterUserMutation();
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isSuccess && isSubmitSuccessful && user) {
       toast.success('Você criou e acessou sua conta com sucesso, aproveite!');
       reset();
-      if(user?.role === ROLES[ROLES.TEACHER]) {
+      if (user?.role === ROLES[ROLES.TEACHER]) {
         navigate('/environment/teacher/home', { replace: true });
-      }else if(user?.role === ROLES[ROLES.STUDENT]) {
+      } else if (user?.role === ROLES[ROLES.STUDENT]) {
         navigate('/environment/student/game-select', { replace: true });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, user]);
 
-  if(isSubmitting || isLoading) {
+  if (isSubmitting || isLoading) {
     return (
       <>
-        <FullScreenLoader/>
+        <FullScreenLoader />
       </>
     )
   }
@@ -105,24 +105,24 @@ export default function FormSignUp() {
         <p className='text-errTextColor'>{errors.password?.message}</p>
       </div>
 
-    <div className="flex justify-between items-start">
-      
-    <div className='text-center flex justify-center items-center w-36 my-5 py-2 px-2 hover:text-textColorThird   hover:shadow-hoverColorButton/40 text-textColorFoured font-semibold rounded-lg'>
-      <Link to={`/access-control/forget-password`}>Esqueci a senha</Link>
-    </div>
+      <div className="flex justify-between items-start">
 
-      <div className="flex-col justify-center items-center">      
-      <div className='text-center flex justify-center items-center w-32 my-5 py-2 px-2  hover:text-textColorThird  hover:shadow-hoverColorButton/40 text-textColorFoured font-semibold rounded-lg'>
-      <Link to={`/access-control/login`}>Acessar conta</Link>
-    </div>
-    <div className="flex  justify-center ">
-    <button className='text-center my-5 py-2 w-28 px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="submit">
-        Cadastrar
-      </button>
-    </div>
- 
-    </div>
-    </div>
+        <div className='text-center flex justify-center items-center w-36 my-5 py-2 px-2 hover:text-textColorThird   hover:shadow-hoverColorButton/40 text-textColorFoured font-semibold rounded-lg'>
+          <Link to={`/access-control/forget-password`}>Esqueci a senha</Link>
+        </div>
+
+        <div className="flex-col justify-center items-center">
+          <div className='text-center flex justify-center items-center w-32 my-5 py-2 px-2  hover:text-textColorThird  hover:shadow-hoverColorButton/40 text-textColorFoured font-semibold rounded-lg'>
+            <Link to={`/access-control/login`}>Acessar conta</Link>
+          </div>
+          <div className="flex  justify-center ">
+            <button className='text-center my-5 py-2 w-full px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="submit">
+              Cadastrar
+            </button>
+          </div>
+
+        </div>
+      </div>
 
     </form>
   )

@@ -37,15 +37,15 @@ export default function () {
         {
           user?.role === ROLES[ROLES.TEACHER] ?
           <>
-            <Link to="/environment/teacher/home" className='w-full my-5 py-2 px-2 text-hoverColorButtonSecondary font-semibold rounded-lg text-3xl'>Início</Link>
-            <div className='flex items-center gap-6'>
-              <Link to="/environment/teacher/collaboration-disciplines/list" className='w-full my-5 py-2 px-2 hover:text-hoverColorButtonSecondary text-textColorPrimary font-semibold rounded-lg text-xl'>Disciplinas</Link>
-              <Link to="/environment/teacher/collaboration-activities/list" className='w-full my-5 py-2 px-2 text-hoverColorButtonSecondary font-semibold rounded-lg text-xl'>Atividades</Link>
-              <Link to="/environment/student/game-select" className='w-full my-5 py-2 px-2 text-hoverColorButtonSecondary font-semibold rounded-lg text-xl'>Jogos</Link>
+            <Link to="/environment/teacher/home" className='my-5 py-2 px-2 text-textColorPrimary hover:text-hoverColorButtonSecondary font-semibold rounded-lg text-3xl hover:scale-125 hover:bg-hoverColorFooter  hover:cursor-pointer'>Início</Link>  
+            <div className='flex items-center gap-6 px-10'>
+              <Link to="/environment/teacher/collaboration-disciplines/list" className='w-full hover:text-hoverColorButtonSecondary my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl hover:scale-125 hover:bg-hoverColorFooter  hover:cursor-pointer'>Disciplinas</Link>
+              <Link to="/environment/teacher/collaboration-activities/list" className='w-full hover:text-hoverColorButtonSecondary my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl hover:scale-125 hover:bg-hoverColorFooter  hover:cursor-pointer'>Atividades</Link>
+              <Link to="/environment/student/game-select" className='w-full hover:text-hoverColorButtonSecondary my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl hover:scale-125 hover:bg-hoverColorFooter  hover:cursor-pointer'>Jogos</Link>
             </div>
           </> :
           <div>
-            <Link className=' w-full my-5 py-2 px-2 text-textColorPrimary  hover:text-hoverColorButtonSecondary font-semibold rounded-lg text-3xl' to="/environment/student/game-select" replace={true}>
+            <Link className=' w-full my-5 py-2 px-2 text-textColorPrimary  hover:text-hoverColorButtonSecondary font-semibold rounded-lg text-3xl hover:scale-125 hover:bg-hoverColorFooter  hover:cursor-pointer' to="/environment/student/game-select" replace={true}>
               Início
             </Link>
           </div>

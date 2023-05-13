@@ -70,29 +70,29 @@ export default function CreateDiscipline() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmitHandler)}>
-        <h2 className="text-center">CREATE DISCIPLINE</h2>
+      <form className='max-w-[400px] w-full mx-auto rounded-lg bg-backgroundColorSecondary p-8 px-8' onSubmit={handleSubmit(onSubmitHandler)}>
+        <h2 className="text-4xl text-textColorThird font-bold text-center my-10">CRIAR DISCIPLINA</h2>
 
-        <div className="mb-3" >
-          <div>Nome: </div>
-          <input type="text" placeholder="Enter name*" {...register("name")} />
-          <p className='text-red-600'>{errors.name?.message}</p>
+        <div className='flex flex-col text-textHintColor py-2' >
+          <h3>Nome:</h3>
+          <input className='text-textColorSecondary rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder="Enter name*" {...register("name")} />
+          <p className='text-errTextColor'>{errors.name?.message}</p>
         </div>
 
-        <div className="mb-3" >
-          <div>Tema: </div>
-          <input type="text" placeholder="Enter theme*" {...register("theme")} />
-          <p className='text-red-600'>{errors.theme?.message}</p>
+        <div className='flex flex-col text-textHintColor py-2' >
+          <h3>Tema:</h3>
+          <input className='text-textColorSecondary rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder="Enter theme*" {...register("theme")} />
+          <p className='text-errTextColor'>{errors.theme?.message}</p>
         </div>
 
-        <div className="d-flex justify-content-center">
-          <button type="submit">
-            Cadastrar disciplina
+        <div className="flex justify-center">
+          <button className='text-center my-5 py-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="submit">
+            Criar disciplina
           </button>
         </div>
 
-        <div className="mt-4 d-flex justify-content-center">
-          <Link className='w-full my-5 py-2 px-2 bg-teal-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg' to={`/environment/teacher/collaboration-disciplines/list`}>
+        <div className="mt-4 flex justify-center">
+          <Link className='text-center my-5 py-2 px-2 mx-1 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' to={`/environment/teacher/collaboration-disciplines/list`}>
             Voltar
           </Link>
         </div>
