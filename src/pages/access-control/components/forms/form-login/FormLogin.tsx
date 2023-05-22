@@ -84,13 +84,13 @@ export default function FormLogin() {
 
       <div className='flex flex-col text-textHintColor py-2' >
         <h3>Email:</h3>
-        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder="Email*" {...register("username")} />
+        <input className='text-textColorSecondary rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder="Email*" {...register("username")} />
         <p className='text-errTextColor'>{errors.username?.message}</p>
       </div>
 
       <div className='flex flex-col text-textHintColor py-2' >
         <h3>Senha:</h3>
-        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="password" placeholder="Senha*" {...register("password")} />
+        <input className='text-textColorSecondary rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="password" placeholder="Senha*" {...register("password")} />
         <p className='text-errTextColor'>{errors.password?.message}</p>
       </div>
 

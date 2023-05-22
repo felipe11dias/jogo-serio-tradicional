@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { z } from "zod";
 import FullScreenLoader from '../../../components/loader/full-screen-loader/FullScreenLoader';
@@ -114,7 +114,7 @@ export default function EditActivities() {
         <div className="flex flex-col text-textHintColor py-2 rounded-lg">
           <h3>Disciplina:</h3>
           <select className='mt-2 p-2 bg-backgroundColorInput text-textColorSecondary' {...register("idDiscipline")}>
-            <option></option>
+          <option>Selecione</option>
             {
               disciplines.length > 0 ? 
               
@@ -135,9 +135,15 @@ export default function EditActivities() {
         />
 
         <div className="flex justify-center">
-          <button className='text-center my-5 py-2 px-2 mx-1 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="submit">
-            Editar
+          <button className='text-center my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="submit">
+            Editar atividade
           </button>
+        </div>
+
+        <div className="mt-4 flex justify-center">
+          <Link className='text-center my-5 py-2 px-2 mx-1 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' to={`/environment/teacher/collaboration-activities/list`}>
+            Voltar
+          </Link>
         </div>
       </form>
     </>

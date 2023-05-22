@@ -1,15 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Modal } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { z } from "zod";
 import FullScreenLoader from "../../../components/loader/full-screen-loader/FullScreenLoader";
-import GameSeriusContext, { GameSeriusType } from "../../../context/GameContext/GameContext";
-import { useAppSelector } from "../../../redux/store";
-import { createOrEditRatings } from "../../../service/rest/apis/rankingRestApi";
-import { AnswerQuestions } from "../../collaboration-activities/create-activities/CreateActivities";
+import { createOrEditRatings, deleteByUserAndActivity } from "../../../service/rest/apis/rankingRestApi";
+import { AnswerQuestions } from "../../collaboration-activities/edit-activities/EditActivities";
 
 export type ResultProps = {
   game: string
@@ -25,7 +23,7 @@ export type ResultProps = {
 export type IRegisterOrEditRanking = {
   game: string
   time: string
-  fullTime: string
+  fulltime: string
   questionsHit: number
   idActivity: number
   idUser: number
@@ -36,7 +34,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 600,
+  width: 650,
   bgcolor: '#fff',
   borderRadius: '0.5rem',
   border: '2px solid #3349f1',
@@ -50,7 +48,7 @@ const schemaRanking = z.object({
     .min(1, 'Jogo é obrigatório'),
   time: z.string()
     .min(1, 'Tempo é obrigatório'),
-  fullTime: z.string()
+  fulltime: z.string()
     .min(1, 'Tempo total é obrigatório'),
   questionsHit: z.number()
     .min(1, 'Quantidade de questões corretas é obrigatório'),
@@ -61,20 +59,16 @@ const schemaRanking = z.object({
 });
 
 export default function ModalResult(result: ResultProps) {
-  const user = useAppSelector(state => state.userState.user)
-  const { gameSerius, saveGameSerius } = useContext(GameSeriusContext) as GameSeriusType;
   const [modalIsOpen, setIsOpen] = useState<boolean>(result.open);
   const {
     handleSubmit,
-    getValues,
-    setValue,
     formState: { isSubmitting, isSubmitSuccessful, errors },
   } = useForm<IRegisterOrEditRanking>({
     resolver: zodResolver(schemaRanking),
     defaultValues: {
       game: result.game,
       time: result.time,
-      fullTime: result.fullTime,
+      fulltime: result.fullTime,
       questionsHit: getQuestionsHit(),
       idActivity: result.idActivity,
       idUser: result.idUser
@@ -99,11 +93,27 @@ export default function ModalResult(result: ResultProps) {
     return qtd;
   }
 
-  const onSubmitHandler: SubmitHandler<IRegisterOrEditRanking> = async (values) => {
-    console.log(values)
-    await createOrEditRatings(values).then( response => {
-      toast.success("Resultado salvo.")
-    });
+  const onSubmitHandler: SubmitHandler<IRegisterOrEditRanking> = async (values, evt: any) => {
+    evt.preventDefault();
+    evt.stopPropagation(); 
+
+    await deleteByUserAndActivity(values.idUser, values.idActivity)
+      .then( async (response) => {
+        if(response.status === 204) {
+          toast.success("Classificação para esse jogo já existe. Classificação será sobreposta sobre o jogo já existente.")
+          await createOrEditRatings(values).then( response => {
+            toast.success("Classificação sobreposta.")
+          });
+        }else {
+          toast.error("Usuário ou atividade não encontrados.")
+        }
+      }).catch( async (error: any) => {
+        if(error.response.status === 404) {
+          await createOrEditRatings(values).then( response => {
+            toast.success("Classificação salva.")
+          });
+        }
+      })
     closeModal()
   };
 
@@ -135,6 +145,8 @@ export default function ModalResult(result: ResultProps) {
             <thead className="text-xs text-primary uppercase bg-bgTableHeaderColor dark:bg-primary dark:text-textHintColor ">
               <tr>
                 <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Questão</th>
+                <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Resposta selecionada</th>
+                <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Resposta correta</th>
                 <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Resultado</th>
               </tr>
             </thead>
@@ -143,8 +155,10 @@ export default function ModalResult(result: ResultProps) {
                 result.questions.map( (question, index) => {
                   return (
                     <tr className="text-textColorSecondary">
-                      <td className="border-2 border-solid border-textColorThird">{question.description} ?</td>
-                      <td className="border-2 border-solid border-textColorThird">{parseInt(question.idAnswerCorrect) === result.answers[index] ? "Resposta correta" : "Resposta incorreta"}</td>
+                      <td className="px-1 text-start border-2 border-solid border-textColorThird">{question.description} ?</td>
+                      <td className="px-1 text-start border-2 border-solid border-textColorThird">{question.answers.find((ans) => ans?.id === result?.answers[index])?.description || 'Nenhuma resposta selecionada'}</td>
+                      <td className="px-1 text-start border-2 border-solid border-textColorThird">{question.answers.find((ans) => ans?.id === parseInt(question.idAnswerCorrect))?.description}</td>
+                      <td className="px-1 text-start border-2 border-solid border-textColorThird">{parseInt(question.idAnswerCorrect) === result.answers[index] ? "Resposta correta" : "Resposta incorreta"}</td>
                     </tr>
                   )
                 })
@@ -152,7 +166,6 @@ export default function ModalResult(result: ResultProps) {
             </tbody>
           </table>
           <form className="mt-9 flex justify-end" onSubmit={handleSubmit(onSubmitHandler)}>
-            <input type="submit" hidden />
             <button className="w-24 rounded mx-6 p-2 bg-errTextColor text-white hover:scale-125 hover:cursor-pointer" type="button" onClick={closeModal}>Cancelar</button>
             <button className="w-24 rounded p-2 bg-backgroundColorFooterPrimary text-white hover:scale-125 hover:cursor-pointer" type="submit">Salvar</button>
           </form>

@@ -22,7 +22,7 @@ const style = {
 };
 
 
-export default function ModalDelete({ id }: { id: number}) {
+export default function ModalDelete({ id, findAllDisciplines }: { id: number, findAllDisciplines: Function }) {
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
   const {
     handleSubmit,
@@ -33,14 +33,17 @@ export default function ModalDelete({ id }: { id: number}) {
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      toast.success('You successfully delete discipline');
+      toast.success('Você deletou a disciplina com sucesso!');
       navigate('/environment/teacher/collaboration-disciplines/list', { replace: true })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSubmitSuccessful]);
 
   const onSubmitHandler: SubmitHandler<{}> = async () => {
-    await deleteDisciplines(id)
+    await deleteDisciplines(id).finally(()  => {
+      findAllDisciplines()
+      closeModal()
+    })
   };
 
   if(isSubmitting) {

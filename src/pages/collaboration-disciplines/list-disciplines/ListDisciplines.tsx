@@ -77,7 +77,7 @@ export default function ListDisciplines() {
               </button>
             </div>
           </div>
-          <Link className="h-fit text-center w-38 ml-auto mr-0 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg" to={'/environment/teacher/collaboration-disciplines/create'} >Criar disciplina</Link>
+          <Link className="h-fit text-center w-38 ml-auto mr-0 my-2 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg" to={'/environment/teacher/collaboration-disciplines/create'} >Criar disciplina</Link>
         </div>
 
         <div className="w-full">
@@ -100,8 +100,8 @@ export default function ListDisciplines() {
                     <td className="flex justify-center px-4 py-2" style={(index + 1) < disciplines.length ? { borderBottom: '2px solid rgb(51 73 241 / var(--tw-border-opacity))' } : {} }>
                       {discipline.idUser === user?.id ?
                         <>
-                          <ModalEdit id={discipline.id} name={discipline.name} theme={discipline.theme} />
-                          <ModalDelete id={discipline.id} />
+                          <ModalEdit id={discipline.id} name={discipline.name} theme={discipline.theme} findAllDisciplines={findAllDisciplines} />
+                          <ModalDelete id={discipline.id} findAllDisciplines={findAllDisciplines} />
                         </> :
                         <>Nenhuma ação disponível</>
                       }
@@ -109,10 +109,18 @@ export default function ListDisciplines() {
                   </tr>
                 ))
                   :
-                  <p className="flex justify-center items-center text-center w-full"> Nenhuma disciplina cadastrada. </p>
+                <></>
               }
             </tbody>
           </table>
+
+          {
+            disciplines.length === 0 ?
+            <div className="text-textColorThird border-2 border-solid border-textColorThird flex justify-center items-center text-center w-full">
+              Nenhuma disciplina cadastrada.
+            </div> :
+            <></>
+          }
 
           <div className="flex justify-center items-center text-center w-full">
             <Pagination
@@ -126,6 +134,12 @@ export default function ListDisciplines() {
               onChange={handlePageChange}
             />
           </div>
+        </div>
+
+        <div className="mt-6 flex justify-center">
+          <Link className='text-center w-full my-5 py-2 px-2 mx-1 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' to={`/environment/teacher/home`}>
+            Voltar
+          </Link>
         </div>
       </div>
     </>

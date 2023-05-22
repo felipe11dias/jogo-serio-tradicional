@@ -53,57 +53,65 @@ export default function Ranking() {
   };
 
   return (
-    <>
-      <h2 className="mb-5">Classificação</h2>
+    <div className="flex justify-center items-center flex-col">
+     <h2 className="text-4xl text-textColorThird font-bold text-center mb-10">CLASSIFICAÇÃO</h2>
 
-      <div className="mb-5 d-flex justify-content-between "> 
-        <div style={{ maxWidth: '500px'}}>
-          <input
-            type="text"
-            placeholder="Buscar por nome"
-            value={searchRatings}
-            onChange={onChangeSearchRatings}
-          />
-          <button className="" onClick={findByRanking}>
-            Buscar por aluno
-          </button>
-        </div>
-      </div>
-
+     <div className="w-full flex justify-center items-center flex-row m-2 ">
+      <input
+        className="w-96 px-1 py-2 rounded-lg "
+        type="text"
+        placeholder="Buscar por aluno"
+        value={searchRatings}
+        onChange={onChangeSearchRatings}
+      />
       <div>
-        <table align="center">
-          <thead>
-            <tr>
-              <th>Jogo</th>
-              <th>Jogador</th>
-              <th>Atividade</th>
-              <th>Qtd. respostas corretas</th>
-              <th>Tempo de respostas</th>
-              <th>Tempo total para respostas</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              ratings.length > 0 ?
-              ratings.map(ranking => {
-                return (
-                  <>
-                    <td>{ranking.game}</td>
-                    <td>{ranking.user}</td>
-                    <td>{ranking.activity}</td>
-                    <td>{ranking.questionsHit}</td>
-                    <td>{ranking.time}</td>
-                    <td>{ranking.fulltime}</td>
-                  </>
-                )
-              }) :
-              <>
-                <p> Nenhuma classifição disponível </p>
-              </>
-            }
-          </tbody>
-        </table>
+        <button className="text-center w-full m-2 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg " onClick={findByRanking}>
+          Buscar
+        </button>
+      </div>
+    </div>
 
+    <div className="w-full">
+      <table className="border-2 border-solid border-textColorThird w-full text-sm text-center text-primary dark:text-textHintColor ">
+        <thead className="text-xs text-primary uppercase bg-bgTableHeaderColor dark:bg-primary dark:text-textHintColor ">
+          <tr>
+            <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Jogo</th>
+            <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Jogador</th>
+            <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Atividade</th>
+            <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Qtd. respostas corretas</th>
+            <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Tempo de respostas</th>
+            <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Tempo total para respostas</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            ratings.length > 0 ?
+            ratings.map(ranking => {
+              return (
+                <tr className="text-textColorSecondary">
+                  <td className="border-2 border-solid border-textColorThird px-4 py-2">{ranking.game}</td>
+                  <td className="border-2 border-solid border-textColorThird px-4 py-2">{ranking.user}</td>
+                  <td className="border-2 border-solid border-textColorThird px-4 py-2">{ranking.activity}</td>
+                  <td className="border-2 border-solid border-textColorThird px-4 py-2">{ranking.questionsHit}</td>
+                  <td className="border-2 border-solid border-textColorThird px-4 py-2">{ranking.time}</td>
+                  <td className="border-2 border-solid border-textColorThird px-4 py-2">{ranking.fulltime}</td>
+                </tr>
+              )
+            }) :
+            <></>
+          }
+        </tbody>
+      </table>
+
+      {
+        ratings.length === 0 ?
+        <div className="text-textColorThird border-2 border-solid border-textColorThird flex justify-center items-center text-center w-full">
+          Nenhuma classificação cadastrada.
+        </div> :
+        <></>
+      }
+
+      <div className="flex justify-center items-center text-center w-full">
         <Pagination
           color="primary"
           className="my-3"
@@ -114,8 +122,9 @@ export default function Ranking() {
           variant="outlined"
           onChange={handlePageChange}
         />
-
       </div>
-    </>
+
+    </div>
+  </div>
   )
 }

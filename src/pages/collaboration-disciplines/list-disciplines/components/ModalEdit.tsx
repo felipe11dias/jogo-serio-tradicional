@@ -13,7 +13,7 @@ import { editDisciplines } from '../../../../service/rest/apis/disciplineRestApi
 export type IEditDisciplineInputs = {
   name: string
   theme: string
-  idUser: number
+  idUser: number,
 }
 
 const schemaDiscipline = z.object({
@@ -38,7 +38,7 @@ const style = {
   color: '#000'
 };
 
-export default function ModalEdit({ id, name, theme }: { id: number, name: string, theme: string }) {
+export default function ModalEdit({ id, name, theme, findAllDisciplines }: { id: number, name: string, theme: string, findAllDisciplines: Function }) {
   const user: User | null = useAppSelector(state => state.userState.user)
   const [modalIsOpen, setIsOpen] = useState<boolean>(false);
 
@@ -68,8 +68,10 @@ export default function ModalEdit({ id, name, theme }: { id: number, name: strin
   }, [isSubmitSuccessful]);
 
   const onSubmitHandler: SubmitHandler<IEditDisciplineInputs> = async (values) => {
-    console.log(values)
-    await editDisciplines(id, values)
+    await editDisciplines(id, values).finally(()  => {
+      findAllDisciplines()
+      closeModal()
+    })
   };
 
   if(isSubmitting) {

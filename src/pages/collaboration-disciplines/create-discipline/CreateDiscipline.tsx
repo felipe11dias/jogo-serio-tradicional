@@ -86,7 +86,7 @@ export default function CreateDiscipline() {
         </div>
 
         <div className="flex justify-center">
-          <button className='text-center my-5 py-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="submit">
+          <button className='text-center my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="submit">
             Criar disciplina
           </button>
         </div>

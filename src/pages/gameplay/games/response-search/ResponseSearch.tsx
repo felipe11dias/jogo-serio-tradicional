@@ -138,6 +138,14 @@ export default function ResponseSearch () {
       fullTime: msToTimeString(timeVar)
     })
     setTime(timeVar)
+
+    setTimeout(() => {
+      const board = document.getElementById('board-game');
+      if (board) {
+        // 👇 Will scroll smoothly to the top of the next section
+        board.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 1000);
   }
 
   const getAnswer = (): Answer[] => {
@@ -275,7 +283,7 @@ export default function ResponseSearch () {
             </> :
             <>
               <div className={'my-4 ' + time === null ? 'h-full w-full text-center' : ''}>
-                <div className={"my-2 " + time === null ? 'flex justify-center h-full w-full text-center' : ''} >
+                <div className={"my-2 " + time === null ? 'flex justify-center h-full w-full text-center' : ''} id="board-game">
                   <Countdown date={Date.now() + (time || 0)} onTick={(t) => setTime(t.total)} renderer={renderer} />
                 </div>
                 {
@@ -291,7 +299,7 @@ export default function ResponseSearch () {
                               ...state,
                               questionSelect: state.questionSelect === index ? null : index
                             })}>
-                              Question {index + 1}:<br/>
+                              Questão {index + 1}:<br/>
                               {question.description}
                             </button>
                         ))}
@@ -303,7 +311,7 @@ export default function ResponseSearch () {
                             state.answers.map( (_, index) => {
                               return (
                                 <div className='my-4' key={index}>
-                                  <label htmlFor={'answerView' + index} style={{color: state.questionColors[index]}}>Answer {index}:</label>
+                                  <label htmlFor={'answerView' + index} style={{color: state.questionColors[index]}}>Resposta {index}:</label>
                                   <input
                                   className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none'
                                     type='text'

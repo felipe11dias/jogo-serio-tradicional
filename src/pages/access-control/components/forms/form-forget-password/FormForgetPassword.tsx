@@ -51,10 +51,9 @@ export default function FormForgetPassword() {
 
       <div className="flex flex-col text-textHintColor py-2" >
         <h3>Email:</h3> 
-        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2 focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder="Email*" {...register("email")} />
+        <input className='text-textColorSecondary rounded-lg bg-backgroundColorInput mt-2 p-2 focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder="Email*" {...register("email")} />
         <p className='text-errTextColor'>{errors.email?.message}</p>
       </div>
- 
 
       <div className='flex justify-between'>
         <Link to={`/access-control/login`}>

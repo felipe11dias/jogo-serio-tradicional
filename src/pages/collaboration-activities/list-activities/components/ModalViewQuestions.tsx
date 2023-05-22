@@ -43,16 +43,16 @@ export default function ModalViewQuestions({ questions }: { questions: Question[
           <table className="border-2 border-solid border-textColorThird mb-4 w-full text-sm text-center text-primary dark:text-textHintColor ">
             <thead className="text-xs text-primary uppercase bg-bgTableHeaderColor dark:bg-primary dark:text-textHintColor ">
               <tr>
-                <th scope="col" className="px-6 py-3">Número</th>
-                <th scope="col" className="px-6 py-3">Descrição</th>
+                <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Número</th>
+                <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Descrição</th>
               </tr>
             </thead>
             <tbody>
               {
                 questions.length > 0 ? questions.map((question, index) => (
                   <tr className="text-textColorSecondary" key={question.id}>
-                    <td>{index + 1}</td>
-                    <td>{question.description}</td>
+                    <td className="border-2 border-solid border-textColorThird">{index + 1}</td>
+                    <td className="border-2 border-solid border-textColorThird text-start">{question.description}</td>
                   </tr>
                 ))
                 :

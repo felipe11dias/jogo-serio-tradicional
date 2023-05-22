@@ -79,7 +79,7 @@ export default function FormSignUp() {
 
       <div className="flex flex-col text-textHintColor py-2 rounded-lg" >
         <h3>Perfil:</h3>
-        <select className='mt-2 p-2 bg-backgroundColorInput' {...register("role")}>
+        <select className='text-textColorSecondary mt-2 p-2 bg-backgroundColorInput' {...register("role")}>
           <option value="">Selecione</option>
           <option value="STUDENT">Aluno</option>
           <option value="TEACHER">Professor</option>
@@ -89,41 +89,36 @@ export default function FormSignUp() {
 
       <div className="className='flex flex-col text-textHintColor py-2'" >
         <h3>Email:</h3>
-        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder='Email*' {...register("email")} />
+        <input className='text-textColorSecondary rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder='Email*' {...register("email")} />
         <p className='text-errTextColor'>{errors.email?.message}</p>
       </div>
 
       <div className="className='flex flex-col text-textHintColor py-2" >
         <h3>Nome:</h3>
-        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder='Nome*' {...register("name")} />
+        <input className='text-textColorSecondary rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="text" placeholder='Nome*' {...register("name")} />
         <p className='text-errTextColor'>{errors.name?.message}</p>
       </div>
 
       <div className="className='flex flex-col text-textHintColor py-2" >
         <h3>Senha:</h3>
-        <input className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="password" placeholder='Senha*' {...register("password")} />
+        <input className='text-textColorSecondary rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none' type="password" placeholder='Senha*' {...register("password")} />
         <p className='text-errTextColor'>{errors.password?.message}</p>
       </div>
 
-      <div className="flex justify-between items-start">
-
-        <div className='text-center flex justify-center items-center w-36 my-5 py-2 px-2 hover:text-textColorThird   hover:shadow-hoverColorButton/40 text-textColorFoured font-semibold rounded-lg'>
-          <Link to={`/access-control/forget-password`}>Esqueci a senha</Link>
-        </div>
-
-        <div className="flex-col justify-center items-center">
-          <div className='text-center flex justify-center items-center w-32 my-5 py-2 px-2  hover:text-textColorThird  hover:shadow-hoverColorButton/40 text-textColorFoured font-semibold rounded-lg'>
-            <Link to={`/access-control/login`}>Acessar conta</Link>
-          </div>
-          <div className="flex  justify-center ">
-            <button className='text-center my-5 py-2 w-full px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="submit">
-              Cadastrar
-            </button>
-          </div>
-
-        </div>
+      <div className="flex justify-between">
+        <Link className='text-center w-full my-5 py-2 px-2  shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorFoured hover:text-textColorThird font-semibold rounded-lg' to={`/access-control/forget-password`}>
+          Esqueci a senha
+        </Link>
+        <Link className='text-center w-full my-5 py-2 px-2  shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorFoured hover:text-textColorThird font-semibold rounded-lg' to={`/access-control/login`}>
+          Acessar conta
+        </Link>
       </div>
 
+      <div className="flex justify-center ">
+        <button className='text-center my-5 py-2 w-full px-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="submit">
+          Cadastrar
+        </button>
+      </div>
     </form>
   )
 }

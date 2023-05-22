@@ -1,14 +1,13 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import BackgroundAnimation from "../../animation/BackgroundAnimation";
-import aimshotImg from '../../assets/aimshot.jpg';
 import guitarQuestionsImg from '../../assets/guitar_question.jpg';
 import responseSearchImg from '../../assets/response-search.jpg';
 import GameSeriusContext, { GameSeriusType } from "../../context/GameContext/GameContext";
 import { useAppSelector } from "../../redux/store";
 import { User } from "../../redux/types/User";
 import { ROLES } from "../../router/router";
-import { GAME_AIMSHOT_SEARCH, GAME_GUITAR_QUESTIONS, GAME_RESPONSE_SEARCH } from "../../util/constants";
+import { GAME_GUITAR_QUESTIONS, GAME_RESPONSE_SEARCH } from "../../util/constants";
 
 export default function GameSelect() {
   const user: User | null = useAppSelector(state => state.userState.user)
@@ -47,7 +46,7 @@ export default function GameSelect() {
         <h2 className="text-textColorThird font-bold text-5xl mb-10">Jogos:</h2>
 
         <div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
 
             <div className="flex flex-col items-center justify-between bg-backgroundColorSecondary rounded-lg p-6">
               <h3 className='mb-5  text-textColorSecondary font-semibold rounded-lg text-xl'>Guitarra das questões</h3>
@@ -63,12 +62,12 @@ export default function GameSelect() {
               <button className="w-40 my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg" onClick={() => selectGame(GAME_RESPONSE_SEARCH)}>Selecionar</button>
             </div>
 
-            <div className="flex flex-col items-center justify-between bg-backgroundColorSecondary rounded-lg p-6">
+            {/*<div className="flex flex-col items-center justify-between bg-backgroundColorSecondary rounded-lg p-6">
               <h3 className='mb-5  text-textColorSecondary font-semibold rounded-lg text-xl'>Mirando respostas</h3>
               <img className='w-80 h-80 object-cover rounded-lg' src={aimshotImg} alt="Image Aimshot Response" />
               <p className="text-textColorSecondary text-lg text-center">Encontre as respostas corretas com uma única tentativa por questão. Selecione as respostas corretas no menor tempo e acertividade possivel.</p>
               <button className="w-40 my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg" onClick={() => selectGame(GAME_AIMSHOT_SEARCH)}>Selecionar</button>
-            </div>
+            </div>*/}
 
           </div>
         </div>

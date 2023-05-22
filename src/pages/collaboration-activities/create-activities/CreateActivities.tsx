@@ -30,14 +30,14 @@ export type Answer = {
 }
 
 const schemaActivity = z.object({
-  name: z.string().min(1, "Name is required."),
-  idUser: z.number({ required_error: "User is required" }),
-  idDiscipline: z.string({ required_error: "Discipline is required" }),
+  name: z.string().min(1, "Nome é obrigatório."),
+  idUser: z.number({ required_error: "Usuário é obrigatório" }),
+  idDiscipline: z.string({ required_error: "Disciplina é obrigatório." }).min(1, "Disciplina é obrigatório."),
   questions: z.array(
     z.object({
-      description: z.string().min(1, "Description is required."),
+      description: z.string().min(1, "Descrição da questão é obrigatório."),
       answers: z.array(z.object({
-        description: z.string().min(1, "Description is required."),
+        description: z.string().min(1, "Descrição da resposta é obrigatório."),
       })),
       idAnswerCorrect: z.string(),
     })
@@ -116,7 +116,7 @@ export default function CreateActivities() {
         <div className="flex flex-col text-textHintColor py-2 rounded-lg">
           <h3>Disciplina:</h3>
           <select className='mt-2 p-2 bg-backgroundColorInput text-textColorSecondary' {...register("idDiscipline")}>
-            <option>Selecione</option>
+            <option value={''}>Selecione</option>
             {
               disciplines.length > 0 ? 
               
@@ -136,7 +136,7 @@ export default function CreateActivities() {
         />
 
         <div className="flex justify-center">
-          <button className='text-center my-5 py-2 px-2 mx-1 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="submit">
+          <button className='text-center my-5 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="submit">
             Criar atividade
           </button>
         </div>

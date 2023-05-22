@@ -42,13 +42,18 @@ export default function () {
               <Link to="/environment/teacher/collaboration-disciplines/list" className='w-full hover:text-hoverColorButtonSecondary my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl hover:scale-125 hover:bg-hoverColorFooter  hover:cursor-pointer'>Disciplinas</Link>
               <Link to="/environment/teacher/collaboration-activities/list" className='w-full hover:text-hoverColorButtonSecondary my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl hover:scale-125 hover:bg-hoverColorFooter  hover:cursor-pointer'>Atividades</Link>
               <Link to="/environment/student/game-select" className='w-full hover:text-hoverColorButtonSecondary my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl hover:scale-125 hover:bg-hoverColorFooter  hover:cursor-pointer'>Jogos</Link>
+              <Link to="/environment/student/ranking" className='w-full hover:text-hoverColorButtonSecondary my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl hover:scale-125 hover:bg-hoverColorFooter  hover:cursor-pointer'>Classificação</Link>
             </div>
           </> :
-          <div>
+          <>
             <Link className=' w-full my-5 py-2 px-2 text-textColorPrimary  hover:text-hoverColorButtonSecondary font-semibold rounded-lg text-3xl hover:scale-125 hover:bg-hoverColorFooter  hover:cursor-pointer' to="/environment/student/game-select" replace={true}>
               Início
             </Link>
-          </div>
+            <div className='flex items-center gap-6 px-10'>
+              <Link to="/environment/student/game-select" className='w-full hover:text-hoverColorButtonSecondary my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl hover:scale-125 hover:bg-hoverColorFooter  hover:cursor-pointer'>Jogos</Link>
+              <Link to="/environment/student/ranking" className='w-full hover:text-hoverColorButtonSecondary my-5 py-2 px-2 text-textColorPrimary font-semibold rounded-lg text-xl hover:scale-125 hover:bg-hoverColorFooter  hover:cursor-pointer'>Classificação</Link>
+            </div>
+          </>
         } 
         <div className='bg-buttonColor p-2 hover:text-hoverColorButtonSecondary hover:bg-errTextColor text-textColorPrimary font-semibold rounded-lg'>
           <form onSubmit={handleSubmit(onSubmitHandler)}>

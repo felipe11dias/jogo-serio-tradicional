@@ -31,7 +31,7 @@ api.interceptors.response.use(
   async function (error) {
     console.log(error)
     const access_token = JSON.parse(localStorage.getItem("auth") || 'null')?.access_token;
-    if(error.response.status === 500 && access_token) {
+    if(error.response.status === 500 || error.response.status === 403 && access_token) {
       const decodedJwt = parseJwt(access_token);
       if (decodedJwt.exp * 1000 < Date.now()) {
         localStorage.removeItem("persist:jogosSerios")
@@ -41,10 +41,10 @@ api.interceptors.response.use(
       }
     }
 
-    if(error.response.message) {
-      toast.error(error.response.message);
+    if(error.response.data.message) {
+      toast.error(error.response.data.message);
     }
-    return 
+    return Promise.reject(error);
   }
 );
 

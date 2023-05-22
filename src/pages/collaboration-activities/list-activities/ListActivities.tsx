@@ -79,7 +79,7 @@ export default function ListActivities() {
             </div>
           </div>
 
-          <Link className="h-fit text-center w-38 my-5 ml-auto mr-o p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg" to={'/environment/teacher/collaboration-activities/create'} >Criar atividade</Link>
+          <Link className="h-fit text-center w-38 my-2 ml-auto mr-0 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg" to={'/environment/teacher/collaboration-activities/create'} >Criar atividade</Link>
         </div>
 
 
@@ -106,7 +106,7 @@ export default function ListActivities() {
                       {activity.idUser === user?.id ?
                         <>
                           <Link className="w-16 mx-2 my-auto rounded p-2 bg-yellow-400 text-white hover:scale-125 hover:cursor-pointer" to={`/environment/teacher/collaboration-activities/edit/${activity.id}`}>Editar</Link>
-                          <ModalDelete id={activity.id} />
+                          <ModalDelete findAllActivities={findAllActivities} id={activity.id} />
                         </> :
                         <>Nenhuma ação disponível</>
                       }
@@ -114,12 +114,18 @@ export default function ListActivities() {
                   </tr>
                 ))
                   :
-                <div className="flex justify-center items-center text-center w-full">
-                  Nenhuma atividade cadastrada.
-                </div>
+                <></>
               }
             </tbody>
           </table>
+
+          {
+            activities.length === 0 ?
+            <div className="text-textColorThird border-2 border-solid border-textColorThird flex justify-center items-center text-center w-full">
+              Nenhuma atividade cadastrada.
+            </div> :
+            <></>
+          }
 
           <div className="flex justify-center items-center text-center w-full">
             <Pagination
@@ -133,6 +139,12 @@ export default function ListActivities() {
               onChange={handlePageChange}
             />
           </div>
+        </div>
+
+        <div className="mt-6 flex justify-center">
+          <Link className='text-center w-full my-5 py-2 px-2 mx-1 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' to={`/environment/teacher/home`}>
+            Voltar
+          </Link>
         </div>
       </div>
     </>

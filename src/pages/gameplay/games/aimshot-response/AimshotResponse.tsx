@@ -68,6 +68,12 @@ export default function AimshotResponse() {
     result.fullTime = msToTimeString(timeVar)
     setResult(result)
     setTime(timeVar)
+
+    const boardGame = document.getElementById('board-game');
+    if (boardGame) {
+      // 👇 Will scroll smoothly to the top of the next section
+      boardGame.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
   function finishGame() {
@@ -209,7 +215,7 @@ export default function AimshotResponse() {
             </>
             :
             <>
-              <div className="flex items-center justify-center flex-col min-w-full">
+              <div className="flex items-center justify-center flex-col min-w-full" id="board-game">
               
                 <div className="my-2">
                   <Countdown date={Date.now() + (time || 0)} onTick={(t) => setTime(t.total)} renderer={renderer} />
@@ -218,7 +224,7 @@ export default function AimshotResponse() {
                 {
                   (time !== null) ?
                   <div className="my-2">
-                      {activity?.questions[questionIndex].description + '?'}
+                      {activity?.questions[questionIndex].description}
                   </div>
                   :
                   <></>

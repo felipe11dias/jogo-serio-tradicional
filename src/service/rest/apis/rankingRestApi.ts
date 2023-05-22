@@ -13,3 +13,7 @@ export const createOrEditRatings = async (body: IRegisterOrEditRanking): Promise
   const { data } = await api.post(`${PATH}/register-or-edit`, body)
   return data
 }
+
+export const deleteByUserAndActivity = async (userId: number, activityId: number): Promise<any> => {
+  return (await api.delete(`${PATH}/delete/user/${userId}/activity/${activityId}`)).data
+}

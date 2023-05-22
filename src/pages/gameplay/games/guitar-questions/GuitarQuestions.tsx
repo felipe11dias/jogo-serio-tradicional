@@ -12,7 +12,7 @@ import './style.css';
 export default function GuitarQuestions() {
   const user: User | null = useAppSelector(state => state.userState.user)
   
-  const colors = ['#1b9b1e', '#991213', '#a3960d', '#0a4c99']
+  const colors = ['#4473c5', '#70ad46', '#ffc000', '#c44443']
   const { gameSerius, saveGameSerius } = useContext(GameSeriusContext) as GameSeriusType;
   const [questionIndex, setQuestionIndex] = useState<number>(0);
   const [startGame, setStartGame] = useState<boolean>(false);
@@ -21,10 +21,10 @@ export default function GuitarQuestions() {
   const [timeQuestions, setTimeQuestions] = useState<number>(0);
   const [timePadding, setTimePadding] = useState<number>(0.5);
   const [topAtt, setTopAtt] = useState<number>(0);
-  const [leftAtt, setLeftAtt] = useState<string[]>(['16%', '35%', '54.5%', '74%']);
+  const [leftAtt, setLeftAtt] = useState<string[]>(['15%', '36%', '56.5%', '77.5%']);
   const [score, setScore] = useState<number>(0);
   const [activity, setActivity] = useState<IEditActivityInputs>();
-  const [result, setResult] = useState<ResultProps>({ idUser: user?.id || -1, idActivity: -1, time: '', fullTime: '', game: 'Mirando respostas', questions: [], open: true, answers: [] });
+  const [result, setResult] = useState<ResultProps>({ idUser: user?.id || -1, idActivity: -1, time: '', fullTime: '', game: 'Guitarra das questões', questions: [], open: true, answers: [] });
 
   useMemo(() => {
     getActivity(gameSerius.activitySelected.toString()).then( data => {
@@ -53,7 +53,7 @@ export default function GuitarQuestions() {
     }else {
       return (
         <div className='mt-2 p-2 w-full flex justify-center'>
-          <h1 className='text-2xl text-white'>{(time !== null) ? <>Tempo restante:</> : <></>} {minutes}:{seconds}</h1>
+          <h1 className='text-2xl'>{(time !== null) ? <>Tempo restante:</> : <></>} {minutes}:{seconds}</h1>
         </div>
       )
     }
@@ -76,10 +76,20 @@ export default function GuitarQuestions() {
     setFullTime(timeVar)
     setTopAtt(topAtt + (100/(timeVar/1000)))
     setTimeQuestions(timeVar / (activity?.questions.length || 1))
+
+    setTimeout(() => {
+      const board = document.getElementById('board-guitar');
+      if (board) {
+        // 👇 Will scroll smoothly to the top of the next section
+        board.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 1000);
   }
 
   function finishGame() {
-    result.time = msToTimeString(time || 0)
+    const timeAux: number | null = time
+    console.log(timeAux)
+    result.time = msToTimeString(timeAux || 0)
     // Preenche as questão não marcadas a tempo com um valor incorreto.
     if(result.questions.length > result.answers.length) {
       for(var i = 0; i < (result.questions.length - result.answers.length); i++) {
@@ -112,14 +122,14 @@ export default function GuitarQuestions() {
       if(activity?.questions.length === (questionIndex + 1)) {
         finishGame()
       }else {
-        setQuestionIndex(questionIndex + 1)
+        //setQuestionIndex(questionIndex + 1)
         setTimeQuestions((time || 1) / (activity?.questions.length || 1))
       }
     }else {
       if(topAtt < 50) {
         setTimePadding(0.5)
       }else if(topAtt >= 50 && topAtt < 80) {
-        setLeftAtt(['15.5%', '35%', '54.5%', '74%'])
+        setLeftAtt(['14.5%', '36%', '55.5%', '75%'])
         setTimePadding(0.8)
       }else {
         setLeftAtt(['15%', '34.5%', '54%', '73.5%'])
@@ -181,15 +191,15 @@ export default function GuitarQuestions() {
               </div>
             </> :
             <>
-            <div className="flex items-center justify-center flex-col min-w-full rounded mb-3" id={time !== null ? "board-guitar" : ""}>
-              <div className={"my-2 " + time === null ? 'flex justify-center h-full w-full text-center' : ''}>
+            <div className="flex items-center justify-center flex-col min-w-full rounded mb-3" >
+              <div className={"my-2 " + time === null ? 'flex justify-center h-full w-full text-center' : ''} id="board-guitar">
                 <Countdown date={Date.now() + (time || 0)} onTick={(t) => handleTick(t)} renderer={renderer} />
               </div>
 
               {
                 (time !== null) ?
-                <div className="my-2 text-white">
-                  {activity?.questions[questionIndex].description + '?'}
+                <div className="my-2">
+                  {activity?.questions[questionIndex].description}
                 </div>
                 :
                 <></>
@@ -199,7 +209,7 @@ export default function GuitarQuestions() {
                 (time !== null) ?
                   <div className="px-4 pb-2 flex h-full w-full min-height-inherit relative ">
                     <div className="line-left" />
-                    <div className="px-8 h-full w-full flex bg-backgroundColorSecondary opacity-80 rounded">
+                    <div className="px-8 h-full w-full flex bg-backgroundColorSecondary rounded">
                       <div className="line-straight" id="answer1" />
                       <div className="line-straight" id="answer2" />
                       {
@@ -207,7 +217,7 @@ export default function GuitarQuestions() {
                           return(
                             <>
                               <Tooltip className=" rounded absolute" style={{ padding: `${timePadding}em`, left: `${leftAtt[index]}`, backgroundColor: colors[index], top: `${topAtt}%`}} title={answer.description}>
-                                <button type="button" className="" onClick={() => selectionAnswer(answer.id)}>Resposta {index + 1}</button>
+                                <button type="button" className="text-textColorPrimary" onClick={() => selectionAnswer(answer.id)}>Resposta {index + 1}</button>
                               </Tooltip>
                             </>
                           )
@@ -229,5 +239,4 @@ export default function GuitarQuestions() {
 
     </div>
   )
-
 }

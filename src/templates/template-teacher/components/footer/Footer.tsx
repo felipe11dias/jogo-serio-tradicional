@@ -4,8 +4,8 @@ const Footer = () => {
   return <footer className=' flex sm:flex-col md:flex-row  lg:flex-row xl:flex-row justify-between items-center py-6 bg-backgroundColorFooterPrimary'>
 
   <div className='flex flex-row justify-around w-full '>
-    <div>
-      <p className="w-full flex  text-textColorPrimary font-semibold rounded-lg text-xl">© Copyright 2023 - Todos os direitos reservados para - TCC Felipe</p>
+    <div className="flex">
+      <p className="w-full m-auto text-textColorPrimary font-semibold rounded-lg text-xl">© Copyright 2023 - Todos os direitos reservados para - TCC Felipe</p>
     </div>
    <div className='flex flex-row '>
    <div className=' rounded-full py-2 px-2 transition duration-300 ease-in-out hover:scale-125 hover:bg-hoverColorFooter  hover:cursor-pointer'>

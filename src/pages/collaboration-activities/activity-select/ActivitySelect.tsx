@@ -113,12 +113,19 @@ export default function ActivitySelect() {
                 </tr>
               ))
               :
-              <div className="  flex justify-center items-center text-center w-full">
-                Nenhuma atvidade cadastrada.
-              </div>
+              <></>
             }
           </tbody>
         </table>
+
+        {
+          activities.length === 0 ?
+          <div className="text-textColorThird border-2 border-solid border-textColorThird flex justify-center items-center text-center w-full">
+            Nenhuma atvidade cadastrada.
+          </div> :
+          <></>
+        }
+
         <div className="flex justify-center items-center text-center w-full">
           <Pagination
             color="primary"
