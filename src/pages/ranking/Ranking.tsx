@@ -75,9 +75,8 @@ export default function Ranking() {
       <table className="border-2 border-solid border-textColorThird w-full text-sm text-center text-primary dark:text-textHintColor ">
         <thead className="text-xs text-primary uppercase bg-bgTableHeaderColor dark:bg-primary dark:text-textHintColor ">
           <tr>
-            <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Jogo</th>
-            <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Jogador</th>
-            <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Atividade</th>
+            <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Jogo/Jogador</th>
+            <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Disciplina/Atividade</th>
             <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Qtd. respostas corretas</th>
             <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Tempo de respostas</th>
             <th scope="col" className="border-2 border-solid border-textColorThird px-6 py-3">Tempo total para respostas</th>
@@ -89,10 +88,9 @@ export default function Ranking() {
             ratings.map(ranking => {
               return (
                 <tr className="text-textColorSecondary">
-                  <td className="border-2 border-solid border-textColorThird px-4 py-2">{ranking.game}</td>
-                  <td className="border-2 border-solid border-textColorThird px-4 py-2">{ranking.user}</td>
-                  <td className="border-2 border-solid border-textColorThird px-4 py-2">{ranking.activity}</td>
-                  <td className="border-2 border-solid border-textColorThird px-4 py-2">{ranking.questionsHit}</td>
+                  <td className="border-2 border-solid border-textColorThird px-4 py-2">{ranking.game}/{ranking.user}</td>
+                  <td className="border-2 border-solid border-textColorThird px-4 py-2">{ranking.discipline}/{ranking.activity}</td>
+                  <td className="border-2 border-solid border-textColorThird px-4 py-2">{ranking.questionsHit}/{ranking.questions}</td>
                   <td className="border-2 border-solid border-textColorThird px-4 py-2">{ranking.time}</td>
                   <td className="border-2 border-solid border-textColorThird px-4 py-2">{ranking.fulltime}</td>
                 </tr>

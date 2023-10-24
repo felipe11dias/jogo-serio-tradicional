@@ -9,11 +9,7 @@ export const listRatings = async (params: any): Promise<any> => {
   return data
 }
 
-export const createOrEditRatings = async (body: IRegisterOrEditRanking): Promise<Ranking> => {
-  const { data } = await api.post(`${PATH}/register-or-edit`, body)
+export const createRanking = async (body: IRegisterOrEditRanking): Promise<Ranking> => {
+  const { data } = await api.post(`${PATH}/register`, body)
   return data
-}
-
-export const deleteByUserAndActivity = async (userId: number, activityId: number): Promise<any> => {
-  return (await api.delete(`${PATH}/delete/user/${userId}/activity/${activityId}`)).data
 }

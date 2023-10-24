@@ -39,7 +39,7 @@ export default function GameSelect() {
       <p className="text-textColorSecondary font-semibold text-3xl">
         Jogue e estude. Selecione o jogo e se divirta estudando.
         Após selecionar o jogo você deve selecionar a disciplina e atividade que serão aplicadas durante a jogatina.
-        Supere seus colegas e veja seu nome no topo do ranking.
+        Supere seus colegas e veja seu nome no topo da classificação.
       </p>
 
       <section className="mt-10">

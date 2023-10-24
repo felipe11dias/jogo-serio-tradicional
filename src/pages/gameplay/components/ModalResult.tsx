@@ -1,12 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Modal } from "@mui/material";
 import { useEffect, useState } from "react";
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { z } from "zod";
 import FullScreenLoader from "../../../components/loader/full-screen-loader/FullScreenLoader";
-import { createOrEditRatings, deleteByUserAndActivity } from "../../../service/rest/apis/rankingRestApi";
+import { createRanking } from "../../../service/rest/apis/rankingRestApi";
 import { AnswerQuestions } from "../../collaboration-activities/edit-activities/EditActivities";
 
 export type ResultProps = {
@@ -24,6 +24,7 @@ export type IRegisterOrEditRanking = {
   game: string
   time: string
   fulltime: string
+  questions: number
   questionsHit: number
   idActivity: number
   idUser: number
@@ -52,6 +53,8 @@ const schemaRanking = z.object({
     .min(1, 'Tempo total é obrigatório'),
   questionsHit: z.number()
     .min(1, 'Quantidade de questões corretas é obrigatório'),
+  questions: z.number()
+    .min(1, 'Quantidade de questões da atividade é obrigatório'),
   idUser: z.number()
     .min(1, 'Usuário é obrigatório'),
   idActivity: z.number()
@@ -62,6 +65,7 @@ export default function ModalResult(result: ResultProps) {
   const [modalIsOpen, setIsOpen] = useState<boolean>(result.open);
   const {
     handleSubmit,
+    getValues,
     formState: { isSubmitting, isSubmitSuccessful, errors },
   } = useForm<IRegisterOrEditRanking>({
     resolver: zodResolver(schemaRanking),
@@ -70,6 +74,7 @@ export default function ModalResult(result: ResultProps) {
       time: result.time,
       fulltime: result.fullTime,
       questionsHit: getQuestionsHit(),
+      questions: (result.questions.length + 1),
       idActivity: result.idActivity,
       idUser: result.idUser
     }
@@ -93,29 +98,13 @@ export default function ModalResult(result: ResultProps) {
     return qtd;
   }
 
-  const onSubmitHandler: SubmitHandler<IRegisterOrEditRanking> = async (values, evt: any) => {
-    evt.preventDefault();
-    evt.stopPropagation(); 
-
-    await deleteByUserAndActivity(values.idUser, values.idActivity)
-      .then( async (response) => {
-        if(response.status === 204) {
-          toast.success("Classificação para esse jogo já existe. Classificação será sobreposta sobre o jogo já existente.")
-          await createOrEditRatings(values).then( response => {
-            toast.success("Classificação sobreposta.")
-          });
-        }else {
-          toast.error("Usuário ou atividade não encontrados.")
-        }
-      }).catch( async (error: any) => {
-        if(error.response.status === 404) {
-          await createOrEditRatings(values).then( response => {
-            toast.success("Classificação salva.")
-          });
-        }
-      })
+  const onSubmit: any = async (values: any, event: any) => {
+    event.preventDefault();
+    await createRanking(values).then( response => {
+      toast.success("Resultado do jogo salvo. Você pode verificar na classificação.")
+    });
     closeModal()
-  };
+  }
 
   if(isSubmitting) {
     return (
@@ -165,10 +154,10 @@ export default function ModalResult(result: ResultProps) {
               }
             </tbody>
           </table>
-          <form className="mt-9 flex justify-end" onSubmit={handleSubmit(onSubmitHandler)}>
+          <div className="mt-9 flex justify-end">
             <button className="w-24 rounded mx-6 p-2 bg-errTextColor text-white hover:scale-125 hover:cursor-pointer" type="button" onClick={closeModal}>Cancelar</button>
-            <button className="w-24 rounded p-2 bg-backgroundColorFooterPrimary text-white hover:scale-125 hover:cursor-pointer" type="submit">Salvar</button>
-          </form>
+            <button className="w-24 rounded p-2 bg-backgroundColorFooterPrimary text-white hover:scale-125 hover:cursor-pointer" onClick={(e) => onSubmit(getValues(), e)}>Salvar</button>
+          </div>
         </Box>
       </Modal>
     </div>
