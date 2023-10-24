@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
 import Countdown from 'react-countdown'
-import { SubmitHandler, useForm } from "react-hook-form"
 import GameSeriusContext, { GameSeriusType } from '../../../../context/GameContext/GameContext'
 import { useAppSelector } from '../../../../redux/store'
 import { User } from '../../../../redux/types/User'
@@ -120,8 +119,6 @@ export default function ResponseSearch () {
     }
   };
 
-  const { register, handleSubmit, reset } = useForm();
-
   function msToTimeString(s: number) {
     var ms = s % 1000;
     s = (s - ms) / 1000;
@@ -219,20 +216,17 @@ export default function ResponseSearch () {
   }
 
   const finishGame = () => {
-    setResult({
-      ...result,
-      time: msToTimeString(time || 0)
-    })
+    const timeAux: number | null = time
+    if(timeAux != null) {
+      result.time = msToTimeString(timeAux || 0)
+    }
+    setResult(result)
     // VERIFICA CADA LETRA SELECIONADA DE CADA RESPOSTA COM O SEU PONTO NA TABELA, OU SEJA, AS LETRAS E POINTOS SELECIONADOS NA TABELA TEM QUE ESTAR EM CONFORMIDADE
     validateAnswers()
     // VERIFICA SE A RESPOSTA CORRETA DA QUESTÃO ESTÁ EM CONFORMIDADE COM A RESPOSTA DO ALUNO
     getScores()
     setTime(null)
   }
-
-  const onSubmitHandler: SubmitHandler<any> = async (values) => {
-    finishGame()
-  };
 
   return (
     <>
@@ -290,7 +284,7 @@ export default function ResponseSearch () {
                 (time !== null) ?
                   <>
                     <div className='my-4'>
-                      <label className='label w-100 text-center text-textColorSecondary font-bold' htmlFor='questions'>Questions:</label>
+                      <label className='label w-100 text-center text-textColorSecondary font-bold' htmlFor='questions'>Questões:</label>
                       <div className='w-100 d-grid'>
                         {activity?.questions.map((question: AnswerQuestions, index: number) => (
                           <button key={question.id} type='button' className='m-5 p-2 rounded-md'
@@ -305,7 +299,7 @@ export default function ResponseSearch () {
                         ))}
                       </div>
                     </div>
-                    <form onSubmit={handleSubmit(onSubmitHandler)} className='px-0'>
+                    <div className='px-0'>
                       <div className='my-4'>
                           {
                             state.answers.map( (_, index) => {
@@ -325,13 +319,13 @@ export default function ResponseSearch () {
                       </div>
                       
                       <div className='my-4 w-full flex justify-center'>
-                        <button className='mt-2 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type='submit'> Finalizar </button>
+                        <button className='mt-2 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type='button' onClick={finishGame}> Finalizar </button>
                       </div>
                       <WordSearch
                         state={state}
                         setState={setState}
                         />
-                    </form>
+                    </div>
                   </> :
                   <></>
                 }

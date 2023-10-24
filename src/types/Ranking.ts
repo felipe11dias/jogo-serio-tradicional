@@ -3,6 +3,8 @@ export type Ranking = {
   time: string
   fulltime: string
   questionsHit: number
+  questions: number
+  discipline: string
   activity: string
   user: string
 }

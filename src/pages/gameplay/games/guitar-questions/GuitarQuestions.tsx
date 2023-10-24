@@ -88,8 +88,9 @@ export default function GuitarQuestions() {
 
   function finishGame() {
     const timeAux: number | null = time
-    console.log(timeAux)
-    result.time = msToTimeString(timeAux || 0)
+    if(timeAux != null) {
+      result.time = msToTimeString(timeAux || 0)
+    }
     // Preenche as questão não marcadas a tempo com um valor incorreto.
     if(result.questions.length > result.answers.length) {
       for(var i = 0; i < (result.questions.length - result.answers.length); i++) {
@@ -129,10 +130,10 @@ export default function GuitarQuestions() {
       if(topAtt < 50) {
         setTimePadding(0.5)
       }else if(topAtt >= 50 && topAtt < 80) {
-        setLeftAtt(['14.5%', '36%', '55.5%', '75%'])
+        setLeftAtt(['14.5%', '35.5%', '56%', '77%'])
         setTimePadding(0.8)
       }else {
-        setLeftAtt(['15%', '34.5%', '54%', '73.5%'])
+        setLeftAtt(['14%', '35%', '56%', '76.2%'])
         setTimePadding(1.2)
       }
       setTimeQuestions(timeQuestions - 1000)
@@ -216,7 +217,7 @@ export default function GuitarQuestions() {
                         activity?.questions[questionIndex].answers.map( (answer, index) => {
                           return(
                             <>
-                              <Tooltip className=" rounded absolute" style={{ padding: `${timePadding}em`, left: `${leftAtt[index]}`, backgroundColor: colors[index], top: `${topAtt}%`}} title={answer.description}>
+                              <Tooltip className=" rounded absolute" style={{ padding: `${timePadding}em`, left: `${leftAtt[index]}`, backgroundColor: colors[index], top: `${topAtt - 5}%`}} title={answer.description}>
                                 <button type="button" className="text-textColorPrimary" onClick={() => selectionAnswer(answer.id)}>Resposta {index + 1}</button>
                               </Tooltip>
                             </>
