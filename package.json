@@ -59,6 +59,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.7",
+    "gh-pages": "^6.0.0",
     "postcss": "^8.4.14",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
