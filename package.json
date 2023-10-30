@@ -1,6 +1,6 @@
 {
   "homepage": "https://felipe11dias.github.io/jogo-serio-tradicional",
-  "name": "jogos-serios-tradicionais-fe",
+  "name": "jogos-serios-tradicionais",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -33,15 +33,15 @@
     "web-vitals": "^2.1.4",
     "zod": "^3.20.2"
   },
+  
   "scripts": {
     "start": "react-scripts start",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "build": "react-scripts build", // && rename build jogos-serios-tradicionais-fe && move jogos-serios-tradicionais-fe/* C:/Users/UNIFOR/React/jogos-serios-tradicionais-fe
     "test": "react-scripts test",
+    "build": "react-scripts build",
     "eject": "react-scripts eject"
   },
-  "homepage": "/jogos-serios-tradicionais-fe",
   "eslintConfig": {
     "extends": [
       "react-app",

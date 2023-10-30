@@ -128,7 +128,7 @@ const Router = createBrowserRouter(
         </Route>
       </Route>
   ), {
-    basename: "/jogos-serios-tradicionais-fe",
+    basename: "/jogo-serio-tradicional",
   });
 
 export default Router;
