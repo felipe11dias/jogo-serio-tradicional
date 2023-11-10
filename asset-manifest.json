@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/jogo-serio-tradicional/static/css/main.895a3eaf.css",
-    "main.js": "/jogo-serio-tradicional/static/js/main.6e0b005c.js",
+    "main.js": "/jogo-serio-tradicional/static/js/main.8d80feec.js",
     "static/media/guitar_question.jpg": "/jogo-serio-tradicional/static/media/guitar_question.a8fac03177eed4f04a35.jpg",
     "static/media/games.png": "/jogo-serio-tradicional/static/media/games.eb1b8ee3e89c8120692c.png",
     "static/media/response-search.jpg": "/jogo-serio-tradicional/static/media/response-search.0b3f9b109a92b25ec047.jpg",
@@ -9,10 +9,10 @@
     "static/media/activities.png": "/jogo-serio-tradicional/static/media/activities.c17988a2bcc1311bbe89.png",
     "index.html": "/jogo-serio-tradicional/index.html",
     "main.895a3eaf.css.map": "/jogo-serio-tradicional/static/css/main.895a3eaf.css.map",
-    "main.6e0b005c.js.map": "/jogo-serio-tradicional/static/js/main.6e0b005c.js.map"
+    "main.8d80feec.js.map": "/jogo-serio-tradicional/static/js/main.8d80feec.js.map"
   },
   "entrypoints": [
     "static/css/main.895a3eaf.css",
-    "static/js/main.6e0b005c.js"
+    "static/js/main.8d80feec.js"
   ]
 }
