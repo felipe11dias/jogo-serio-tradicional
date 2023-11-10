@@ -2,7 +2,7 @@ import {
   Navigate,
   Outlet,
   Route,
-  createHashRouter,
+  createBrowserRouter,
   createRoutesFromElements
 } from "react-router-dom";
 import FormForgetPassword from "../pages/access-control/components/forms/form-forget-password/FormForgetPassword";
@@ -32,7 +32,7 @@ export enum ROLES {
   TEACHER
 }
 
-const Router = createHashRouter(
+const Router = createBrowserRouter(
   createRoutesFromElements(
       <Route  path="/" element={<Outlet />}>
         <Route index element={<Navigate to="/access-control/login" />} />
