@@ -33,7 +33,7 @@ export default function Header(props: HeaderProps) {
   };
 
   return (
-    <header className='py-6  bg-backgroundColorHeaderPrimary'>
+    <header className='py-5 bg-backgroundColorHeaderPrimary'>
       <div className='container sm:flex-col md:flex-row lg:flex-row xl:flex-row mx-auto flex justify-between items-center bg-backgroundColorHeaderPrimary'>
         <Link to="/environment/teacher/home" className='my-5 py-2 px-2 text-textColorPrimary hover:text-hoverColorButtonSecondary font-semibold rounded-lg text-3xl hover:scale-125 hover:bg-hoverColorFooter  hover:cursor-pointer'>Início</Link>  
         <div className='flex items-center gap-6 px-10'>

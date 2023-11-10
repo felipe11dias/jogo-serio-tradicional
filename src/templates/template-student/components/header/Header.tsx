@@ -32,7 +32,7 @@ export default function () {
   };
 
   return (
-    <header className='py-6  bg-backgroundColorHeaderPrimary'>
+    <header className='py-5 bg-backgroundColorHeaderPrimary'>
       <div className='container sm:flex-col md:flex-row lg:flex-row xl:flex-row mx-auto flex justify-between items-center bg-backgroundColorHeaderPrimary'>
         {
           user?.role === ROLES[ROLES.TEACHER] ?
@@ -46,7 +46,7 @@ export default function () {
             </div>
           </> :
           <>
-            <Link className=' w-full my-5 py-2 px-2 text-textColorPrimary  hover:text-hoverColorButtonSecondary font-semibold rounded-lg text-3xl hover:scale-125 hover:bg-hoverColorFooter  hover:cursor-pointer' to="/environment/student/game-select" replace={true}>
+            <Link className='w-fit my-5 py-2 px-2 text-textColorPrimary  hover:text-hoverColorButtonSecondary font-semibold rounded-lg text-3xl hover:scale-125 hover:bg-hoverColorFooter  hover:cursor-pointer' to="/environment/student/game-select" replace={true}>
               Início
             </Link>
             <div className='flex items-center gap-6 px-10'>
