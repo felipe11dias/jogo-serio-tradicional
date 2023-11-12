@@ -61,8 +61,8 @@ export const userApi = createApi({
         return {
           method: 'GET',
           url: 'profile',
-          headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('auth') || '')?.access_token || ''}` }
-        };
+          headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('auth') || '{}')?.access_token || ''}` }
+        };  
       },
       transformResponse: (result: User) =>
         result,
@@ -71,6 +71,7 @@ export const userApi = createApi({
           const { data } = await queryFulfilled;
           dispatch(setUser(data));
         } catch (error: any) {
+          console.log(error)
           const access_token = JSON.parse(localStorage.getItem("auth") || 'null')?.access_token;
           if(error.error.status === 500 && access_token) {
             const decodedJwt = parseJwt(access_token);

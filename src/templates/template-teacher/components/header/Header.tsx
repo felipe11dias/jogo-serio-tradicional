@@ -1,8 +1,6 @@
  
-import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { useLogoutUserMutation } from '../../../../redux/apis/authApi';
 
 interface HeaderProps {
@@ -11,25 +9,17 @@ interface HeaderProps {
 }
 
 export default function Header(props: HeaderProps) {
-
   const {
     handleSubmit,
   } = useForm<{}>({});
 
   const [logoutUser, { isLoading, isSuccess }] = useLogoutUserMutation();
 
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success('Você encerrou sua sessão com sucesso!');
-      window.location.reload()
-    }
-    
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
-
   const onSubmitHandler: SubmitHandler<{}> = async () => {
     // 👇 Executing the logoutUser Mutation
-    await logoutUser()
+    await logoutUser().then( response => {
+      window.location.reload()
+    })
   };
 
   return (

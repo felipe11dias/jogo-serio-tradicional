@@ -1,8 +1,6 @@
  
-import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 import { useLogoutUserMutation } from '../../../../redux/apis/authApi';
 import { useAppSelector } from '../../../../redux/store';
 import { User } from '../../../../redux/types/User';
@@ -10,25 +8,17 @@ import { ROLES } from '../../../../router/router';
 
 export default function () {
   const user: User | null = useAppSelector(state => state.userState.user)
-
   const {
     handleSubmit,
   } = useForm<{}>({});
 
-  const navigate = useNavigate();
 
   const [logoutUser, { isLoading, isSuccess }] = useLogoutUserMutation();
 
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success('Você encerrou sua sessão com sucesso!');
-      window.location.reload()
-    }
-    
-  }, [isLoading]);
-
   const onSubmitHandler: SubmitHandler<{}> = async () => {
-    await logoutUser()
+    await logoutUser().then( response => {
+      window.location.reload()
+    })
   };
 
   return (
