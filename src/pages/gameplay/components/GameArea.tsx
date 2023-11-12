@@ -9,7 +9,7 @@ export default function GameArea() {
     <>
       { 
         gameSerius.gameSelected !== '' && gameSerius.disciplineSelected !== -1 && gameSerius.activitySelected !== -1 ?
-        <div className="w-100 px-5 border rounded-md bg-backgroundColorSecondary" style={{ minWidth: '300px', minHeight: 'calc(100vh - 230px)' }}>
+        <div className="w-100 px-5 border rounded-md bg-backgroundColorSecondary" style={{ minWidth: '300px', minHeight: 'calc(100vh - 222px)' }}>
           <Game />
         </div>
          :

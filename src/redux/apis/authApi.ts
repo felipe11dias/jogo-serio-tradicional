@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { toast } from "react-toastify";
 import { ILoginInputs } from "../../pages/access-control/components/forms/form-login/FormLogin";
 import { BASE_URL } from "../../util/constants";
 import { logout } from "../slices/userSlice";
@@ -38,6 +39,7 @@ export const authApi = createApi({
           const auth: Auth = { access_token: data.access_token, refresh_token: data.refresh_token }
           localStorage.setItem('auth', JSON.stringify(auth));
           await dispatch(userApi.endpoints.getMe.initiate(null));
+          toast.success(`Olá ${data.role == "STUDENT" ? 'estudante' : 'professor'} ${data.name}, você acessou sua conta com sucesso!`);
         } catch (error) {}
       },
     }),

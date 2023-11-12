@@ -2,7 +2,6 @@ import {
   Navigate,
   Outlet
 } from "react-router-dom";
-import { toast } from "react-toastify";
 import FullScreenLoader from "../components/loader/full-screen-loader/FullScreenLoader";
 import { useGetMeQuery } from "../redux/apis/userApi";
 import { getToken } from "../service/authService";
@@ -10,9 +9,7 @@ import { getToken } from "../service/authService";
 const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
   const token = getToken();
   
-  const { data: user, isLoading } = useGetMeQuery(null, {
-    skip: !token
-  });
+  const { data: user, isLoading } = useGetMeQuery(null);
   
   if(isLoading && !user) {
     return (
@@ -21,17 +18,18 @@ const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
       </>
     )
   }
-
-  function notification() {
-    toast.error("Você não tem permissão de acesso para a página requisitada!")
-  }
   
+  console.log(token)
+  console.log(allowedRoles.includes(user?.role as string))
   return token && allowedRoles.includes(user?.role as string) ? (
     <Outlet />
+  ) : token && !allowedRoles.includes(user?.role as string) ? (
+    <>
+      <Navigate to='/access-control/login' state={ { message: "Você não tem permissão de acesso para a página requisitada!", type: 'error' }  } replace />
+    </>
   ) : (
     <>
-      {notification()}
-      <Navigate to='/access-control/login' replace />
+      <Navigate to='/access-control/login' state={ { message: "Sessão encerrada!", type: 'success' } } replace />
     </>
   );
 };  

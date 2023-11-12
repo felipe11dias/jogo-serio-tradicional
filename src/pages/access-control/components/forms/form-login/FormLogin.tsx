@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { z } from "zod";
 import FullScreenLoader from '../../../../../components/loader/full-screen-loader/FullScreenLoader';
@@ -43,12 +43,24 @@ export default function FormLogin() {
     resolver: zodResolver(schemaLogin),
   });
   const [loginUser, { isLoading, isSuccess }] = useLoginUserMutation();
-
+  
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (isSuccess && user) {
-      toast.success('Você acessou sua conta com sucesso!');
+    if(location.state) {
+      const { message, type } = location.state
+      if(message && type){
+        if(type === 'success') {
+          toast.success(message)
+        }else if(type === 'error') {
+          toast.error(message)
+        }
+        location.state = null;
+      }
+    }
+
+    if (user) {
       if (user?.role === ROLES[ROLES.TEACHER]) {
         navigate('/environment/teacher/home', { replace: true });
       } else if (user?.role === ROLES[ROLES.STUDENT]) {
@@ -67,7 +79,11 @@ export default function FormLogin() {
   }, [isSubmitSuccessful]);
 
   const onSubmitHandler: SubmitHandler<ILoginInputs> = async (values) => {
-    await loginUser(values);
+    await loginUser(values).then( (response: any) => {
+      if(response.error.status === 403 && response.error.data) {
+        toast.error("Credenciais inválidas, nenhum usuário encontrado!")
+      }
+    });
   };
 
   if (isLoading) {
