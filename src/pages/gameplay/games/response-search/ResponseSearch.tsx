@@ -43,7 +43,7 @@ const stateDefaultEmpty: StateProps = {
     width: 0,
     height: 0
   },
-  size: 22,
+  size: 10,
   modes: [
     'horizontal',
     'vertical',
@@ -189,22 +189,32 @@ export default function ResponseSearch () {
       const pointsAnswers = state.answersViews.pointsAnswers[index];
       const pointsAnswersTable = state.answersViews.pointsAnswersTable[index];
       
+      console.log(pointsAnswers)
+      console.log(pointsAnswersTable)
+
       for (let indexPoint = 0; indexPoint < pointsAnswers.length; indexPoint++) {
         const [r, c] = pointsAnswers[indexPoint];
-        const [row, col] = pointsAnswersTable[indexPoint];
         
-        if(!(r === row && c === col)) {
+        if(!indexOfForArrays([r, c], pointsAnswersTable)) {
           state.answersViews.answers[index] += "** ORDEM DE ELEMENTOS INCORRETO **";
           break;
         }
+        
       }
     }
   }
 
+ function indexOfForArrays(searchArray: any, array: any) {
+    var searchJson = JSON.stringify(searchArray);
+    var arrJson = array.map(JSON.stringify);
+
+    return !!arrJson.indexOf(searchJson);
+  };
+
   const getScores = () => {
     activity?.questions.map( (question, indexQuestion) => {
       question.answers.map((answer => {
-        if((answer.id === parseInt(question.idAnswerCorrect)) && (answer.description.toUpperCase().replaceAll(' ', '') === state.answersViews.answers[indexQuestion])) {
+        if((answer.id === parseInt(question.idAnswerCorrect)) && (answer.description.toUpperCase().replaceAll(' ', '') === state.answersViews.answers[indexQuestion].toUpperCase().replaceAll(' ', ''))) {
           result.answers.push(answer.id)
         }
       }))
@@ -306,7 +316,7 @@ export default function ResponseSearch () {
                             state.answers.map( (_, index) => {
                               return (
                                 <div className='my-4' key={index}>
-                                  <label htmlFor={'answerView' + index} style={{color: state.questionColors[index]}}>Resposta {index}:</label>
+                                  <label htmlFor={'answerView' + index} style={{color: state.questionColors[index]}}>Resposta {index+1}:</label>
                                   <input
                                   className='rounded-lg bg-backgroundColorInput mt-2 p-2  focus:bg-backgroundColorInput focus:outline-none'
                                     type='text'

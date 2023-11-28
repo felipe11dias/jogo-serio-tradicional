@@ -21,6 +21,10 @@ const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
       </>
     )
   }
+
+  if(!user) {
+    localStorage.clear();
+  }
   
   return token && allowedRoles.includes(user?.role as string) ? (
     <Outlet />

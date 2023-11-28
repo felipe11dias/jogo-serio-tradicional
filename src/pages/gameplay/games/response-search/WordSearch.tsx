@@ -90,7 +90,6 @@ function WordSearch ({ state, setState }: WordSearchProps) {
       // VERIFICA SE AS CORES DOS BOTÕES IGUAIS
       if(buttonBg === colorHex) {
         // REMOVE UM A LETRA DE UMA RESPOSTA 
-        
         event.target.style.backgroundColor = 'transparent'
         
         let answersViewAux: AnswersViews = state.answersViews
@@ -124,7 +123,7 @@ function WordSearch ({ state, setState }: WordSearchProps) {
           pointsAnswersTable: state.answersViews.pointsAnswersTable
         }
         event.target.style.backgroundColor = colorHex
-
+        
         // REMOVE A LETRA DE RESPOSTA DE OUTRA PERGUNTA
         if(state.questionColors.includes(buttonBg) && state.questionColors[state.questionSelect] !== buttonBg) {
           const indexQuestion = state.questionColors.indexOf(buttonBg)

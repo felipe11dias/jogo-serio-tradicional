@@ -93,7 +93,7 @@ export default function GuitarQuestions() {
     if(result.questions.length > result.answers.length) {
       for(var i = 0; i < (result.questions.length - result.answers.length); i++) {
         result.answers.push(-1)
-        result.descriptions.push('NADA INFORMADO.')
+        result.descriptions.push('Nenhuma resposta selecionada.')
       }
     }
     
@@ -127,9 +127,11 @@ export default function GuitarQuestions() {
         setTimeQuestions((time || 1) / (activity?.questions.length || 1))
       }
     }else {
-      if(topAtt >= 250 && topAtt < 280) {
+      if(topAtt < 250) {
+        setHeightAtt(['40px', '40px', '40px', '40px'])
+      }else if(topAtt >= 250 && topAtt < 350) {
         setHeightAtt(['65px', '65px', '65px', '65px'])
-      }else {
+      }else if(topAtt >= 350 && topAtt < 500) {
         setHeightAtt(['85px', '85px', '85px', '85px'])
       }
       setTimeQuestions(timeQuestions - 1000)
@@ -145,7 +147,7 @@ export default function GuitarQuestions() {
   }
 
   return(
-    <div className="w-full min-height-inherit flex justify-center flex-col">
+    <div className="w-full min-height-inherit flex flex-col">
       {
         (time !== null) ?
         <>
@@ -153,11 +155,11 @@ export default function GuitarQuestions() {
           <div className='my-4'>
             <h2 className='mb-4 w-100 text-textColorSecondary font-bold'>Instruções:</h2>
             <p className='w-100 text-start text-textColorSecondary'>
-              Para cada questão existe as resposta no 'mirando palavras'. <br/>
+              Para cada questão existem as possiveis respostas no 'Guitarra das Questões'. <br/>
               Para responder uma questão basta selecionar a resposta que você acredita ser a correta. <br/>
-              Você pode visualizar o conjunto de letras selecionadas de cada questão nos campos de respostas disponíveis abaixo das questões. <br/>
+              Observe a descrição da questão da vez, abaixo do sinalizador de tempo. <br/>
 
-              <b>Observação: Certifique-se de que a ordem das letras selecionadas seja equivalentes as posições corretas na tabela do caça palavras. Caso contrário será invalidado a resposta.</b>
+              <b>Observação: Certifique-se de responder corretamente a questão, não é possivel alterar a resposta após a seleção.</b>
             </p>
           </div>
         </> :
@@ -167,7 +169,7 @@ export default function GuitarQuestions() {
         !startGame ? 
         <>
           <div className='flex w-full justify-center'>
-            <button className='mt-2 p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="button" onClick={() => setStartGame(true)}>Iniciar o jogo</button>
+            <button className='mt-2 mx-auto p-2 bg-buttonColor shadow-lg shadow-hoverColorButton/50 hover:shadow-hoverColorButton/40 text-textColorPrimary font-semibold rounded-lg' type="button" onClick={() => setStartGame(true)}>Iniciar o jogo</button>
           </div>
         </> 
         :
@@ -216,7 +218,7 @@ export default function GuitarQuestions() {
                       {
                         activity?.questions[questionIndex].answers.map( (answer, index) => {
                           return(
-                            <div className="line-straight" id={`answer${index+1}`}>
+                            <div className="line-straight" id={`answer${index+1}`} key={index}>
                               <Tooltip className={`overflow-hidden text-ellipsis whitespace-nowrap max-w-[9.5rem] min-w-[9.5rem] h-[fit-content] ml-[-4.8rem]`} style={{ padding: `${timePadding}em`, height: `${heighttAtt[index]}`, backgroundColor: colors[index], marginTop: `${topAtt}px`}} title={answer.description}>
                                 <button type="button" className="text-textColorPrimary" onClick={() => selectionAnswer(answer.id, answer.description)}>{answer.description}</button>
                               </Tooltip>
