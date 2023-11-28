@@ -53,9 +53,9 @@ export const authApi = createApi({
         async onQueryStarted(args, { dispatch, queryFulfilled }) {
           try {
             await queryFulfilled;
-            dispatch(logout());
             localStorage.removeItem("persist:jogosSerios")
             localStorage.removeItem("auth")
+            dispatch(logout());
           } catch (error) {}
         },
       }),

@@ -16,6 +16,7 @@ export type ResultProps = {
   open: boolean
   questions: AnswerQuestions[]
   answers: number[]
+  descriptions: string[]
   idActivity: number
   idUser: number
 }
@@ -144,9 +145,9 @@ export default function ModalResult(result: ResultProps) {
                 result.questions.map( (question, index) => {
                   return (
                     <tr className="text-textColorSecondary">
-                      <td className="px-1 text-start border-2 border-solid border-textColorThird">{question.description} ?</td>
-                      <td className="px-1 text-start border-2 border-solid border-textColorThird">{question.answers.find((ans) => ans?.id === result?.answers[index])?.description || 'Nenhuma resposta selecionada'}</td>
-                      <td className="px-1 text-start border-2 border-solid border-textColorThird">{question.answers.find((ans) => ans?.id === parseInt(question.idAnswerCorrect))?.description}</td>
+                      <td className="px-1 text-start border-2 border-solid border-textColorThird">{question.description}</td>
+                      <td className="px-1 text-start border-2 border-solid border-textColorThird">{result?.descriptions[index] ? result?.descriptions[index] : 'Nenhuma resposta selecionada'}</td>
+                      <td className="px-1 text-start border-2 border-solid border-textColorThird">{question.answers.find((ans:any) => ans?.id === parseInt(question.idAnswerCorrect))?.description}</td>
                       <td className="px-1 text-start border-2 border-solid border-textColorThird">{parseInt(question.idAnswerCorrect) === result.answers[index] ? "Resposta correta" : "Resposta incorreta"}</td>
                     </tr>
                   )

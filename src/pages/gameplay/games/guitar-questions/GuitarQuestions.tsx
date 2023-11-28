@@ -21,10 +21,10 @@ export default function GuitarQuestions() {
   const [timeQuestions, setTimeQuestions] = useState<number>(0);
   const [timePadding, setTimePadding] = useState<number>(0.5);
   const [topAtt, setTopAtt] = useState<number>(0);
-  const [leftAtt, setLeftAtt] = useState<string[]>(['15%', '36%', '56.5%', '77.5%']);
+  const [heighttAtt, setHeightAtt] = useState<string[]>(['40px', '40px', '40px', '40px']);
   const [score, setScore] = useState<number>(0);
   const [activity, setActivity] = useState<IEditActivityInputs>();
-  const [result, setResult] = useState<ResultProps>({ idUser: user?.id || -1, idActivity: -1, time: '', fullTime: '', game: 'Guitarra das questões', questions: [], open: true, answers: [] });
+  const [result, setResult] = useState<ResultProps>({ idUser: user?.id || -1, idActivity: -1, time: '', fullTime: '', game: 'Guitarra das questões', questions: [], open: true, answers: [], descriptions: [] });
 
   useMemo(() => {
     getActivity(gameSerius.activitySelected.toString()).then( data => {
@@ -41,7 +41,7 @@ export default function GuitarQuestions() {
 
   const ScoreFinishGame = () => (
     <>
-      <ModalResult game={result.game} idUser={result.idUser} idActivity={result.idActivity} time={result.time} fullTime={result.fullTime} questions={result.questions} open={result.open} answers={result.answers} />
+      <ModalResult game={result.game} idUser={result.idUser} idActivity={result.idActivity} time={result.time} fullTime={result.fullTime} questions={result.questions} open={result.open} answers={result.answers} descriptions={result.descriptions} />
       <h1>Fim de jogo!</h1>
     </>
   )
@@ -74,9 +74,7 @@ export default function GuitarQuestions() {
     setResult(result)
     setTime(timeVar)
     setFullTime(timeVar)
-    setTopAtt(topAtt + (100/(timeVar/1000)))
     setTimeQuestions(timeVar / (activity?.questions.length || 1))
-
     setTimeout(() => {
       const board = document.getElementById('board-guitar');
       if (board) {
@@ -95,6 +93,7 @@ export default function GuitarQuestions() {
     if(result.questions.length > result.answers.length) {
       for(var i = 0; i < (result.questions.length - result.answers.length); i++) {
         result.answers.push(-1)
+        result.descriptions.push('NADA INFORMADO.')
       }
     }
     
@@ -106,8 +105,9 @@ export default function GuitarQuestions() {
     return Array.from(Array(size).keys()).map( _ => '#' + (Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0'))
   }
 
-  function selectionAnswer(id: number) {
+  function selectionAnswer(id: number, description: string) {
     result.answers.push(id)
+    result.descriptions.push(description || '')
     setResult(result)
     if(activity?.questions.length === (questionIndex + 1)) {
       finishGame()
@@ -127,19 +127,21 @@ export default function GuitarQuestions() {
         setTimeQuestions((time || 1) / (activity?.questions.length || 1))
       }
     }else {
-      if(topAtt < 50) {
-        setTimePadding(0.5)
-      }else if(topAtt >= 50 && topAtt < 80) {
-        setLeftAtt(['14.5%', '35.5%', '56%', '77%'])
-        setTimePadding(0.8)
+      if(topAtt >= 250 && topAtt < 280) {
+        setHeightAtt(['65px', '65px', '65px', '65px'])
       }else {
-        setLeftAtt(['14%', '35%', '56%', '76.2%'])
-        setTimePadding(1.2)
+        setHeightAtt(['85px', '85px', '85px', '85px'])
       }
       setTimeQuestions(timeQuestions - 1000)
     }
-    setTopAtt(topAtt + (100/(fullTime/1000)))
+    setTopAtt((500/(fullTime/1000)) * (fullTime/1000 - (t.total)/1000))
     setTime(t.total)
+  }
+
+  function getMargin(index: number) {
+    if(index === 0) {
+      return 'ml-[85px]';
+    }
   }
 
   return(
@@ -210,22 +212,18 @@ export default function GuitarQuestions() {
                 (time !== null) ?
                   <div className="px-4 pb-2 flex h-full w-full min-height-inherit relative ">
                     <div className="line-left" />
-                    <div className="px-8 h-full w-full flex bg-backgroundColorSecondary rounded">
-                      <div className="line-straight" id="answer1" />
-                      <div className="line-straight" id="answer2" />
+                    <div className="px-8 h-full flex bg-backgroundColorSecondary rounded" style={{ minWidth: 'calc(100% - 100px)'}}>
                       {
                         activity?.questions[questionIndex].answers.map( (answer, index) => {
                           return(
-                            <>
-                              <Tooltip className=" rounded absolute" style={{ padding: `${timePadding}em`, left: `${leftAtt[index]}`, backgroundColor: colors[index], top: `${topAtt - 5}%`}} title={answer.description}>
-                                <button type="button" className="text-textColorPrimary" onClick={() => selectionAnswer(answer.id)}>Resposta {index + 1}</button>
+                            <div className="line-straight" id={`answer${index+1}`}>
+                              <Tooltip className={`overflow-hidden text-ellipsis whitespace-nowrap max-w-[9.5rem] min-w-[9.5rem] h-[fit-content] ml-[-4.8rem]`} style={{ padding: `${timePadding}em`, height: `${heighttAtt[index]}`, backgroundColor: colors[index], marginTop: `${topAtt}px`}} title={answer.description}>
+                                <button type="button" className="text-textColorPrimary" onClick={() => selectionAnswer(answer.id, answer.description)}>{answer.description}</button>
                               </Tooltip>
-                            </>
+                            </div>
                           )
                         })
                       }
-                      <div className="line-straight" id="answer3" />
-                      <div className="line-straight" id="answer4" />
                     </div>
                     <div className="line-right" />
                   </div>

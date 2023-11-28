@@ -19,7 +19,7 @@ export default function AimshotResponse() {
   const [time, setTime] = useState<number | null>(0);
   const [score, setScore] = useState<number>(0);
   const [activity, setActivity] = useState<IEditActivityInputs>();
-  const [result, setResult] = useState<ResultProps>({ idUser: user?.id || -1, idActivity: -1, time: '', fullTime: '', game: 'Mirando respostas', questions: [], open: true, answers: [] });
+  const [result, setResult] = useState<ResultProps>({ idUser: user?.id || -1, idActivity: -1, time: '', fullTime: '', game: 'Mirando respostas', questions: [], open: true, answers: [], descriptions: [] });
 
   useEffect(() => {
     getActivity(gameSerius.activitySelected.toString()).then( data => {
@@ -36,7 +36,7 @@ export default function AimshotResponse() {
 
   const ScoreFinishGame = () => (
     <>
-      <ModalResult game={result.game} idUser={result.idUser} idActivity={result.idActivity} time={result.time} fullTime={result.fullTime} questions={result.questions} open={result.open} answers={result.answers} />
+      <ModalResult game={result.game} idUser={result.idUser} idActivity={result.idActivity} time={result.time} fullTime={result.fullTime} questions={result.questions} open={result.open} answers={result.answers} descriptions={result.descriptions}  />
       <h1>Fim de jogo!</h1>;
     </>
   )

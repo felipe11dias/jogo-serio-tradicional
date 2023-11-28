@@ -62,7 +62,7 @@ export default function ResponseSearch () {
   const [time, setTime] = useState<number | null>(0);
   const [activity, setActivity] = useState<IEditActivityInputs | null>(null);
   const [state, setState ] = useState<StateProps>(stateDefaultEmpty)
-  const [result, setResult] = useState<ResultProps>({ idUser: user?.id || -1, idActivity: -1, time: '', fullTime: '', game: 'Caça respostas', questions: [], open: true, answers: [] });
+  const [result, setResult] = useState<ResultProps>({ idUser: user?.id || -1, idActivity: -1, time: '', fullTime: '', game: 'Caça respostas', questions: [], open: true, answers: [], descriptions: [] });
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -101,7 +101,7 @@ export default function ResponseSearch () {
 
   const ScoreFinishGame = () => (
     <div className='h-full w-full flex justify-center'>
-      <ModalResult game={result.game} idUser={result.idUser} idActivity={result.idActivity} time={result.time} fullTime={result.fullTime} questions={result.questions} open={result.open} answers={result.answers} />
+      <ModalResult game={result.game} idUser={result.idUser} idActivity={result.idActivity} time={result.time} fullTime={result.fullTime} questions={result.questions} open={result.open} answers={result.answers}  descriptions={result.descriptions} />
       <h1 className='h-full w-full text-center text-4xl'>Fim de jogo!</h1>
     </div>
   );
@@ -211,6 +211,7 @@ export default function ResponseSearch () {
       if(result.answers[indexQuestion] === undefined) {
         result.answers.push(-1)
       }
+      result.descriptions.push(state.answersViews.answers[indexQuestion])
     })
     setResult(result)
   }
@@ -221,7 +222,7 @@ export default function ResponseSearch () {
       result.time = msToTimeString(timeAux || 0)
     }
     setResult(result)
-    // VERIFICA CADA LETRA SELECIONADA DE CADA RESPOSTA COM O SEU PONTO NA TABELA, OU SEJA, AS LETRAS E POINTOS SELECIONADOS NA TABELA TEM QUE ESTAR EM CONFORMIDADE
+    // VERIFICA CADA LETRA SELECIONADA DE CADA RESPOSTA COM O SEU PONTO NA TABELA, OU SEJA, AS LETRAS E PONTOS SELECIONADOS NA TABELA TEM QUE ESTAR EM CONFORMIDADE
     validateAnswers()
     // VERIFICA SE A RESPOSTA CORRETA DA QUESTÃO ESTÁ EM CONFORMIDADE COM A RESPOSTA DO ALUNO
     getScores()

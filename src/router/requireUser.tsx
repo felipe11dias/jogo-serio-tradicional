@@ -6,11 +6,14 @@ import FullScreenLoader from "../components/loader/full-screen-loader/FullScreen
 import { useGetMeQuery } from "../redux/apis/userApi";
 import { getToken } from "../service/authService";
 
+
 const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
   const token = getToken();
   
-  const { data: user, isLoading } = useGetMeQuery(null);
-  
+  const { data: user, isLoading } = useGetMeQuery(null, {
+    skip: !token
+  });
+
   if(isLoading && !user) {
     return (
       <>
@@ -19,8 +22,6 @@ const RequireUser = ({ allowedRoles }: { allowedRoles: string[] }) => {
     )
   }
   
-  console.log(token)
-  console.log(allowedRoles.includes(user?.role as string))
   return token && allowedRoles.includes(user?.role as string) ? (
     <Outlet />
   ) : token && !allowedRoles.includes(user?.role as string) ? (
